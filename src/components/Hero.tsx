@@ -1,11 +1,54 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Magnetic } from "./motion/Magnetic";
+
+type Particle = {
+  x: number;
+  y: number;
+  size: number;
+  variant: 0 | 1 | 2 | 3;
+  duration: number;
+  delay: number;
+  color: string;
+  glow: number;
+};
+
+const COLORS = [
+  { color: "#f5efe4", glow: 0.55 }, // paper-pure (white-cream) — most common
+  { color: "#f5efe4", glow: 0.55 },
+  { color: "#f5efe4", glow: 0.55 },
+  { color: "#f5efe4", glow: 0.55 },
+  { color: "#e25a3e", glow: 0.85 }, // madder-hi — occasional
+  { color: "#ffd62a", glow: 0.85 }, // hazard-hi — occasional
+] as const;
+
+function makeParticles(count: number): Particle[] {
+  return Array.from({ length: count }, () => {
+    const c = COLORS[Math.floor(Math.random() * COLORS.length)];
+    return {
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: 2 + Math.random() * 5,
+      variant: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
+      duration: 6 + Math.random() * 12,
+      delay: -Math.random() * 14,
+      color: c.color,
+      glow: c.glow,
+    };
+  });
+}
 
 export function Hero() {
   const [phase, setPhase] = useState(0);
+  const [particles, setParticles] = useState<Particle[]>([]);
+
+  // Generate on client only to avoid hydration mismatch
+  const seedParticles = useMemo(() => makeParticles(28), []);
+  useEffect(() => {
+    setParticles(seedParticles);
+  }, [seedParticles]);
 
   useEffect(() => {
     const t1 = window.setTimeout(() => setPhase(1), 200);
@@ -19,26 +62,37 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative isolate flex h-[100svh] flex-col justify-center overflow-hidden text-[var(--color-paper-pure)]">
-      {/* Static warm dark base */}
+    <section className="relative isolate flex h-[100svh] flex-col justify-center overflow-hidden bg-[#0a0807] text-[var(--color-paper-pure)]">
+      {/* Subtle ambient darker orb (very low key) */}
       <div
         aria-hidden
-        className="absolute inset-0"
+        className="drift-blob pointer-events-none absolute right-[-20%] top-[-30%] size-[70vmax] rounded-full"
         style={{
           background:
-            "radial-gradient(120% 80% at 80% 0%, #4a1d14 0%, #2a1612 35%, #1a1410 75%, #14100e 100%)",
+            "radial-gradient(closest-side, rgba(185,74,53,0.20) 0%, rgba(185,74,53,0.05) 45%, transparent 75%)",
         }}
       />
 
-      {/* One ambient drifting blob — sole source of motion in background */}
-      <div
-        aria-hidden
-        className="drift-blob pointer-events-none absolute right-[-15%] top-[-25%] size-[70vmax] rounded-full"
-        style={{
-          background:
-            "radial-gradient(closest-side, rgba(185,74,53,0.35) 0%, rgba(185,74,53,0.10) 40%, transparent 75%)",
-        }}
-      />
+      {/* Particle field — irregular drift */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        {particles.map((p, i) => (
+          <span
+            key={i}
+            className={`particle pv${p.variant}`}
+            style={{
+              left: `${p.x}%`,
+              top: `${p.y}%`,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              backgroundColor: p.color,
+              boxShadow: `0 0 ${p.size * 4}px ${p.color}, 0 0 ${p.size * 8}px ${p.color}${Math.round(p.glow * 60).toString(16)}`,
+              animationDuration: `${p.duration}s`,
+              animationDelay: `${p.delay}s`,
+              opacity: 0,
+            }}
+          />
+        ))}
+      </div>
 
       {/* Content */}
       <div className="container-x relative z-10 flex flex-col items-start pt-24 lg:pt-28">
