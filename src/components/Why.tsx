@@ -70,7 +70,7 @@ export function Why() {
 
 function ReasonCard({ r }: { r: (typeof REASONS)[number] }) {
   return (
-    <article className="group card-lift card-lift-shadow relative h-full overflow-hidden border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] p-7 lg:p-9">
+    <article className="group card-lift card-lift-shadow relative h-full overflow-hidden rounded-3xl border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] p-7 lg:p-9">
       {/* Watermark number */}
       <span
         aria-hidden

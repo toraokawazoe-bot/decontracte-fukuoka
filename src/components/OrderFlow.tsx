@@ -68,7 +68,7 @@ export function OrderFlow() {
         <Reveal>
           <a
             href="#contact"
-            className="mt-14 group flex items-center justify-between border-2 border-[var(--color-paper-pure)] px-7 py-5 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-paper-pure)] hover:text-[var(--color-ink)] lg:mt-20"
+            className="mt-14 group flex items-center justify-between rounded-2xl border-2 border-[var(--color-paper-pure)] px-7 py-5 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-paper-pure)] hover:text-[var(--color-ink)] lg:mt-20"
           >
             まずはステップ 01 から始める
             <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -81,7 +81,7 @@ export function OrderFlow() {
 
 function StepCard({ step }: { step: (typeof STEPS)[number] }) {
   return (
-    <article className="group card-lift relative h-full overflow-hidden border border-white/10 bg-[var(--color-jet-2)]">
+    <article className="group card-lift relative h-full overflow-hidden rounded-3xl border border-white/10 bg-[var(--color-jet-2)] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
       {/* Photo */}
       <div className="relative aspect-[5/3] overflow-hidden">
         <Image

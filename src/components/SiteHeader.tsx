@@ -75,7 +75,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href="#contact"
-            className={`hidden md:inline-flex items-center gap-2 px-5 py-2.5 font-jp text-[13px] font-bold tracking-[0.06em] transition ${
+            className={`hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-jp text-[13px] font-bold tracking-[0.06em] transition ${
               onDark
                 ? "border-2 border-[var(--color-paper-pure)] text-[var(--color-paper-pure)] hover:bg-[var(--color-paper-pure)] hover:text-[var(--color-ink)]"
                 : "border-2 border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper-pure)]"

@@ -77,7 +77,7 @@ export function Contact() {
                 オーダーフォーム
               </p>
 
-              <form className="mt-5 grid grid-cols-1 gap-px overflow-hidden border border-white/15 bg-white/10">
+              <form className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-white/15 bg-white/10">
                 <Field label="チーム名" required>
                   <input
                     type="text"
@@ -130,7 +130,7 @@ export function Contact() {
                   <Magnetic strength={0.16}>
                     <button
                       type="button"
-                      className="group flex w-full items-center justify-center gap-3 bg-[var(--color-madder)] px-5 py-5 font-jp text-[14px] font-bold tracking-[0.08em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-madder-deep)]"
+                      className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-[var(--color-madder)] px-5 py-5 font-jp text-[14px] font-bold tracking-[0.08em] text-[var(--color-paper-pure)] shadow-[0_18px_36px_-12px_rgba(185,74,53,0.6)] transition hover:bg-[var(--color-madder-deep)]"
                     >
                       見積もりを依頼する
                       <span aria-hidden className="transition group-hover:translate-x-1">→</span>

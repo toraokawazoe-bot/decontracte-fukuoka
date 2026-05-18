@@ -72,7 +72,7 @@ export function Faq() {
                     </span>
                     <span
                       aria-hidden
-                      className="mt-1 inline-flex size-9 shrink-0 items-center justify-center border-2 border-[var(--color-ink)] font-mono text-[18px] font-bold text-[var(--color-ink)] transition group-open:rotate-45 group-open:border-[var(--color-madder)] group-open:text-[var(--color-madder)]"
+                      className="mt-1 inline-flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] font-mono text-[18px] font-bold text-[var(--color-ink)] transition group-open:rotate-45 group-open:border-[var(--color-madder)] group-open:text-[var(--color-madder)]"
                     >
                       +
                     </span>

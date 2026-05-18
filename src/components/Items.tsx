@@ -53,7 +53,7 @@ export function Items() {
 
 function ItemCard({ item }: { item: (typeof ITEMS)[number] }) {
   return (
-    <article className="group card-lift relative h-full overflow-hidden border border-white/10 bg-[var(--color-jet-2)]">
+    <article className="group card-lift relative h-full overflow-hidden rounded-3xl border border-white/10 bg-[var(--color-jet-2)] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
       {/* Image */}
       <div className="relative aspect-[5/4] overflow-hidden bg-white">
         <Image
@@ -80,11 +80,10 @@ function ItemCard({ item }: { item: (typeof ITEMS)[number] }) {
         <p className="mt-4 font-jp text-[15px] font-medium leading-[1.95] text-[var(--color-paper-pure)]/80">
           {item.desc}
         </p>
-        <ul className="mt-6 space-y-2.5">
+        <ul className="mt-6 flex flex-wrap gap-2">
           {item.points.map((p) => (
-            <li key={p} className="flex items-start gap-3 font-jp text-[14px] font-medium text-[var(--color-paper-pure)]">
-              <span aria-hidden className="mt-2 inline-block size-1.5 shrink-0 rotate-45 bg-[var(--color-madder-hi)]" />
-              <span>{p}</span>
+            <li key={p} className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 font-jp text-[12px] font-bold tracking-[0.04em] text-[var(--color-paper-pure)]">
+              {p}
             </li>
           ))}
         </ul>

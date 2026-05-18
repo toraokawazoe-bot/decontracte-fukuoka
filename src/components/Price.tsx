@@ -60,7 +60,7 @@ export function Price() {
               <Magnetic strength={0.18}>
                 <a
                   href="#contact"
-                  className="group mt-8 inline-flex items-center gap-3 bg-[var(--color-ink)] px-7 py-5 font-jp text-[14px] font-bold tracking-[0.08em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-madder)]"
+                  className="group mt-8 inline-flex items-center gap-3 rounded-2xl bg-[var(--color-ink)] px-7 py-5 font-jp text-[14px] font-bold tracking-[0.08em] text-[var(--color-paper-pure)] shadow-[0_18px_36px_-12px_rgba(26,23,20,0.45)] transition hover:bg-[var(--color-madder)]"
                 >
                   無料で見積もる
                   <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -73,7 +73,7 @@ export function Price() {
               {ORDERING.map((o) => (
                 <article
                   key={o.no}
-                  className="group card-lift card-lift-shadow border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] p-7 lg:p-8"
+                  className="group card-lift card-lift-shadow rounded-3xl border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] p-7 lg:p-8"
                 >
                   <div className="flex items-start justify-between gap-6">
                     <div>
