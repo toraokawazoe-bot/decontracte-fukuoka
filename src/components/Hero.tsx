@@ -38,50 +38,68 @@ export function Hero() {
   return (
     <section
       ref={stageRef}
-      className="relative isolate overflow-hidden bg-[var(--color-jet)] text-[var(--color-on-jet)]"
+      className="relative isolate overflow-hidden bg-[var(--color-paper-pure)] text-[var(--color-ink)]"
     >
-      {/* Ambient orbital gradient */}
+      {/* Ambient color orbit (subtle on light bg) */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="orbit-conic absolute -inset-[40%]"
+          className="orbit-conic absolute -inset-[40%] opacity-50"
           style={{
             background:
-              "conic-gradient(from 0deg, transparent 0deg, rgba(185,74,53,0.22) 60deg, transparent 140deg, rgba(230,184,0,0.10) 240deg, transparent 320deg, transparent 360deg)",
+              "conic-gradient(from 0deg, transparent 0deg, rgba(185,74,53,0.18) 60deg, transparent 140deg, rgba(230,184,0,0.14) 240deg, transparent 320deg, transparent 360deg)",
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(120% 80% at 80% 0%, rgba(185,74,53,0.20) 0%, transparent 60%)," +
-              "radial-gradient(90% 60% at 0% 100%, rgba(230,184,0,0.08) 0%, transparent 60%)",
+              "radial-gradient(120% 80% at 80% 0%, rgba(185,74,53,0.10) 0%, transparent 60%)," +
+              "radial-gradient(90% 60% at 0% 100%, rgba(230,184,0,0.10) 0%, transparent 60%)",
           }}
         />
       </div>
 
-      {/* Scan lines */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(0deg, rgba(255,255,255,0.5) 0 1px, transparent 1px 4px)",
-        }}
-      />
+      {/* Paper grain */}
+      <div aria-hidden className="paper-grain pointer-events-none absolute inset-0" />
 
-      {/* Grain */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.08] mix-blend-overlay"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
-          backgroundSize: "3px 3px",
-        }}
-      />
+      {/* Floating accent shapes — animated */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute left-[6%] top-[18%] size-3 rotate-45 bg-[var(--color-madder)]"
+          style={{
+            transform: `translate3d(${mouse.x * 20}px, ${mouse.y * 20}px, 0) rotate(45deg)`,
+            transition: "transform 800ms cubic-bezier(.2,.7,.2,1)",
+            boxShadow: "0 0 36px rgba(185,74,53,0.45)",
+          }}
+        />
+        <div
+          className="absolute right-[10%] top-[28%] h-px w-32 bg-[var(--color-hazard)]"
+          style={{
+            transform: `translate3d(${mouse.x * -30}px, ${mouse.y * -10}px, 0)`,
+            transition: "transform 800ms cubic-bezier(.2,.7,.2,1)",
+            boxShadow: "0 0 20px rgba(230,184,0,0.55)",
+          }}
+        />
+        <div
+          className="absolute bottom-[22%] left-[14%] size-2 rounded-full bg-[var(--color-hazard-deep)]"
+          style={{
+            transform: `translate3d(${mouse.x * -16}px, ${mouse.y * -16}px, 0)`,
+            transition: "transform 800ms cubic-bezier(.2,.7,.2,1)",
+            boxShadow: "0 0 18px rgba(230,184,0,0.6)",
+          }}
+        />
+        <div
+          className="absolute bottom-[18%] right-[8%] h-px w-24 bg-[var(--color-madder)]"
+          style={{
+            transform: `translate3d(${mouse.x * 24}px, ${mouse.y * 14}px, 0)`,
+            transition: "transform 800ms cubic-bezier(.2,.7,.2,1)",
+            boxShadow: "0 0 18px rgba(185,74,53,0.55)",
+          }}
+        />
+      </div>
 
-      {/* Top status strip — pushed below fixed header */}
-      <div className="container-x relative z-10 flex items-center justify-between pt-24 font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)] lg:pt-28">
+      {/* Top status strip */}
+      <div className="container-x relative z-10 flex items-center justify-between pt-24 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)] lg:pt-28">
         <span className="inline-flex items-center gap-2">
           <span className="rec-dot rec-dot-sm" />
           EST. FUKUOKA · 33.59°N
@@ -91,7 +109,7 @@ export function Hero() {
       </div>
 
       {/* Stage */}
-      <div className="container-x relative z-10 flex min-h-[88svh] flex-col items-center justify-center py-16 lg:min-h-[92svh] lg:py-24">
+      <div className="container-x relative z-10 flex min-h-[82svh] flex-col items-center justify-center py-12 lg:min-h-[88svh] lg:py-20">
         <div
           className="relative w-full max-w-[1200px]"
           style={{
@@ -101,7 +119,7 @@ export function Hero() {
         >
           {/* Scene 0: JP poetic copy */}
           <SceneWrap show={scene === 0}>
-            <p className="text-center font-jp text-[clamp(28px,4.5vw,52px)] leading-[1.4] tracking-[0.06em] text-[var(--color-on-jet)]">
+            <p className="text-center font-jp text-[clamp(28px,4.5vw,52px)] leading-[1.4] tracking-[0.06em] text-[var(--color-ink)]">
               <span className="fv-rise inline-block" style={{ animationDelay: "120ms" }}>
                 チームの今を、
               </span>
@@ -114,7 +132,7 @@ export function Hero() {
 
           {/* Scene 1: EN stencil tower */}
           <SceneWrap show={scene === 1}>
-            <h2 className="text-stencil text-center leading-[0.88] text-[var(--color-on-jet)]">
+            <h2 className="text-stencil text-center leading-[0.88] text-[var(--color-ink)]">
               <span className="fv-fade-in block text-[clamp(56px,11vw,156px)]" style={{ animationDelay: "60ms" }}>
                 FULL <span className="text-[var(--color-madder)]">CUSTOM</span>
               </span>
@@ -127,15 +145,15 @@ export function Hero() {
           {/* Scene 2: brand mark zoom */}
           <SceneWrap show={scene === 2}>
             <div className="text-center">
-              <span className="font-mono text-[10px] tracking-[0.4em] text-[var(--color-on-jet-mute)]">
+              <span className="font-mono text-[10px] tracking-[0.4em] text-[var(--color-ink-mute)]">
                 / DECONTRACTÉ
               </span>
-              <h1 className="mt-4 text-stencil leading-[0.84] text-[var(--color-on-jet)]">
+              <h1 className="mt-4 text-stencil leading-[0.84] text-[var(--color-ink)]">
                 <span className="fv-letter-spread block text-[clamp(48px,12vw,180px)]">
                   DCT
                 </span>
               </h1>
-              <div className="mt-3 flex items-center justify-center gap-3 font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">
+              <div className="mt-3 flex items-center justify-center gap-3 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
                 <span className="block h-px w-7 bg-[var(--color-madder)]" aria-hidden />
                 SUBLIMATION · FUKUOKA
                 <span className="block h-px w-7 bg-[var(--color-madder)]" aria-hidden />
@@ -146,17 +164,17 @@ export function Hero() {
           {/* Scene 3+: hero CTA — final state */}
           <SceneWrap show={scene >= 3}>
             <div className="flex flex-col items-center text-center">
-              <span className="font-mono text-[10px] tracking-[0.4em] text-[var(--color-on-jet-mute)]">
+              <span className="font-mono text-[10px] tracking-[0.4em] text-[var(--color-ink-mute)]">
                 FULL-CUSTOM TEAM WEAR · MADE IN FUKUOKA
               </span>
-              <h1 className="mt-5 text-stencil leading-[0.88] text-[var(--color-on-jet)]">
+              <h1 className="mt-5 text-stencil leading-[0.88] text-[var(--color-ink)]">
                 <span className={`block text-[clamp(56px,13vw,200px)] ${scene >= 4 ? "fv-breath" : "fv-letter-spread"}`}>
                   DÉCONTRACTÉ
                 </span>
               </h1>
 
               <p
-                className={`mt-7 max-w-2xl font-jp text-[clamp(13px,1.2vw,15px)] leading-[2] text-[var(--color-on-jet-dim)] transition-all duration-700 ${
+                className={`mt-7 max-w-2xl font-jp text-[clamp(13px,1.2vw,15px)] leading-[2] text-[var(--color-ink-dim)] transition-all duration-700 ${
                   scene >= 4 ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
                 }`}
               >
@@ -164,8 +182,8 @@ export function Hero() {
                 <br />
                 昇華フルオーダーで、チームの&ldquo;今&rdquo;を一着に刻む。
                 <br />
-                最低 <span className="text-[var(--color-on-jet)]">5枚</span> から、追加は{" "}
-                <span className="text-[var(--color-on-jet)]">1枚</span> でも。
+                最低 <span className="text-[var(--color-ink)] font-bold">5枚</span> から、追加は{" "}
+                <span className="text-[var(--color-ink)] font-bold">1枚</span> でも。
               </p>
 
               <div
@@ -176,7 +194,7 @@ export function Hero() {
                 <Magnetic strength={0.22}>
                   <a
                     href="#price"
-                    className="group inline-flex items-center justify-center gap-3 bg-[var(--color-madder)] px-7 py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-madder-deep)]"
+                    className="group inline-flex items-center justify-center gap-3 bg-[var(--color-ink)] px-7 py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-madder)]"
                   >
                     料金プランを見る
                     <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -185,7 +203,7 @@ export function Hero() {
                 <Magnetic strength={0.18}>
                   <a
                     href="#contact"
-                    className="group inline-flex items-center justify-center gap-3 border border-[var(--color-on-jet-quiet)] px-7 py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-on-jet)] transition hover:border-[var(--color-paper-pure)] hover:bg-[var(--color-paper-pure)]/5"
+                    className="group inline-flex items-center justify-center gap-3 border border-[var(--color-line-ink-strong)] px-7 py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-ink)] transition hover:border-[var(--color-madder)] hover:bg-[var(--color-madder)] hover:text-[var(--color-paper-pure)]"
                   >
                     無料で見積もりを依頼
                     <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -199,10 +217,9 @@ export function Hero() {
 
       {/* Stats strip */}
       <div
-        className={`container-x relative z-10 grid grid-cols-3 border-y transition-opacity duration-700 ${
+        className={`container-x relative z-10 grid grid-cols-3 border-y border-[var(--color-line-ink-strong)] transition-opacity duration-700 ${
           scene >= 4 ? "opacity-100" : "opacity-0"
         }`}
-        style={{ borderColor: "var(--color-line-soft)" }}
       >
         <Stat k="5+" label="MIN ORDER" />
         <Stat k="4–5w" label="LEAD TIME" sep />
@@ -210,9 +227,9 @@ export function Hero() {
       </div>
 
       {/* Scroll cue */}
-      <div className="container-x relative z-10 flex items-end justify-between pb-8 pt-10 font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">
+      <div className="container-x relative z-10 flex items-end justify-between pb-8 pt-10 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
         <span className="inline-flex items-center gap-3">
-          <span aria-hidden className="relative inline-block h-12 w-px overflow-hidden bg-[var(--color-on-jet-quiet)]">
+          <span aria-hidden className="relative inline-block h-12 w-px overflow-hidden bg-[var(--color-line-ink-strong)]">
             <span className="scroll-cue absolute inset-0 bg-[var(--color-madder)]" />
           </span>
           SCROLL
@@ -229,7 +246,7 @@ export function Hero() {
           <span
             key={i}
             className={`block h-5 w-px transition-colors ${
-              i <= scene ? "bg-[var(--color-madder)]" : "bg-[var(--color-on-jet-quiet)]"
+              i <= scene ? "bg-[var(--color-madder)]" : "bg-[var(--color-line-ink-strong)]"
             }`}
           />
         ))}
@@ -254,13 +271,12 @@ function SceneWrap({ show, children }: { show: boolean; children: React.ReactNod
 function Stat({ k, label, sep }: { k: string; label: string; sep?: boolean }) {
   return (
     <div
-      className={`px-4 py-7 text-center ${sep ? "border-l" : ""}`}
-      style={{ borderColor: "var(--color-line-soft)" }}
+      className={`px-4 py-7 text-center ${sep ? "border-l border-[var(--color-line-ink-strong)]" : ""}`}
     >
-      <div className="text-stencil text-[28px] leading-none text-[var(--color-on-jet)] lg:text-[36px]">
+      <div className="text-stencil text-[28px] leading-none text-[var(--color-ink)] lg:text-[40px]">
         {k}
       </div>
-      <div className="mt-2 font-mono text-[9px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">
+      <div className="mt-2 font-mono text-[9px] tracking-[0.32em] text-[var(--color-ink-mute)]">
         {label}
       </div>
     </div>

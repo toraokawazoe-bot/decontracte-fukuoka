@@ -81,9 +81,13 @@ export function Price() {
               <br />
               いずれも税抜・データ作成費込み。
             </p>
+            <div className="mt-7 inline-flex items-center gap-3 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
+              <span className="block h-px w-7 bg-[var(--color-madder)]" aria-hidden />
+              2 PLANS · TAX EXCLUDED
+            </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-7">
             {PLANS.map((p, i) => (
               <Reveal key={p.code} delay={i * 100}>
                 <PlanCard plan={p} />
@@ -94,27 +98,29 @@ export function Price() {
 
         {/* Add-on card */}
         <Reveal>
-          <div className="mt-12 grid items-center gap-6 border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] p-7 lg:mt-16 lg:grid-cols-[auto_1fr_auto] lg:gap-12 lg:p-10">
-            <div>
-              <span className="eyebrow">/ {ADDON.code}</span>
-              <h3 className="mt-2 text-stencil text-[28px] leading-tight lg:text-[36px]">
-                {ADDON.jp}
-              </h3>
-              <p className="mt-1 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
-                {ADDON.en}
+          <div className="mt-14 overflow-hidden border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] lg:mt-20">
+            <div className="grid items-center gap-6 p-7 lg:grid-cols-[auto_1fr_auto] lg:gap-12 lg:p-10">
+              <div>
+                <span className="eyebrow">/ {ADDON.code}</span>
+                <h3 className="mt-2 text-stencil text-[32px] leading-tight lg:text-[40px]">
+                  {ADDON.jp}
+                </h3>
+                <p className="mt-1 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
+                  {ADDON.en}
+                </p>
+              </div>
+              <p className="font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)] lg:text-[15px]">
+                {ADDON.note}
               </p>
-            </div>
-            <p className="font-jp text-[13px] leading-[1.95] text-[var(--color-ink-dim)]">
-              {ADDON.note}
-            </p>
-            <div className="flex items-baseline gap-2 text-[var(--color-ink)]">
-              <span className="font-num text-[16px] opacity-60">¥</span>
-              <span className="font-num text-[44px] font-black leading-none tracking-tight tabular-nums lg:text-[56px]">
-                {ADDON.price.toLocaleString()}
-              </span>
-              <span className="font-mono text-[10px] tracking-[0.28em] opacity-60">
-                / SET〜
-              </span>
+              <div className="flex items-baseline gap-1 text-[var(--color-ink)]">
+                <span className="price-slab text-[24px] opacity-50">¥</span>
+                <span className="price-slab text-[64px] tabular-nums lg:text-[88px]">
+                  {ADDON.price.toLocaleString()}
+                </span>
+                <span className="ml-1 font-mono text-[10px] tracking-[0.28em] text-[var(--color-ink-mute)]">
+                  / SET〜
+                </span>
+              </div>
             </div>
           </div>
         </Reveal>
@@ -149,11 +155,11 @@ export function Price() {
                       className="flex items-center justify-between gap-4 border-b border-[var(--color-line-ink)] py-4"
                     >
                       <span className="font-jp text-[14px] text-[var(--color-ink)]">{o.name}</span>
-                      <span className="font-num text-[14px] tabular-nums text-[var(--color-ink)]">{o.price}</span>
+                      <span className="price-slab text-[18px] tabular-nums text-[var(--color-ink)]">{o.price}</span>
                     </li>
                   ))}
                 </ul>
-                <ul className="mt-6 space-y-2 font-jp text-[11px] leading-[1.9] text-[var(--color-ink-mute)]">
+                <ul className="mt-6 space-y-2 font-jp text-[12px] leading-[1.9] text-[var(--color-ink-mute)]">
                   <li>※ 表記は税抜価格。最終見積もりはお問い合わせください。</li>
                   <li>※ 新規 5 枚から、追加は 1 枚〜対応します。</li>
                   <li>※ ロゴデータは Ai 形式推奨。それ以外は別途料金。</li>
@@ -170,27 +176,25 @@ export function Price() {
 
 function PlanCard({ plan }: { plan: (typeof PLANS)[number] }) {
   const isHazard = plan.accent === "hazard";
+  const accentBg = isHazard ? "bg-[var(--color-hazard)]" : "bg-[var(--color-madder)]";
+  const accentText = isHazard ? "text-[var(--color-ink)]" : "text-[var(--color-paper-pure)]";
+  const accentBorder = isHazard ? "border-[var(--color-hazard-deep)]" : "border-[var(--color-madder)]";
+
   return (
     <article
-      className={`group card-lift relative overflow-hidden border bg-[var(--color-paper-pure)] ${
-        isHazard ? "border-[var(--color-hazard-deep)]" : "border-[var(--color-madder)]"
-      }`}
+      className={`group card-lift card-lift-shadow relative overflow-hidden border-2 bg-[var(--color-paper-pure)] ${accentBorder}`}
     >
-      {/* Colored header */}
-      <header
-        className={`relative px-7 py-7 ${
-          isHazard ? "bg-[var(--color-hazard)] text-[var(--color-ink)]" : "bg-[var(--color-madder)] text-[var(--color-paper-pure)]"
-        }`}
-      >
+      {/* Colored header bar */}
+      <header className={`relative ${accentBg} ${accentText} px-7 py-7 lg:px-8 lg:py-8`}>
         <div className="flex items-center justify-between">
-          <span className="font-mono text-[10px] tracking-[0.32em] opacity-80">
+          <span className="font-mono text-[10px] tracking-[0.32em] opacity-85">
             {plan.code}
           </span>
-          <span className="font-mono text-[10px] tracking-[0.32em] opacity-80">
+          <span className="font-mono text-[10px] tracking-[0.32em] opacity-85">
             {plan.qty}
           </span>
         </div>
-        <h3 className="mt-4 text-stencil text-[32px] leading-[0.9] lg:text-[40px]">
+        <h3 className="mt-5 text-stencil text-[32px] leading-[0.9] lg:text-[44px]">
           {plan.jp}
         </h3>
         <p className="mt-1 font-mono text-[10px] tracking-[0.32em] opacity-80">
@@ -200,33 +204,34 @@ function PlanCard({ plan }: { plan: (typeof PLANS)[number] }) {
 
       {/* Body */}
       <div className="p-7 lg:p-9">
-        <p className="font-jp text-[13px] leading-[1.95] text-[var(--color-ink-dim)]">
+        <p className="font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
           {plan.desc}
         </p>
 
-        {/* Price */}
-        <div className="mt-7 flex items-baseline gap-2 text-[var(--color-ink)]">
-          <span className="font-num text-[18px] opacity-60">¥</span>
-          <span className="font-num text-[56px] font-black leading-none tracking-tight tabular-nums lg:text-[72px]">
-            {plan.price.toLocaleString()}
-          </span>
-          <span className="ml-1 font-mono text-[11px] tracking-[0.28em] text-[var(--color-ink-mute)]">
-            {plan.unit}
-          </span>
+        {/* PRICE — huge & dominant */}
+        <div className="mt-8 border-y border-[var(--color-line-ink-strong)] py-7">
+          <div className="flex items-baseline gap-1.5 text-[var(--color-ink)]">
+            <span className="price-slab text-[28px] opacity-55 lg:text-[32px]">¥</span>
+            <span className="price-slab text-[80px] tabular-nums lg:text-[108px]">
+              {plan.price.toLocaleString()}
+            </span>
+            <span className="ml-2 font-mono text-[11px] tracking-[0.28em] text-[var(--color-ink-mute)]">
+              {plan.unit}
+            </span>
+          </div>
+          <p className="mt-3 flex items-center gap-3 font-mono text-[10px] tracking-[0.28em] text-[var(--color-ink-mute)]">
+            <span className={`block size-1.5 rotate-45 ${accentBg}`} aria-hidden />
+            {plan.note}
+          </p>
         </div>
-        <p className="mt-2 font-mono text-[10px] tracking-[0.28em] text-[var(--color-ink-mute)]">
-          {plan.note}
-        </p>
 
         {/* Features */}
-        <ul className="mt-7 space-y-3 border-t border-[var(--color-line-ink)] pt-6">
+        <ul className="mt-7 space-y-3.5">
           {plan.features.map((f) => (
             <li key={f} className="flex items-start gap-3 font-jp text-[14px] leading-snug text-[var(--color-ink)]">
               <span
                 aria-hidden
-                className={`mt-1.5 inline-block size-1.5 shrink-0 rotate-45 ${
-                  isHazard ? "bg-[var(--color-hazard-deep)]" : "bg-[var(--color-madder)]"
-                }`}
+                className={`mt-1.5 inline-block size-1.5 shrink-0 rotate-45 ${accentBg}`}
               />
               <span>{f}</span>
             </li>
@@ -234,13 +239,13 @@ function PlanCard({ plan }: { plan: (typeof PLANS)[number] }) {
         </ul>
 
         {/* CTA */}
-        <div className="mt-8">
+        <div className="mt-9">
           <Magnetic strength={0.18}>
             <a
               href="#contact"
-              className={`group/btn flex items-center justify-between px-6 py-5 font-mono text-[11px] tracking-[0.32em] transition ${
+              className={`group/btn flex items-center justify-between rounded-full px-6 py-5 font-mono text-[11px] tracking-[0.32em] transition ${
                 isHazard
-                  ? "bg-[var(--color-ink)] text-[var(--color-paper-pure)] hover:bg-[var(--color-hazard-deep)]"
+                  ? "bg-[var(--color-ink)] text-[var(--color-paper-pure)] hover:bg-[var(--color-hazard-deep)] hover:text-[var(--color-ink)]"
                   : "bg-[var(--color-madder)] text-[var(--color-paper-pure)] hover:bg-[var(--color-madder-deep)]"
               }`}
             >

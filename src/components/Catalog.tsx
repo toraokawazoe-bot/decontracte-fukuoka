@@ -61,21 +61,19 @@ const PATTERNS = [
 
 export function Catalog() {
   return (
-    <section id="catalog" className="stack-section relative overflow-hidden surface-jet">
+    <section id="catalog" className="stack-section relative overflow-hidden surface-paper-pure">
       <div className="container-x section-y">
         <Reveal>
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <span className="font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">
-                / 04 — DESIGN CATALOG
-              </span>
-              <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-on-jet)]">
+              <span className="eyebrow">/ 04 — DESIGN CATALOG</span>
+              <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-ink)]">
                 DESIGN
                 <br />
                 <span className="text-[var(--color-madder)]">CATALOG.</span>
               </h2>
             </div>
-            <p className="max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-on-jet-dim)]">
+            <p className="max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
               「カッコよく」「派手めに」だけでも OK。
               まずは方向性のすり合わせから。叩き台はこちらで用意します。
             </p>
@@ -86,8 +84,7 @@ export function Catalog() {
           {PATTERNS.map((p, i) => (
             <Reveal key={p.code} delay={(i % 4) * 60}>
               <article
-                className="group card-lift relative overflow-hidden border bg-[var(--color-jet-2)]"
-                style={{ borderColor: "var(--color-line-soft)" }}
+                className="group card-lift card-lift-shadow relative overflow-hidden border border-[var(--color-line-ink)] bg-[var(--color-paper-pure)]"
               >
                 <div
                   className="relative aspect-[3/4] overflow-hidden"
@@ -119,10 +116,10 @@ export function Catalog() {
                   </div>
                 </div>
                 <div className="px-4 py-4">
-                  <h3 className="font-jp text-[14px] font-bold leading-tight text-[var(--color-on-jet)]">
+                  <h3 className="font-jp text-[14px] font-bold leading-tight text-[var(--color-ink)]">
                     {p.jp}
                   </h3>
-                  <p className="mt-1 font-mono text-[9px] tracking-[0.28em] text-[var(--color-on-jet-mute)]">
+                  <p className="mt-1 font-mono text-[9px] tracking-[0.28em] text-[var(--color-ink-mute)]">
                     {p.note}
                   </p>
                 </div>
@@ -134,7 +131,7 @@ export function Catalog() {
         <Reveal>
           <a
             href="#contact"
-            className="mt-12 group flex items-center justify-between border-y border-[var(--color-on-jet-quiet)] py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-on-jet)] transition hover:text-[var(--color-madder)] lg:mt-16"
+            className="mt-12 group flex items-center justify-between border-y border-[var(--color-line-ink-strong)] py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-ink)] transition hover:text-[var(--color-madder)] lg:mt-16"
           >
             この方向で組みたい
             <span aria-hidden className="transition group-hover:translate-x-1">→</span>

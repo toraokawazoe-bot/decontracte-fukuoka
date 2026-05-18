@@ -41,14 +41,14 @@ const STEPS = [
 
 export function OrderFlow() {
   return (
-    <section id="flow" className="stack-section relative overflow-hidden surface-ink">
+    <section id="flow" className="stack-section relative overflow-hidden surface-paper">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(80% 50% at 10% 10%, rgba(185,74,53,0.18) 0%, transparent 55%)," +
-            "radial-gradient(80% 50% at 90% 90%, rgba(230,184,0,0.10) 0%, transparent 55%)",
+            "radial-gradient(80% 50% at 10% 10%, rgba(185,74,53,0.10) 0%, transparent 55%)," +
+            "radial-gradient(80% 50% at 90% 90%, rgba(230,184,0,0.08) 0%, transparent 55%)",
         }}
       />
 
@@ -56,16 +56,14 @@ export function OrderFlow() {
         <Reveal>
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <span className="font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">
-                / 06 — ORDER FLOW
-              </span>
-              <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-on-jet)]">
+              <span className="eyebrow">/ 06 — ORDER FLOW</span>
+              <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-ink)]">
                 ORDER
                 <br />
                 <span className="text-[var(--color-madder)]">FLOW.</span>
               </h2>
             </div>
-            <p className="max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-on-jet-dim)]">
+            <p className="max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
               ご注文から納品まで、約 4〜5 週間。
               <br />
               迷ったらまず Step 01 から、気軽に投げてください。
@@ -84,7 +82,7 @@ export function OrderFlow() {
         <Reveal>
           <a
             href="#contact"
-            className="mt-12 group flex items-center justify-between border border-[var(--color-on-jet-quiet)] px-6 py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-on-jet)] transition hover:bg-[var(--color-paper-pure)] hover:text-[var(--color-ink)] lg:mt-16"
+            className="mt-12 group flex items-center justify-between border border-[var(--color-line-ink-strong)] px-6 py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-ink)] transition hover:bg-[var(--color-ink)] hover:text-[var(--color-paper-pure)] lg:mt-16"
           >
             まずはステップ 01 から始める
             <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -98,40 +96,38 @@ export function OrderFlow() {
 function StepCard({ step, last }: { step: (typeof STEPS)[number]; last: boolean }) {
   return (
     <article
-      className="group card-lift relative h-full border bg-[var(--color-jet-2)] p-7 lg:p-9"
-      style={{ borderColor: "var(--color-line-soft)" }}
+      className="group card-lift card-lift-shadow relative h-full border border-[var(--color-line-ink)] bg-[var(--color-paper-pure)] p-7 lg:p-9"
     >
       {/* BG watermark */}
       <span
         aria-hidden
-        className="text-stencil pointer-events-none absolute -right-2 -top-6 select-none text-[140px] leading-[0.8] lg:text-[180px]"
-        style={{ color: "rgba(245,239,228,0.04)" }}
+        className="text-stencil pointer-events-none absolute -right-2 -top-6 select-none text-[140px] leading-[0.8] text-[var(--color-paper-2)] lg:text-[180px]"
       >
         {step.n}
       </span>
 
       <header className="relative flex items-center justify-between">
-        <span className="font-num text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">
+        <span className="font-num text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
           STEP {step.n}
         </span>
-        <span className="font-mono text-[9px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">
+        <span className="font-mono text-[9px] tracking-[0.32em] text-[var(--color-ink-mute)]">
           / {step.en}
         </span>
       </header>
 
-      <div className="relative mt-6 h-px w-full bg-[var(--color-on-jet-quiet)]" />
+      <div className="relative mt-6 h-px w-full bg-[var(--color-line-ink-strong)]" />
 
-      <h3 className="relative mt-6 text-stencil text-[28px] leading-tight text-[var(--color-on-jet)] lg:text-[32px]">
+      <h3 className="relative mt-6 text-stencil text-[28px] leading-tight text-[var(--color-ink)] lg:text-[32px]">
         {step.title}
       </h3>
-      <p className="relative mt-3 font-jp text-[13px] leading-[1.95] text-[var(--color-on-jet-dim)]">
+      <p className="relative mt-3 font-jp text-[13px] leading-[1.95] text-[var(--color-ink-dim)]">
         {step.body}
       </p>
 
       {!last ? (
         <span
           aria-hidden
-          className="relative mt-7 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)]"
+          className="relative mt-7 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]"
         >
           <span className="block h-px w-8 bg-current" />
           NEXT STEP

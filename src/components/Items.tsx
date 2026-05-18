@@ -55,21 +55,19 @@ const ITEMS = [
 
 export function Items() {
   return (
-    <section id="items" className="stack-section relative overflow-hidden surface-ink">
+    <section id="items" className="stack-section relative overflow-hidden surface-paper">
       <div className="container-x section-y">
         <Reveal>
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <span className="font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">
-                / 03 — ITEM LINEUP
-              </span>
-              <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-on-jet)]">
+              <span className="eyebrow">/ 03 — ITEM LINEUP</span>
+              <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-ink)]">
                 ITEM
                 <br />
                 <span className="text-[var(--color-madder)]">LINEUP.</span>
               </h2>
             </div>
-            <p className="max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-on-jet-dim)]">
+            <p className="max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
               ユニフォームを軸に、GKモデル、ビブス、ソックス、トレーニング着まで、競技と練習の全シーンを揃える。
             </p>
           </div>
@@ -99,7 +97,7 @@ function ItemCard({
   feature: boolean;
 }) {
   return (
-    <article className="group card-lift relative h-full overflow-hidden border bg-[var(--color-jet-2)]" style={{ borderColor: "var(--color-line-soft)" }}>
+    <article className="group card-lift card-lift-shadow relative h-full overflow-hidden border border-[var(--color-line-ink)] bg-[var(--color-paper-pure)]">
       {/* Poster */}
       <div
         className={`relative overflow-hidden ${feature ? "aspect-[16/12]" : "aspect-[4/5]"}`}
@@ -111,7 +109,7 @@ function ItemCard({
           className="absolute inset-0 slow-pan"
           style={{
             background:
-              "radial-gradient(58% 50% at 30% 22%, rgba(245,239,228,0.25), transparent 60%)",
+              "radial-gradient(58% 50% at 30% 22%, rgba(245,239,228,0.30), transparent 60%)",
           }}
         />
 
@@ -157,14 +155,14 @@ function ItemCard({
 
       {/* Body */}
       <div className="p-6 lg:p-7">
-        <p className="font-jp text-[13px] leading-[1.95] text-[var(--color-on-jet-dim)]">
+        <p className="font-jp text-[13px] leading-[1.95] text-[var(--color-ink-dim)]">
           {item.desc}
         </p>
         <ul className="mt-5 flex flex-wrap gap-1.5">
           {item.tags.map((t) => (
             <li
               key={t}
-              className="border border-[var(--color-line-soft)] px-2.5 py-1 font-mono text-[10px] tracking-[0.2em] text-[var(--color-on-jet-dim)]"
+              className="border border-[var(--color-line-ink-strong)] px-2.5 py-1 font-mono text-[10px] tracking-[0.2em] text-[var(--color-ink-dim)]"
             >
               {t}
             </li>
