@@ -3,7 +3,8 @@ import { Fraunces, Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google"
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { HudOverlay } from "@/components/HudOverlay";
+import { SideNav } from "@/components/SideNav";
+import { MobileFixedCTA } from "@/components/MobileFixedCTA";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,9 +33,9 @@ const notoJp = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://decontracte.co"),
+  metadataBase: new URL("https://decontracte-fukuoka.vercel.app"),
   title: {
-    default: "DÉCONTRACTÉ — フルオーダー チームウェア",
+    default: "DÉCONTRACTÉ — フルオーダー チームウェア / 福岡",
     template: "%s | DÉCONTRACTÉ",
   },
   description:
@@ -58,13 +59,12 @@ export default function RootLayout({
       lang="ja"
       className={`${inter.variable} ${fraunces.variable} ${mono.variable} ${notoJp.variable} h-full antialiased`}
     >
-      <body className="canvas-grain min-h-full">
-        <div className="relative z-10 article-col flex min-h-screen flex-col">
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-        </div>
-        <HudOverlay />
+      <body className="min-h-full bg-[var(--color-canvas)] text-[var(--color-ink)]">
+        <SiteHeader />
+        <SideNav />
+        <main className="relative flex min-h-screen flex-col">{children}</main>
+        <SiteFooter />
+        <MobileFixedCTA />
       </body>
     </html>
   );

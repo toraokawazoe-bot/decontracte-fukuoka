@@ -1,350 +1,231 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Odometer } from "./motion/Odometer";
-import { MaskReveal } from "./motion/MaskReveal";
+import { useState } from "react";
 import { Magnetic } from "./motion/Magnetic";
+import { Reveal } from "./Reveal";
 
 const PLANS = [
   {
     code: "DCT.01",
-    tag: "BASE",
-    jp: "昇華ユニフォーム",
+    tag: "FULL ORDER",
+    jp: "フルオーダー",
     en: "FULL ORDER",
-    qty: "5 PCS / MIN",
-    price: "9,800",
+    desc: "型・配色・ロゴ・ナンバー全部自由設計のフルカスタム。",
+    qty: "5 PCS〜",
+    price: 9800,
     unit: "/ SET",
     note: "税抜・シャツ＋パンツ",
     features: [
+      "完全フルオーダー（型・配色・素材）",
       "ロゴ／ネーム／ナンバー込み",
       "デザインデータ作成 込み",
-      "完全フルオーダー（型・配色・素材）",
+      "サンプル無料制作",
     ],
-    cta: "見積もりを依頼する",
+    cta: "見積もりを依頼",
+    accent: "madder" as const,
   },
   {
     code: "DCT.02",
-    tag: "+1",
-    jp: "追加オーダー",
-    en: "ADD-ON UNIT",
-    qty: "1 PC / MIN",
-    price: "9,800",
+    tag: "SEMI ORDER",
+    jp: "セミオーダー",
+    en: "SEMI ORDER",
+    desc: "テンプレ型ベースで配色とロゴだけ自由。スピード重視。",
+    qty: "5 PCS〜",
+    price: 6800,
     unit: "/ SET",
-    note: "税抜・初回データ流用",
+    note: "税抜・既存テンプレ使用",
     features: [
-      "途中加入メンバーの追加に",
-      "シャツのみ／パンツのみも可",
-      "デザインデータ保管",
+      "用意した型から選択",
+      "配色・ロゴ・ナンバー込み",
+      "短納期で済む（約3週間）",
+      "サンプル無料制作",
     ],
-    cta: "追加で発注する",
-    recommended: true,
-  },
-  {
-    code: "DCT.03",
-    tag: "BIB",
-    jp: "昇華ビブス",
-    en: "BIBS",
-    qty: "5 PCS / MIN",
-    price: "4,800",
-    unit: "/ UNIT",
-    note: "税抜・シングル仕様",
-    features: [
-      "シングル／リバーシブル選択",
-      "フルカラー昇華・ロゴ込み",
-      "練習〜スクリメージまで",
-    ],
-    cta: "ビブスを見積もる",
+    cta: "セミオーダーで作る",
+    accent: "hazard" as const,
   },
 ];
 
 const OPTIONS = [
   { name: "GK パッド（シャツ／パンツ各）", price: "+¥1,500" },
   { name: "リブ衿", price: "+¥2,000" },
+  { name: "長袖変更", price: "+¥1,100" },
   { name: "Ai 以外のロゴデータ", price: "+¥11,000" },
   { name: "オリジナルソックス（5足〜）", price: "別途見積" },
 ];
 
+const ADDON = {
+  code: "DCT.03",
+  jp: "追加 1 枚〜",
+  en: "ADD-ON UNIT",
+  price: 9800,
+  note: "途中加入メンバー向け・初回データ流用",
+};
+
 export function Price() {
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const [active, setActive] = useState(0);
   const [openOpts, setOpenOpts] = useState(false);
 
-  // Detect current snap target via scroll position
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => {
-        const cards = Array.from(el.children) as HTMLElement[];
-        const center = el.scrollLeft + el.clientWidth / 2;
-        let nearest = 0;
-        let best = Infinity;
-        cards.forEach((c, i) => {
-          const cc = c.offsetLeft + c.clientWidth / 2;
-          const d = Math.abs(cc - center);
-          if (d < best) {
-            best = d;
-            nearest = i;
-          }
-        });
-        setActive(nearest);
-        raf = 0;
-      });
-    };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => {
-      el.removeEventListener("scroll", onScroll);
-      if (raf) window.cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  const goTo = (i: number) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const cards = Array.from(el.children) as HTMLElement[];
-    const c = cards[i];
-    if (!c) return;
-    el.scrollTo({ left: c.offsetLeft, behavior: "smooth" });
-  };
-
   return (
-    <section id="price" className="relative bg-jet text-on-jet">
-      {/* Top hazard rule */}
-      <div className="hazard-strip-thin h-1 w-full" aria-hidden />
+    <section id="price" className="stack-section relative overflow-hidden surface-paper">
+      <div className="container-x section-y">
+        {/* Header */}
+        <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-20">
+          <Reveal>
+            <span className="eyebrow">/ 02 — PRICE</span>
+            <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-ink)]">
+              PRICE
+              <br />
+              <span className="text-[var(--color-madder)]">PLAN.</span>
+            </h2>
+            <p className="mt-7 max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
+              フルオーダー／セミオーダーの 2 プラン。
+              <br />
+              いずれも税抜・データ作成費込み。
+            </p>
+          </Reveal>
 
-      <div className="px-5 pt-14 pb-5">
-        <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.32em] text-on-jet/45">
-          <span>/ 04 — PRICE</span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="rec-dot rec-dot-sm" />
-            FOR PRESENTATION
-          </span>
-        </div>
-
-        <h2 className="mt-6 text-stencil text-[40px] leading-[0.95] text-on-jet">
-          <MaskReveal>PRICE</MaskReveal>
-          <br />
-          <span className="text-madder">
-            <MaskReveal delayMs={120}>PLAN.</MaskReveal>
-          </span>
-        </h2>
-
-        <p className="mt-4 font-jp text-[13px] leading-[1.85] text-on-jet/70">
-          税抜・データ作成費込み。
-          <br />
-          スワイプで 3 つの料金プランを比較できます。
-        </p>
-
-        {/* Frame indicator */}
-        <div className="mt-7 flex items-center justify-between font-mono text-[10px] tracking-[0.32em] text-on-jet/45">
-          <span className="tabular-nums">
-            FRAME {String(active + 1).padStart(2, "0")} / {String(PLANS.length).padStart(2, "0")}
-          </span>
-          <span className="inline-flex items-center gap-2">
-            <button
-              type="button"
-              aria-label="前のプラン"
-              onClick={() => goTo(Math.max(0, active - 1))}
-              className="size-7 border border-on-jet/30 transition hover:border-madder hover:text-madder disabled:opacity-30"
-              disabled={active === 0}
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              aria-label="次のプラン"
-              onClick={() => goTo(Math.min(PLANS.length - 1, active + 1))}
-              className="size-7 border border-on-jet/30 transition hover:border-madder hover:text-madder disabled:opacity-30"
-              disabled={active === PLANS.length - 1}
-            >
-              →
-            </button>
-          </span>
-        </div>
-      </div>
-
-      {/* Carousel */}
-      <div
-        ref={trackRef}
-        className="flex w-full snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {PLANS.map((p, i) => (
-          <PlanCard key={p.code} plan={p} index={i} total={PLANS.length} active={i === active} />
-        ))}
-      </div>
-
-      {/* Dots */}
-      <div className="mt-4 flex items-center justify-center gap-2 px-5">
-        {PLANS.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={`プラン ${i + 1}`}
-            onClick={() => goTo(i)}
-            className={`h-px transition-all ${
-              i === active
-                ? "w-10 bg-madder shadow-[0_0_12px_rgba(185,74,53,0.85)]"
-                : "w-5 bg-on-jet/25"
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Options accordion */}
-      <div className="mt-12 px-5">
-        <button
-          type="button"
-          onClick={() => setOpenOpts((v) => !v)}
-          className="group flex w-full items-center justify-between border-y py-4 font-mono text-[11px] tracking-[0.32em] text-on-jet transition hover:text-madder"
-          style={{ borderColor: "var(--color-line-soft)" }}
-          aria-expanded={openOpts}
-        >
-          <span>/ OPTIONS &amp; NOTES</span>
-          <span
-            aria-hidden
-            className={`inline-block transition-transform duration-500 ${openOpts ? "rotate-180" : ""}`}
-          >
-            ▾
-          </span>
-        </button>
-
-        <div
-          className={`grid overflow-hidden transition-[grid-template-rows] duration-500 ease-out ${
-            openOpts ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-          }`}
-        >
-          <div className="min-h-0">
-            <ul className="divide-y" style={{ borderColor: "var(--color-line-soft)" }}>
-              {OPTIONS.map((o) => (
-                <li
-                  key={o.name}
-                  className="flex items-center justify-between gap-4 border-b py-4"
-                  style={{ borderColor: "var(--color-line-soft)" }}
-                >
-                  <span className="font-jp text-[13px] text-on-jet/85">{o.name}</span>
-                  <span className="font-mono text-[12px] tabular-nums text-on-jet">{o.price}</span>
-                </li>
-              ))}
-            </ul>
-            <ul className="mt-5 space-y-2 font-jp text-[11px] leading-[1.9] text-on-jet/55">
-              <li>※ 表記は税抜価格。最終見積もりはお問い合わせください。</li>
-              <li>※ 新規 5枚から、追加は 1枚〜対応します。</li>
-              <li>※ ロゴデータは Ai 形式推奨。それ以外は別途料金。</li>
-              <li>※ 納期は約 4〜5 週間（混雑期は前後します）。</li>
-            </ul>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {PLANS.map((p, i) => (
+              <Reveal key={p.code} delay={i * 100}>
+                <PlanCard plan={p} />
+              </Reveal>
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Bottom hazard rule */}
-      <div className="mt-14 hazard-strip-thin h-1 w-full" aria-hidden />
+        {/* Add-on card */}
+        <Reveal>
+          <div className="mt-12 grid items-center gap-6 border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] p-7 lg:mt-16 lg:grid-cols-[auto_1fr_auto] lg:gap-12 lg:p-10">
+            <div>
+              <span className="eyebrow">/ {ADDON.code}</span>
+              <h3 className="mt-2 text-stencil text-[28px] leading-tight lg:text-[36px]">
+                {ADDON.jp}
+              </h3>
+              <p className="mt-1 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
+                {ADDON.en}
+              </p>
+            </div>
+            <p className="font-jp text-[13px] leading-[1.95] text-[var(--color-ink-dim)]">
+              {ADDON.note}
+            </p>
+            <div className="flex items-baseline gap-2 text-[var(--color-ink)]">
+              <span className="font-num text-[16px] opacity-60">¥</span>
+              <span className="font-num text-[44px] font-black leading-none tracking-tight tabular-nums lg:text-[56px]">
+                {ADDON.price.toLocaleString()}
+              </span>
+              <span className="font-mono text-[10px] tracking-[0.28em] opacity-60">
+                / SET〜
+              </span>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Options accordion */}
+        <Reveal>
+          <div className="mt-14 lg:mt-20">
+            <button
+              type="button"
+              onClick={() => setOpenOpts((v) => !v)}
+              className="group flex w-full items-center justify-between border-y border-[var(--color-line-ink-strong)] py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-ink)] transition hover:text-[var(--color-madder)]"
+              aria-expanded={openOpts}
+            >
+              <span>/ OPTIONS &amp; NOTES</span>
+              <span
+                aria-hidden
+                className={`inline-block transition-transform duration-500 ${openOpts ? "rotate-180" : ""}`}
+              >
+                ▾
+              </span>
+            </button>
+            <div
+              className={`grid overflow-hidden transition-[grid-template-rows] duration-500 ease-out ${
+                openOpts ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              }`}
+            >
+              <div className="min-h-0">
+                <ul>
+                  {OPTIONS.map((o) => (
+                    <li
+                      key={o.name}
+                      className="flex items-center justify-between gap-4 border-b border-[var(--color-line-ink)] py-4"
+                    >
+                      <span className="font-jp text-[14px] text-[var(--color-ink)]">{o.name}</span>
+                      <span className="font-num text-[14px] tabular-nums text-[var(--color-ink)]">{o.price}</span>
+                    </li>
+                  ))}
+                </ul>
+                <ul className="mt-6 space-y-2 font-jp text-[11px] leading-[1.9] text-[var(--color-ink-mute)]">
+                  <li>※ 表記は税抜価格。最終見積もりはお問い合わせください。</li>
+                  <li>※ 新規 5 枚から、追加は 1 枚〜対応します。</li>
+                  <li>※ ロゴデータは Ai 形式推奨。それ以外は別途料金。</li>
+                  <li>※ 納期は約 4〜5 週間（混雑期は前後します）。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }
 
-function PlanCard({
-  plan,
-  index,
-  total,
-  active,
-}: {
-  plan: (typeof PLANS)[number];
-  index: number;
-  total: number;
-  active: boolean;
-}) {
-  const num = String(index + 1).padStart(2, "0");
-  const totalStr = String(total).padStart(2, "0");
-  const isReco = !!plan.recommended;
-
+function PlanCard({ plan }: { plan: (typeof PLANS)[number] }) {
+  const isHazard = plan.accent === "hazard";
   return (
     <article
-      className={`relative w-[88vw] max-w-[480px] shrink-0 snap-center bg-jet-2 transition-all duration-700 ${
-        active ? "scale-100 opacity-100" : "scale-[0.96] opacity-60"
+      className={`group card-lift relative overflow-hidden border bg-[var(--color-paper-pure)] ${
+        isHazard ? "border-[var(--color-hazard-deep)]" : "border-[var(--color-madder)]"
       }`}
-      style={{
-        border: isReco ? "1px solid var(--color-madder)" : "1px solid var(--color-line-soft)",
-      }}
     >
-      {/* Recommended hazard strip on top */}
-      {isReco ? (
-        <div className="hazard-strip-thin h-1 w-full" aria-hidden />
-      ) : null}
-
-      {/* Top bar */}
-      <div
-        className="flex items-center justify-between border-b px-4 py-2.5 font-mono text-[10px] tracking-[0.32em] text-on-jet/55"
-        style={{ borderColor: "var(--color-line-soft)" }}
+      {/* Colored header */}
+      <header
+        className={`relative px-7 py-7 ${
+          isHazard ? "bg-[var(--color-hazard)] text-[var(--color-ink)]" : "bg-[var(--color-madder)] text-[var(--color-paper-pure)]"
+        }`}
       >
-        <span className="tabular-nums">
-          FRAME {num} / {totalStr}
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          {isReco ? <span className="rec-dot rec-dot-sm" /> : null}
-          {isReco ? "RECOMMENDED" : plan.tag}
-        </span>
-      </div>
-
-      {/* Conic glow on recommended only */}
-      {isReco ? (
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-          <div
-            className="orbit-conic absolute -inset-[40%] opacity-[0.18]"
-            style={{
-              background:
-                "conic-gradient(from 0deg, transparent 0deg, rgba(185,74,53,0.9) 60deg, transparent 140deg, transparent 360deg)",
-            }}
-          />
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[10px] tracking-[0.32em] opacity-80">
+            {plan.code}
+          </span>
+          <span className="font-mono text-[10px] tracking-[0.32em] opacity-80">
+            {plan.qty}
+          </span>
         </div>
-      ) : null}
-
-      <div className="relative px-5 pt-7 pb-5">
-        {/* Code stripe */}
-        <div className="flex items-baseline justify-between font-mono text-[10px] tracking-[0.32em] text-on-jet/55">
-          <span>{plan.code}</span>
-          <span className="tabular-nums">{plan.qty}</span>
-        </div>
-
-        {/* JP title — stencil */}
-        <h3 className="mt-4 text-stencil text-[34px] leading-[0.95] text-on-jet">
+        <h3 className="mt-4 text-stencil text-[32px] leading-[0.9] lg:text-[40px]">
           {plan.jp}
         </h3>
-        <p className="mt-1 font-mono text-[10px] tracking-[0.32em] text-on-jet/55">
+        <p className="mt-1 font-mono text-[10px] tracking-[0.32em] opacity-80">
           / {plan.en}
         </p>
+      </header>
 
-        {/* Price slab */}
-        <div className="mt-8 flex items-baseline gap-2">
-          <span className="text-stencil text-[28px] leading-none text-on-jet/60">¥</span>
-          <Odometer
-            value={plan.price}
-            className="text-stencil text-[88px] leading-[0.85] text-on-jet"
-            rowHeight="1em"
-            perDigitMs={110}
-            startDelayMs={200}
-          />
-          <span className="ml-1 font-mono text-[11px] tracking-[0.28em] text-on-jet/55">
+      {/* Body */}
+      <div className="p-7 lg:p-9">
+        <p className="font-jp text-[13px] leading-[1.95] text-[var(--color-ink-dim)]">
+          {plan.desc}
+        </p>
+
+        {/* Price */}
+        <div className="mt-7 flex items-baseline gap-2 text-[var(--color-ink)]">
+          <span className="font-num text-[18px] opacity-60">¥</span>
+          <span className="font-num text-[56px] font-black leading-none tracking-tight tabular-nums lg:text-[72px]">
+            {plan.price.toLocaleString()}
+          </span>
+          <span className="ml-1 font-mono text-[11px] tracking-[0.28em] text-[var(--color-ink-mute)]">
             {plan.unit}
           </span>
         </div>
-        <p className="mt-2 font-mono text-[10px] tracking-[0.28em] text-on-jet/55">
+        <p className="mt-2 font-mono text-[10px] tracking-[0.28em] text-[var(--color-ink-mute)]">
           {plan.note}
         </p>
 
         {/* Features */}
-        <ul className="mt-7 space-y-3 border-t pt-5" style={{ borderColor: "var(--color-line-soft)" }}>
+        <ul className="mt-7 space-y-3 border-t border-[var(--color-line-ink)] pt-6">
           {plan.features.map((f) => (
-            <li
-              key={f}
-              className="flex items-start gap-3 font-jp text-[13px] leading-snug text-on-jet/90"
-            >
+            <li key={f} className="flex items-start gap-3 font-jp text-[14px] leading-snug text-[var(--color-ink)]">
               <span
                 aria-hidden
                 className={`mt-1.5 inline-block size-1.5 shrink-0 rotate-45 ${
-                  isReco ? "bg-madder" : "bg-on-jet"
+                  isHazard ? "bg-[var(--color-hazard-deep)]" : "bg-[var(--color-madder)]"
                 }`}
               />
               <span>{f}</span>
@@ -357,14 +238,14 @@ function PlanCard({
           <Magnetic strength={0.18}>
             <a
               href="#contact"
-              className={`group flex items-center justify-between px-4 py-4 font-mono text-[11px] tracking-[0.32em] transition ${
-                isReco
-                  ? "bg-madder text-paper hover:bg-madder-deep"
-                  : "border border-on-jet/50 text-on-jet hover:border-madder hover:bg-madder hover:text-paper"
+              className={`group/btn flex items-center justify-between px-6 py-5 font-mono text-[11px] tracking-[0.32em] transition ${
+                isHazard
+                  ? "bg-[var(--color-ink)] text-[var(--color-paper-pure)] hover:bg-[var(--color-hazard-deep)]"
+                  : "bg-[var(--color-madder)] text-[var(--color-paper-pure)] hover:bg-[var(--color-madder-deep)]"
               }`}
             >
               <span>{plan.cta}</span>
-              <span aria-hidden className="transition group-hover:translate-x-1">→</span>
+              <span aria-hidden className="transition group-hover/btn:translate-x-1">→</span>
             </a>
           </Magnetic>
         </div>

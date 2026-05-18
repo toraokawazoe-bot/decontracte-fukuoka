@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 
 const NAV = [
   { href: "#why",     label: "理由",       en: "WHY" },
+  { href: "#price",   label: "料金",       en: "PRICE" },
   { href: "#items",   label: "アイテム",   en: "ITEM" },
   { href: "#catalog", label: "カタログ",   en: "CATALOG" },
-  { href: "#price",   label: "料金",       en: "PRICE" },
-  { href: "#flow",    label: "流れ",       en: "FLOW" },
   { href: "#works",   label: "実績",       en: "WORKS" },
+  { href: "#flow",    label: "流れ",       en: "FLOW" },
   { href: "#faq",     label: "Q&A",        en: "FAQ" },
 ];
 
@@ -35,100 +35,103 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-all ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all ${
         scrolled
-          ? "bg-jet/85 backdrop-blur border-on-jet border-b"
+          ? "bg-[var(--color-jet)]/85 backdrop-blur"
           : "bg-transparent"
       }`}
-      style={scrolled ? { borderBottomColor: "var(--color-line-soft)" } : undefined}
+      style={scrolled ? { borderBottom: "1px solid var(--color-line-soft)" } : undefined}
     >
-      {/* Top status strip (always visible, mechanical) */}
-      <div className="flex h-5 items-center justify-between border-on-jet-strong border-b px-3 font-mono text-[9px] tracking-[0.32em] text-on-jet/55"
-           style={{ borderBottomColor: "var(--color-line-soft)" }}>
-        <span className="inline-flex items-center gap-1.5">
-          <span className="size-1 rotate-45 bg-madder" aria-hidden />
-          DCT—026/SS
-        </span>
-        <span className="hidden sm:inline">EST. FUKUOKA · 33°N</span>
-        <span className="inline-flex items-center gap-1.5">
-          <span className="rec-dot rec-dot-sm" />
-          ONLINE
-        </span>
-      </div>
-
-      <div className="flex h-14 items-center justify-between px-4">
-        <Link href="/" className="group flex items-center gap-2.5" aria-label="DÉCONTRACTÉ">
-          <span className="relative block size-2.5 rotate-45 bg-madder shadow-[0_0_18px_rgba(185,74,53,0.7)]" aria-hidden />
-          <span className="text-stencil text-[16px] leading-none text-on-jet">
+      <div className="container-x flex h-16 items-center justify-between lg:h-20">
+        <Link href="/" className="group flex items-center gap-3" aria-label="DÉCONTRACTÉ">
+          <span className="relative block size-2.5 rotate-45 bg-[var(--color-madder)] shadow-[0_0_18px_rgba(185,74,53,0.7)]" aria-hidden />
+          <span className="text-stencil text-[16px] leading-none text-[var(--color-on-jet)] lg:text-[18px]">
             DÉCONTRACTÉ
           </span>
-          <span className="font-mono text-[9px] tracking-[0.32em] text-on-jet/40 hidden sm:inline">
+          <span className="font-mono text-[9px] tracking-[0.32em] text-[var(--color-on-jet-mute)] hidden md:inline">
             ™ · 026
           </span>
         </Link>
 
-        <a
-          href="#contact"
-          className="hidden sm:inline-flex items-center gap-2 border border-on-jet/40 px-3 py-1.5 font-mono text-[10px] tracking-[0.28em] text-on-jet transition hover:border-madder hover:bg-madder hover:text-paper"
-        >
-          GET A QUOTE
-          <span aria-hidden>→</span>
-        </a>
+        {/* PC inline nav */}
+        <nav className="hidden lg:flex items-center gap-7">
+          {NAV.map((n) => (
+            <a
+              key={n.href}
+              href={n.href}
+              className="group inline-flex items-baseline gap-1.5 font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-dim)] transition hover:text-[var(--color-paper-pure)]"
+            >
+              <span>{n.en}</span>
+              <span className="text-[var(--color-on-jet-mute)] group-hover:text-[var(--color-madder)] transition">·</span>
+            </a>
+          ))}
+        </nav>
 
-        <button
-          type="button"
-          aria-label={open ? "メニューを閉じる" : "メニューを開く"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="sm:hidden -mr-1 flex h-10 w-10 items-center justify-center"
-        >
-          <span className="relative block h-3.5 w-5">
-            <span
-              className={`absolute left-0 top-0 h-px w-full bg-on-jet transition-transform duration-500 ${
-                open ? "translate-y-[7px] rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-on-jet transition-opacity duration-300 ${
-                open ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`absolute bottom-0 left-0 h-px w-full bg-on-jet transition-transform duration-500 ${
-                open ? "-translate-y-[7px] -rotate-45" : ""
-              }`}
-            />
-          </span>
-        </button>
+        <div className="flex items-center gap-3">
+          <a
+            href="#contact"
+            className="hidden md:inline-flex items-center gap-2 border border-[var(--color-on-jet-quiet)] px-4 py-2 font-mono text-[10px] tracking-[0.28em] text-[var(--color-on-jet)] transition hover:border-[var(--color-madder)] hover:bg-[var(--color-madder)] hover:text-[var(--color-paper-pure)]"
+          >
+            GET A QUOTE
+            <span aria-hidden>→</span>
+          </a>
+
+          <button
+            type="button"
+            aria-label={open ? "メニューを閉じる" : "メニューを開く"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="lg:hidden -mr-1 flex h-11 w-11 items-center justify-center"
+          >
+            <span className="relative block h-3.5 w-5">
+              <span
+                className={`absolute left-0 top-0 h-px w-full bg-[var(--color-on-jet)] transition-transform duration-500 ${
+                  open ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[var(--color-on-jet)] transition-opacity duration-300 ${
+                  open ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`absolute bottom-0 left-0 h-px w-full bg-[var(--color-on-jet)] transition-transform duration-500 ${
+                  open ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+        </div>
       </div>
 
-      {/* Drawer */}
+      {/* Mobile drawer */}
       <div
-        className={`absolute left-0 right-0 top-[76px] origin-top overflow-hidden bg-jet transition-[max-height,opacity] duration-500 ease-out ${
+        className={`absolute left-0 right-0 top-16 origin-top overflow-hidden bg-[var(--color-jet)] transition-[max-height,opacity] duration-500 ease-out lg:hidden ${
           open ? "max-h-[88vh] opacity-100" : "max-h-0 opacity-0"
         }`}
+        style={{ borderTop: open ? "1px solid var(--color-line-soft)" : undefined }}
       >
-        <nav className="border-t" style={{ borderColor: "var(--color-line-soft)" }}>
-          <ul className="divide-y" style={{ borderColor: "var(--color-line-soft)" }}>
+        <nav>
+          <ul>
             {NAV.map((n, i) => (
               <li key={n.href} className="border-b" style={{ borderColor: "var(--color-line-soft)" }}>
                 <a
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="group flex items-baseline gap-5 px-5 py-5 transition hover:bg-ink"
+                  className="container-x group flex items-baseline gap-5 py-5 transition hover:bg-[var(--color-ink)]"
                 >
-                  <span className="font-mono text-[10px] tracking-[0.28em] text-on-jet/40 tabular-nums">
+                  <span className="font-mono text-[10px] tracking-[0.28em] text-[var(--color-on-jet-mute)] tabular-nums">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="flex-1">
-                    <span className="block text-stencil text-2xl tracking-tight text-on-jet">
+                    <span className="block text-stencil text-2xl tracking-tight text-[var(--color-on-jet)]">
                       {n.en}
                     </span>
-                    <span className="mt-0.5 block font-jp text-[11px] text-on-jet/55">
+                    <span className="mt-0.5 block font-jp text-[11px] text-[var(--color-on-jet-dim)]">
                       / {n.label}
                     </span>
                   </span>
-                  <span aria-hidden className="text-on-jet/55 transition group-hover:translate-x-1 group-hover:text-madder">→</span>
+                  <span aria-hidden className="text-[var(--color-on-jet-mute)] transition group-hover:translate-x-1 group-hover:text-[var(--color-madder)]">→</span>
                 </a>
               </li>
             ))}
@@ -136,11 +139,10 @@ export function SiteHeader() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-between bg-madder px-5 py-5 text-paper hazard-strip-mono"
-                style={{ backgroundImage: undefined }}
+                className="container-x flex items-center justify-between bg-[var(--color-madder)] py-5 text-[var(--color-paper-pure)]"
               >
                 <span className="text-stencil text-xl tracking-wide">無料見積もり</span>
-                <span className="font-mono text-[10px] tracking-[0.28em] text-paper/85">GET A QUOTE →</span>
+                <span className="font-mono text-[10px] tracking-[0.28em] text-[var(--color-paper-pure)]/85">GET A QUOTE →</span>
               </a>
             </li>
           </ul>

@@ -1,4 +1,4 @@
-import { SectionHead } from "./SectionHead";
+import { Reveal } from "./Reveal";
 
 const FAQ = [
   {
@@ -37,39 +37,56 @@ const FAQ = [
 
 export function Faq() {
   return (
-    <section id="faq" className="relative bg-jet-2 text-on-jet px-5 py-20">
-      <SectionHead
-        index="07 / FAQ"
-        en="Q & A"
-        jp="よくあるご質問"
-      />
+    <section id="faq" className="stack-section relative overflow-hidden surface-paper">
+      <div className="container-x section-y">
+        <Reveal>
+          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-20">
+            <div>
+              <span className="eyebrow">/ 07 — Q&amp;A</span>
+              <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-ink)]">
+                Q&amp;A.
+              </h2>
+              <p className="mt-7 max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
+                ここに無い質問は、お気軽に LINE またはフォームからどうぞ。
+                <br />
+                1 営業日以内に返信します。
+              </p>
+              <div className="mt-8 inline-flex items-center gap-3 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
+                <span className="block h-px w-7 bg-[var(--color-madder)]" aria-hidden />
+                {FAQ.length} QUESTIONS
+              </div>
+            </div>
 
-      <div
-        className="mt-12 divide-y border-y"
-        style={{ borderColor: "var(--color-line-soft)" }}
-      >
-        {FAQ.map((f, i) => (
-          <details key={f.q} className="group border-b" style={{ borderColor: "var(--color-line-soft)" }}>
-            <summary className="flex cursor-pointer list-none items-start gap-4 py-5 [&::-webkit-details-marker]:hidden">
-              <span className="mt-1 font-mono text-[10px] tracking-[0.32em] text-madder tabular-nums">
-                Q.{String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="flex-1 font-jp text-[15px] font-bold leading-snug text-on-jet">
-                {f.q}
-              </span>
-              <span
-                aria-hidden
-                className="mt-1 inline-flex size-6 shrink-0 items-center justify-center font-mono text-[14px] text-on-jet transition group-open:rotate-45 group-open:border-madder group-open:text-madder"
-                style={{ border: "1px solid var(--color-on-jet)" }}
-              >
-                +
-              </span>
-            </summary>
-            <p className="pb-6 pl-[78px] pr-10 font-jp text-[13px] leading-[1.95] text-on-jet/70">
-              {f.a}
-            </p>
-          </details>
-        ))}
+            <div className="border-t border-[var(--color-line-ink-strong)]">
+              {FAQ.map((f, i) => (
+                <details
+                  key={f.q}
+                  className="group border-b border-[var(--color-line-ink-strong)]"
+                >
+                  <summary className="flex cursor-pointer list-none items-start gap-5 py-6 [&::-webkit-details-marker]:hidden">
+                    <span className="mt-1 font-mono text-[10px] tracking-[0.32em] text-[var(--color-madder)] tabular-nums">
+                      Q.{String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="flex-1 font-jp text-[16px] font-bold leading-snug text-[var(--color-ink)] lg:text-[18px]">
+                      {f.q}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="mt-1 inline-flex size-8 shrink-0 items-center justify-center border border-[var(--color-line-ink-strong)] font-mono text-[16px] text-[var(--color-ink)] transition group-open:rotate-45 group-open:border-[var(--color-madder)] group-open:text-[var(--color-madder)]"
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <div className="pb-7 pl-[68px] pr-12">
+                    <p className="font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
+                      {f.a}
+                    </p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

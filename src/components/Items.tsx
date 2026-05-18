@@ -1,204 +1,170 @@
 import { Reveal } from "./Reveal";
-import { SectionHead } from "./SectionHead";
 
 const ITEMS = [
   {
     code: "ITM/01",
     title: "昇華ユニフォーム",
-    letter: "J",
-    sub: "SUBLIMATION JERSEY",
+    en: "SUBLIMATION JERSEY",
     desc:
       "シャツ + パンツのフルセット。フィット重視のレギュラーカット。チームのアイデンティティを一着に。",
     tags: ["SOCCER", "FUTSAL", "SOCIETY"],
-    tone: "madder" as const,
+    bg: "linear-gradient(135deg, #b94a35 0%, #8c331f 100%)",
+    glyph: "J",
   },
   {
     code: "ITM/02",
     title: "GK ユニフォーム",
-    letter: "K",
-    sub: "GOALKEEPER",
+    en: "GOALKEEPER",
     desc:
       "肘・腰のパッド付き仕様にも対応。プレースタイルに合わせて、長袖／半袖／半パンを選択可。",
     tags: ["+PAD ¥1,500", "L/S", "S/S"],
-    tone: "navy" as const,
+    bg: "linear-gradient(135deg, #1a1714 0%, #2a241e 100%)",
+    glyph: "K",
   },
   {
     code: "ITM/03",
     title: "昇華ビブス",
-    letter: "B",
-    sub: "BIB / SCRIMMAGE",
+    en: "BIB / SCRIMMAGE",
     desc:
       "シングル／リバーシブル選択可。練習からスクリメージまで、ユニフォームと完全リンクしたデザインで。",
     tags: ["SINGLE", "REVERSIBLE"],
-    tone: "ink" as const,
+    bg: "linear-gradient(135deg, #e6b800 0%, #a88600 100%)",
+    glyph: "B",
   },
   {
     code: "ITM/04",
     title: "オリジナルソックス",
-    letter: "S",
-    sub: "SOCKS",
+    en: "SOCKS",
     desc:
       "5足から、フルカラー昇華で。ロゴ・チーム名・配色をユニフォームと完璧に揃えられます。",
     tags: ["5+ PAIRS", "FULL COLOR"],
-    tone: "madder" as const,
+    bg: "linear-gradient(135deg, #b94a35 0%, #1a1714 100%)",
+    glyph: "S",
+  },
+  {
+    code: "ITM/05",
+    title: "トレーニングウェア",
+    en: "TRAINING",
+    desc:
+      "薄手のドライ素材で動きやすく。ユニフォームと揃いの配色で、移動・練習も一体感ある仕立てに。",
+    tags: ["DRY", "LIGHT"],
+    bg: "linear-gradient(135deg, #2a241e 0%, #1a1714 100%)",
+    glyph: "T",
   },
 ];
 
-const TONES = {
-  madder: {
-    bg: "bg-madder",
-    glow: "rgba(255,210,200,0.30)",
-  },
-  navy: {
-    bg: "bg-navy",
-    glow: "rgba(180,200,220,0.26)",
-  },
-  ink: {
-    bg: "bg-ink",
-    glow: "rgba(255,255,255,0.20)",
-  },
-};
-
 export function Items() {
   return (
-    <section id="items" className="relative bg-ink text-on-jet px-5 py-20">
-      <SectionHead
-        index="02 / ITEM"
-        en="ITEM LINEUP"
-        jp="フルカスタムで、ぜんぶ自由に。"
-      />
+    <section id="items" className="stack-section relative overflow-hidden surface-ink">
+      <div className="container-x section-y">
+        <Reveal>
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <span className="font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">
+                / 03 — ITEM LINEUP
+              </span>
+              <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-on-jet)]">
+                ITEM
+                <br />
+                <span className="text-[var(--color-madder)]">LINEUP.</span>
+              </h2>
+            </div>
+            <p className="max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-on-jet-dim)]">
+              ユニフォームを軸に、GKモデル、ビブス、ソックス、トレーニング着まで、競技と練習の全シーンを揃える。
+            </p>
+          </div>
+        </Reveal>
 
-      <div className="mt-12 flex flex-col gap-5">
-        {ITEMS.map((it, i) => (
-          <Reveal key={it.code} delay={i * 80}>
-            <PosterCard item={it} index={i} flip={i % 2 === 1} />
-          </Reveal>
-        ))}
+        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-6">
+          {ITEMS.map((it, i) => (
+            <Reveal
+              key={it.code}
+              delay={i * 60}
+              className={i === 0 ? "lg:col-span-2 lg:row-span-2" : ""}
+            >
+              <ItemCard item={it} feature={i === 0} />
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-function PosterCard({
+function ItemCard({
   item,
-  index,
-  flip,
+  feature,
 }: {
   item: (typeof ITEMS)[number];
-  index: number;
-  flip: boolean;
+  feature: boolean;
 }) {
-  const tone = TONES[item.tone];
-  const num = String(index + 1).padStart(2, "0");
-
   return (
-    <article
-      className="group card-lift overflow-hidden bg-jet-2 hover:bg-jet"
-      style={{ border: "1px solid var(--color-line-soft)" }}
-    >
+    <article className="group card-lift relative h-full overflow-hidden border bg-[var(--color-jet-2)]" style={{ borderColor: "var(--color-line-soft)" }}>
       {/* Poster */}
-      <div className={`relative aspect-[4/5] overflow-hidden ${tone.bg}`}>
-        {/* Background textures */}
+      <div
+        className={`relative overflow-hidden ${feature ? "aspect-[16/12]" : "aspect-[4/5]"}`}
+        style={{ background: item.bg }}
+      >
         <div className="absolute inset-0 hatch opacity-25" aria-hidden />
         <div
           aria-hidden
           className="absolute inset-0 slow-pan"
           style={{
-            background: `radial-gradient(58% 50% at ${flip ? 70 : 30}% 22%, ${tone.glow}, transparent 60%)`,
+            background:
+              "radial-gradient(58% 50% at 30% 22%, rgba(245,239,228,0.25), transparent 60%)",
           }}
         />
 
-        {/* Top hairline */}
-        <div className="absolute inset-x-4 top-4 flex items-center justify-between font-mono text-[10px] tracking-[0.32em] text-paper/65">
+        {/* Top label */}
+        <div className="absolute inset-x-5 top-5 flex items-center justify-between font-mono text-[10px] tracking-[0.32em] text-[var(--color-paper-pure)]/85">
           <span>{item.code}</span>
           <span className="flex items-center gap-2">
-            <span aria-hidden className="block h-px w-6 bg-paper/40" />
+            <span aria-hidden className="block h-px w-7 bg-[var(--color-paper-pure)]/50" />
             VOL.026
           </span>
         </div>
 
-        {/* Vertical sub caption (right gutter) */}
-        <div
-          className={`absolute ${flip ? "left-4" : "right-4"} top-14 bottom-14 flex items-end`}
-        >
-          <span className="vtext font-mono text-[10px] tracking-[0.36em] text-paper/55">
-            {item.sub} · {num}
-          </span>
-        </div>
-
-        {/* Massive drop-letter — sport-tech stencil */}
-        <div
-          aria-hidden
-          className={`pointer-events-none absolute ${flip ? "right-4" : "left-4"} top-10`}
-        >
-          <span className="text-stencil block text-[220px] leading-[0.78] text-paper/95">
-            {item.letter}
-          </span>
-        </div>
-
-        {/* Outline number echo */}
-        <div
-          aria-hidden
-          className={`pointer-events-none absolute ${flip ? "left-4" : "right-4"} bottom-24`}
-        >
+        {/* Glyph */}
+        <div aria-hidden className="pointer-events-none absolute left-5 top-12">
           <span
-            className="text-stencil text-[88px] leading-none"
-            style={{
-              WebkitTextStroke: "1px rgba(243,239,230,0.8)",
-              color: "transparent",
-            }}
+            className={`text-stencil block leading-[0.78] text-[var(--color-paper-pure)]/95 ${
+              feature ? "text-[clamp(180px,22vw,320px)]" : "text-[clamp(140px,18vw,220px)]"
+            }`}
           >
-            {num}
+            {item.glyph}
           </span>
         </div>
 
-        {/* Bottom title block with gradient scrim */}
+        {/* Bottom title */}
         <div
-          className="absolute inset-x-0 bottom-0 px-4 pb-4 pt-14"
+          className="absolute inset-x-0 bottom-0 px-5 pb-5 pt-16"
           style={{
-            background:
-              "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.0) 100%)",
+            background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%)",
           }}
         >
-          <span className="block font-mono text-[10px] tracking-[0.32em] text-paper/70">
-            / SUBJECT — {num}
+          <span className="block font-mono text-[10px] tracking-[0.32em] text-[var(--color-paper-pure)]/70">
+            / {item.en}
           </span>
           <h3
-            className={`mt-2 text-stencil text-[32px] leading-[0.98] text-paper ${flip ? "text-right" : ""}`}
+            className={`mt-2 text-stencil leading-[0.95] text-[var(--color-paper-pure)] ${
+              feature ? "text-[clamp(32px,4vw,56px)]" : "text-[clamp(24px,3vw,36px)]"
+            }`}
           >
             {item.title}
           </h3>
         </div>
-
-        {/* Tiny diamond top-right */}
-        <span
-          aria-hidden
-          className={`absolute ${flip ? "left-4" : "right-4"} top-12 size-1.5 rotate-45 bg-paper/70`}
-        />
       </div>
 
       {/* Body */}
-      <div className="px-5 pt-6 pb-5">
-        <div className="flex items-baseline justify-between gap-3">
-          <h4 className="font-mono text-[10px] tracking-[0.32em] text-on-jet/55">
-            / DESC.{num}
-          </h4>
-          <span
-            aria-hidden
-            className="font-mono text-base text-on-jet/55 transition group-hover:translate-x-1 group-hover:text-madder"
-          >
-            →
-          </span>
-        </div>
-        <p className="mt-3 font-jp text-[13px] leading-[1.95] text-on-jet/75">
+      <div className="p-6 lg:p-7">
+        <p className="font-jp text-[13px] leading-[1.95] text-[var(--color-on-jet-dim)]">
           {item.desc}
         </p>
         <ul className="mt-5 flex flex-wrap gap-1.5">
           {item.tags.map((t) => (
             <li
               key={t}
-              className="px-2 py-1 font-mono text-[10px] tracking-[0.2em] text-on-jet/70"
-              style={{ border: "1px solid var(--color-line-soft)" }}
+              className="border border-[var(--color-line-soft)] px-2.5 py-1 font-mono text-[10px] tracking-[0.2em] text-[var(--color-on-jet-dim)]"
             >
               {t}
             </li>
