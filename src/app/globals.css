@@ -479,6 +479,55 @@
     to   { transform: translateY(-50%); }
   }
 
+  /* Drifting blob — large soft orb that wanders */
+  .drift-blob {
+    animation: drift-blob 28s ease-in-out infinite alternate;
+  }
+  @keyframes drift-blob {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    33%  { transform: translate3d(8%, -6%, 0) scale(1.1); }
+    66%  { transform: translate3d(-6%, 4%, 0) scale(0.95); }
+    100% { transform: translate3d(4%, 6%, 0) scale(1.05); }
+  }
+  .drift-blob-2 {
+    animation: drift-blob-2 34s ease-in-out infinite alternate;
+  }
+  @keyframes drift-blob-2 {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    33%  { transform: translate3d(-7%, 5%, 0) scale(0.92); }
+    66%  { transform: translate3d(6%, -7%, 0) scale(1.12); }
+    100% { transform: translate3d(-4%, -3%, 0) scale(1.03); }
+  }
+
+  /* Slow background gradient shift */
+  .gradient-shift {
+    background-size: 300% 300%;
+    animation: gradient-shift 18s ease-in-out infinite;
+  }
+  @keyframes gradient-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Slow spin for brand emblem */
+  .slow-spin {
+    animation: slow-spin 22s linear infinite;
+  }
+  @keyframes slow-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Horizontal marquee — used inside Hero */
+  .marquee-x {
+    animation: marquee-x 30s linear infinite;
+  }
+  @keyframes marquee-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .fv-fade-in, .fv-rise, .fv-letter-spread, .scroll-marquee, .fv-breath,
