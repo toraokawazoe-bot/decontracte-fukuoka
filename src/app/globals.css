@@ -123,11 +123,10 @@
   .surface-madder  { background: var(--color-madder); color: var(--color-paper-pure); }
   .surface-hazard  { background: var(--color-hazard); color: var(--color-ink); }
 
-  /* Stacking section — on PC, sticky-pinned and locked to 100svh
-     so content stays inside the viewport while the next section
-     slides up to cover it. On mobile we let it flow naturally so
-     tall content (long forms, FAQ accordions, image cards) is
-     never clipped. */
+  /* Stacking section — on PC, sticky-pinned just below the fixed
+     header and locked to the remaining viewport height so each
+     card sits cleanly inside the visible area. On mobile we let
+     sections flow naturally so tall content is never clipped. */
   .stack-section {
     position: relative;
     z-index: 1;
@@ -139,9 +138,9 @@
   @media (min-width: 1024px) {
     .stack-section {
       position: sticky;
-      top: 0;
-      min-height: 100svh;
-      max-height: 100svh;
+      top: 80px;
+      min-height: calc(100svh - 80px);
+      max-height: calc(100svh - 80px);
       overflow: hidden;
       margin-top: -48px;
       border-top-left-radius: 48px;
