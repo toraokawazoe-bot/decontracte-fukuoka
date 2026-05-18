@@ -4,62 +4,39 @@ import { useState } from "react";
 import { Magnetic } from "./motion/Magnetic";
 import { Reveal } from "./Reveal";
 
-const PLANS = [
+const ORDERING = [
   {
-    code: "DCT.01",
-    tag: "FULL ORDER",
-    jp: "フルオーダー",
-    en: "FULL ORDER",
-    desc: "型・配色・ロゴ・ナンバー全部自由設計のフルカスタム。",
-    qty: "5 PCS〜",
-    price: 9800,
-    unit: "/ SET",
-    note: "税抜・シャツ＋パンツ",
-    features: [
-      "完全フルオーダー（型・配色・素材）",
-      "ロゴ／ネーム／ナンバー込み",
-      "デザインデータ作成 込み",
-      "サンプル無料制作",
-    ],
-    cta: "見積もりを依頼",
-    accent: "madder" as const,
+    no: "01",
+    title: "昇華ユニフォーム",
+    en: "JERSEY",
+    qty: ["初回", "5 枚〜"],
+    addon: ["追加", "1 枚〜"],
+    note: "シャツ＋パンツ 2 点セット。ソックスは別注文。",
   },
   {
-    code: "DCT.02",
-    tag: "SEMI ORDER",
-    jp: "セミオーダー",
-    en: "SEMI ORDER",
-    desc: "テンプレ型ベースで配色とロゴだけ自由。スピード重視。",
-    qty: "5 PCS〜",
-    price: 6800,
-    unit: "/ SET",
-    note: "税抜・既存テンプレ使用",
-    features: [
-      "用意した型から選択",
-      "配色・ロゴ・ナンバー込み",
-      "短納期で済む（約3週間）",
-      "サンプル無料制作",
-    ],
-    cta: "セミオーダーで作る",
-    accent: "hazard" as const,
+    no: "02",
+    title: "昇華ビブス",
+    en: "BIBS",
+    qty: ["初回", "5 枚〜"],
+    addon: ["追加", "1 枚〜"],
+    note: "シングル／リバーシブル選択可。",
+  },
+  {
+    no: "03",
+    title: "オリジナルソックス",
+    en: "SOCKS",
+    qty: ["初回", "5 足〜"],
+    addon: ["追加", "5 足〜"],
+    note: "上下セットには含まれません。",
   },
 ];
 
 const OPTIONS = [
-  { name: "GK パッド（シャツ／パンツ各）", price: "+¥1,500" },
-  { name: "リブ衿", price: "+¥2,000" },
-  { name: "長袖変更", price: "+¥1,100" },
-  { name: "Ai 以外のロゴデータ", price: "+¥11,000" },
-  { name: "オリジナルソックス（5足〜）", price: "別途見積" },
+  { name: "GK 用パッド（シャツ）", price: "¥1,500" },
+  { name: "GK 用パッド（パンツ）", price: "¥1,500" },
+  { name: "リブレット衿", price: "¥2,000" },
+  { name: "送料（全国一律）", price: "¥880" },
 ];
-
-const ADDON = {
-  code: "DCT.03",
-  jp: "追加 1 枚〜",
-  en: "ADD-ON UNIT",
-  price: 9800,
-  note: "途中加入メンバー向け・初回データ流用",
-};
 
 export function Price() {
   const [openOpts, setOpenOpts] = useState(false);
@@ -67,77 +44,73 @@ export function Price() {
   return (
     <section id="price" className="stack-section relative overflow-hidden surface-paper">
       <div className="container-x section-y">
-        {/* Header */}
-        <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-20">
-          <Reveal>
-            <span className="eyebrow">/ 02 — PRICE</span>
-            <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-ink)]">
-              PRICE
-              <br />
-              <span className="text-[var(--color-madder)]">PLAN.</span>
-            </h2>
-            <p className="mt-7 max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
-              フルオーダー／セミオーダーの 2 プラン。
-              <br />
-              いずれも税抜・データ作成費込み。
-            </p>
-            <div className="mt-7 inline-flex items-center gap-3 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
-              <span className="block h-px w-7 bg-[var(--color-madder)]" aria-hidden />
-              2 PLANS · TAX EXCLUDED
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-7">
-            {PLANS.map((p, i) => (
-              <Reveal key={p.code} delay={i * 100}>
-                <PlanCard plan={p} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        {/* Add-on card */}
         <Reveal>
-          <div className="mt-14 overflow-hidden border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] lg:mt-20">
-            <div className="grid items-center gap-6 p-7 lg:grid-cols-[auto_1fr_auto] lg:gap-12 lg:p-10">
-              <div>
-                <span className="eyebrow">/ {ADDON.code}</span>
-                <h3 className="mt-2 text-stencil text-[32px] leading-tight lg:text-[40px]">
-                  {ADDON.jp}
-                </h3>
-                <p className="mt-1 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
-                  {ADDON.en}
-                </p>
-              </div>
-              <p className="font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)] lg:text-[15px]">
-                {ADDON.note}
+          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-20">
+            <div>
+              <h2 className="text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-ink)]">
+                PRICE
+                <br />
+                <span className="text-[var(--color-madder)]">PLAN.</span>
+              </h2>
+              <p className="mt-7 max-w-md font-jp text-[15px] font-medium leading-[1.95] text-[var(--color-ink)]">
+                金額はチーム規模・仕様により異なります。お見積もりは無料です。
+                <br />
+                LINE またはフォームから、お気軽にお問い合わせください。
               </p>
-              <div className="flex items-baseline gap-1 text-[var(--color-ink)]">
-                <span className="price-slab text-[24px] opacity-50">¥</span>
-                <span className="price-slab text-[64px] tabular-nums lg:text-[88px]">
-                  {ADDON.price.toLocaleString()}
-                </span>
-                <span className="ml-1 font-mono text-[10px] tracking-[0.28em] text-[var(--color-ink-mute)]">
-                  / SET〜
-                </span>
-              </div>
+              <Magnetic strength={0.18}>
+                <a
+                  href="#contact"
+                  className="group mt-8 inline-flex items-center gap-3 bg-[var(--color-ink)] px-7 py-5 font-jp text-[14px] font-bold tracking-[0.08em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-madder)]"
+                >
+                  無料で見積もる
+                  <span aria-hidden className="transition group-hover:translate-x-1">→</span>
+                </a>
+              </Magnetic>
+            </div>
+
+            {/* Ordering structure */}
+            <div className="grid grid-cols-1 gap-4 lg:gap-5">
+              {ORDERING.map((o) => (
+                <article
+                  key={o.no}
+                  className="group card-lift card-lift-shadow border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] p-7 lg:p-8"
+                >
+                  <div className="flex items-start justify-between gap-6">
+                    <div>
+                      <span className="text-stencil text-[44px] leading-none text-[var(--color-madder)] lg:text-[56px]">
+                        {o.no}
+                      </span>
+                      <h3 className="mt-3 font-jp text-[22px] font-bold leading-tight text-[var(--color-ink)] lg:text-[26px]">
+                        {o.title}
+                      </h3>
+                      <p className="mt-3 font-jp text-[14px] font-medium leading-[1.85] text-[var(--color-ink-dim)]">
+                        {o.note}
+                      </p>
+                    </div>
+                    <div className="flex shrink-0 flex-col items-end gap-4 text-right">
+                      <QtyPill label={o.qty[0]} value={o.qty[1]} primary />
+                      <QtyPill label={o.addon[0]} value={o.addon[1]} />
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </Reveal>
 
         {/* Options accordion */}
         <Reveal>
-          <div className="mt-14 lg:mt-20">
+          <div className="mt-16 lg:mt-24">
             <button
               type="button"
               onClick={() => setOpenOpts((v) => !v)}
-              className="group flex w-full items-center justify-between border-y border-[var(--color-line-ink-strong)] py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-ink)] transition hover:text-[var(--color-madder)]"
+              className="group flex w-full items-center justify-between border-y-2 border-[var(--color-ink)] py-6 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-ink)] transition hover:text-[var(--color-madder)]"
               aria-expanded={openOpts}
             >
-              <span>/ OPTIONS &amp; NOTES</span>
+              <span>オプション・送料</span>
               <span
                 aria-hidden
-                className={`inline-block transition-transform duration-500 ${openOpts ? "rotate-180" : ""}`}
+                className={`inline-block text-[18px] transition-transform duration-500 ${openOpts ? "rotate-180" : ""}`}
               >
                 ▾
               </span>
@@ -152,18 +125,17 @@ export function Price() {
                   {OPTIONS.map((o) => (
                     <li
                       key={o.name}
-                      className="flex items-center justify-between gap-4 border-b border-[var(--color-line-ink)] py-4"
+                      className="flex items-center justify-between gap-4 border-b border-[var(--color-line-ink-strong)] py-5"
                     >
-                      <span className="font-jp text-[14px] text-[var(--color-ink)]">{o.name}</span>
-                      <span className="price-slab text-[18px] tabular-nums text-[var(--color-ink)]">{o.price}</span>
+                      <span className="font-jp text-[15px] font-medium text-[var(--color-ink)]">{o.name}</span>
+                      <span className="price-slab text-[22px] tabular-nums text-[var(--color-ink)] lg:text-[26px]">{o.price}</span>
                     </li>
                   ))}
                 </ul>
-                <ul className="mt-6 space-y-2 font-jp text-[12px] leading-[1.9] text-[var(--color-ink-mute)]">
-                  <li>※ 表記は税抜価格。最終見積もりはお問い合わせください。</li>
-                  <li>※ 新規 5 枚から、追加は 1 枚〜対応します。</li>
-                  <li>※ ロゴデータは Ai 形式推奨。それ以外は別途料金。</li>
-                  <li>※ 納期は約 4〜5 週間（混雑期は前後します）。</li>
+                <ul className="mt-6 space-y-2 font-jp text-[13px] font-medium leading-[1.9] text-[var(--color-ink-dim)]">
+                  <li>※ オプションは税抜、送料は税込表記です。</li>
+                  <li>※ 納期はご注文確定後、約 4〜5 週間が目安です。</li>
+                  <li>※ ロゴデータは Ai 形式推奨。他形式は別途対応料金が発生します。</li>
                 </ul>
               </div>
             </div>
@@ -174,87 +146,23 @@ export function Price() {
   );
 }
 
-function PlanCard({ plan }: { plan: (typeof PLANS)[number] }) {
-  const isHazard = plan.accent === "hazard";
-  const accentBg = isHazard ? "bg-[var(--color-hazard)]" : "bg-[var(--color-madder)]";
-  const accentText = isHazard ? "text-[var(--color-ink)]" : "text-[var(--color-paper-pure)]";
-  const accentBorder = isHazard ? "border-[var(--color-hazard-deep)]" : "border-[var(--color-madder)]";
-
+function QtyPill({
+  label,
+  value,
+  primary,
+}: {
+  label: string;
+  value: string;
+  primary?: boolean;
+}) {
   return (
-    <article
-      className={`group card-lift card-lift-shadow relative overflow-hidden border-2 bg-[var(--color-paper-pure)] ${accentBorder}`}
-    >
-      {/* Colored header bar */}
-      <header className={`relative ${accentBg} ${accentText} px-7 py-7 lg:px-8 lg:py-8`}>
-        <div className="flex items-center justify-between">
-          <span className="font-mono text-[10px] tracking-[0.32em] opacity-85">
-            {plan.code}
-          </span>
-          <span className="font-mono text-[10px] tracking-[0.32em] opacity-85">
-            {plan.qty}
-          </span>
-        </div>
-        <h3 className="mt-5 text-stencil text-[32px] leading-[0.9] lg:text-[44px]">
-          {plan.jp}
-        </h3>
-        <p className="mt-1 font-mono text-[10px] tracking-[0.32em] opacity-80">
-          / {plan.en}
-        </p>
-      </header>
-
-      {/* Body */}
-      <div className="p-7 lg:p-9">
-        <p className="font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
-          {plan.desc}
-        </p>
-
-        {/* PRICE — huge & dominant */}
-        <div className="mt-8 border-y border-[var(--color-line-ink-strong)] py-7">
-          <div className="flex items-baseline gap-1.5 text-[var(--color-ink)]">
-            <span className="price-slab text-[28px] opacity-55 lg:text-[32px]">¥</span>
-            <span className="price-slab text-[80px] tabular-nums lg:text-[108px]">
-              {plan.price.toLocaleString()}
-            </span>
-            <span className="ml-2 font-mono text-[11px] tracking-[0.28em] text-[var(--color-ink-mute)]">
-              {plan.unit}
-            </span>
-          </div>
-          <p className="mt-3 flex items-center gap-3 font-mono text-[10px] tracking-[0.28em] text-[var(--color-ink-mute)]">
-            <span className={`block size-1.5 rotate-45 ${accentBg}`} aria-hidden />
-            {plan.note}
-          </p>
-        </div>
-
-        {/* Features */}
-        <ul className="mt-7 space-y-3.5">
-          {plan.features.map((f) => (
-            <li key={f} className="flex items-start gap-3 font-jp text-[14px] leading-snug text-[var(--color-ink)]">
-              <span
-                aria-hidden
-                className={`mt-1.5 inline-block size-1.5 shrink-0 rotate-45 ${accentBg}`}
-              />
-              <span>{f}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* CTA */}
-        <div className="mt-9">
-          <Magnetic strength={0.18}>
-            <a
-              href="#contact"
-              className={`group/btn flex items-center justify-between rounded-full px-6 py-5 font-mono text-[11px] tracking-[0.32em] transition ${
-                isHazard
-                  ? "bg-[var(--color-ink)] text-[var(--color-paper-pure)] hover:bg-[var(--color-hazard-deep)] hover:text-[var(--color-ink)]"
-                  : "bg-[var(--color-madder)] text-[var(--color-paper-pure)] hover:bg-[var(--color-madder-deep)]"
-              }`}
-            >
-              <span>{plan.cta}</span>
-              <span aria-hidden className="transition group-hover/btn:translate-x-1">→</span>
-            </a>
-          </Magnetic>
-        </div>
-      </div>
-    </article>
+    <div className={`flex items-baseline gap-2 ${primary ? "" : "opacity-80"}`}>
+      <span className="font-jp text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-mute)]">
+        {label}
+      </span>
+      <span className="price-slab text-[28px] tabular-nums text-[var(--color-ink)] lg:text-[36px]">
+        {value}
+      </span>
+    </div>
   );
 }

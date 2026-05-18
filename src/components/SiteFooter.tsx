@@ -1,93 +1,79 @@
+import Image from "next/image";
 import Link from "next/link";
+
+const LINE_URL = "https://lpo8bfj3.autosns.app/addfriend/s/UZQRqrdzlc/@uyn8037j";
+const INSTAGRAM_URL = "https://www.instagram.com/decontracte_team_order/";
 
 export function SiteFooter() {
   return (
-    <footer className="relative bg-[var(--color-jet)] text-[var(--color-on-jet)]">
-      {/* Top tech ticker */}
-      <div
-        className="container-x grid grid-cols-2 gap-px overflow-hidden border-b font-mono text-[9px] tracking-[0.32em] text-[var(--color-on-jet-mute)]"
-        style={{ borderColor: "var(--color-line-soft)" }}
-      >
-        <div className="py-2.5">DCT—026/SS · MADE IN FUKUOKA</div>
-        <div className="py-2.5 text-right">33.5902°N · 130.4017°E</div>
-      </div>
-
+    <footer className="relative bg-[var(--color-jet)] text-[var(--color-paper-pure)]">
       <div className="container-x py-16 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-[2fr_3fr] lg:gap-20">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="block size-2.5 rotate-45 bg-[var(--color-madder)] shadow-[0_0_18px_rgba(185,74,53,0.7)]" aria-hidden />
-              <span className="text-stencil text-[28px] tracking-tight text-[var(--color-on-jet)] lg:text-[36px]">
-                DÉCONTRACTÉ
-              </span>
-            </div>
-
-            <p className="mt-7 max-w-sm font-jp text-[13px] leading-[1.95] text-[var(--color-on-jet-dim)]">
+            <Image
+              src="/img/logo_white.svg"
+              alt="DÉCONTRACTÉ"
+              width={188}
+              height={40}
+              className="h-8 w-auto lg:h-10"
+            />
+            <p className="mt-7 max-w-sm font-jp text-[14px] font-medium leading-[1.95] text-[var(--color-paper-pure)]/80">
               福岡発の昇華フルオーダー チームウェア・メーカー。
-              サッカー、フットサル、ソサイチを中心に、競技を選ばないチームのための1着を仕立てます。
+              <br />
+              サッカー・フットサル・ソサイチを中心に、競技を選ばないチームのための 1 着を仕立てます。
             </p>
 
-            <address className="mt-7 not-italic font-mono text-[10px] leading-relaxed tracking-[0.28em] text-[var(--color-on-jet-mute)]">
-              〒810-0022 FUKUOKA, CHUO-KU,
+            <address className="mt-7 not-italic font-jp text-[13px] font-medium leading-relaxed text-[var(--color-paper-pure)]/75">
+              〒810-0022
               <br />
-              YAKUIN 1-14-18 SHINKO BLDG 202
+              福岡市中央区薬院 1-14-18 信興ビル 202
             </address>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Social label="LINE" href="https://line.me/" />
-              <Social label="IG"   href="https://instagram.com/" />
-              <Social label="MAIL" href="mailto:info@decontracte.co" />
+              <Social label="LINE" href={LINE_URL} />
+              <Social label="Instagram" href={INSTAGRAM_URL} />
+              <Social label="Mail" href="mailto:info@decontracte.co" />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3">
             <FooterCol
-              title="SITE"
+              title="サイト"
               items={[
                 { href: "#why", label: "選ばれる理由" },
-                { href: "#price", label: "料金" },
                 { href: "#items", label: "アイテム" },
-                { href: "#catalog", label: "デザインカタログ" },
+                { href: "#price", label: "料金" },
                 { href: "#flow", label: "注文の流れ" },
                 { href: "#works", label: "制作実績" },
                 { href: "#faq", label: "Q&A" },
               ]}
             />
             <FooterCol
-              title="POLICY"
+              title="ポリシー"
               items={[
-                { href: "#", label: "COMPANY" },
+                { href: "#", label: "会社概要" },
                 { href: "#", label: "特定商取引法" },
-                { href: "#", label: "PRIVACY" },
-                { href: "#", label: "TERMS" },
+                { href: "#", label: "プライバシー" },
+                { href: "#", label: "ご利用規約" },
               ]}
             />
             <FooterCol
-              title="CONNECT"
+              title="お問い合わせ"
               items={[
-                { href: "https://line.me/", label: "LINE" },
-                { href: "https://instagram.com/", label: "Instagram" },
-                { href: "mailto:info@decontracte.co", label: "Email" },
-                { href: "#contact", label: "見積もり" },
-              ]}
-            />
-            <FooterCol
-              title="LOCATION"
-              items={[
-                { href: "https://maps.google.com/", label: "福岡 / 薬院" },
-                { href: "#", label: "アクセス" },
+                { href: LINE_URL, label: "LINE" },
+                { href: INSTAGRAM_URL, label: "Instagram" },
+                { href: "mailto:info@decontracte.co", label: "メール" },
+                { href: "#contact", label: "見積もりフォーム" },
               ]}
             />
           </div>
         </div>
       </div>
 
-      <div className="hazard-strip-thin h-1.5 w-full" aria-hidden />
-
-      <div className="container-x py-5">
-        <div className="flex flex-col items-start justify-between gap-2 font-mono text-[10px] tracking-[0.28em] text-[var(--color-on-jet-mute)] sm:flex-row sm:items-center">
-          <span>© {new Date().getFullYear()} DÉCONTRACTÉ. ALL RIGHTS RESERVED.</span>
-          <span>MADE IN FUKUOKA — JAPAN · VOL.026</span>
+      <div className="container-x border-t border-white/15 py-5">
+        <div className="flex flex-col items-start justify-between gap-2 font-jp text-[12px] font-medium text-[var(--color-paper-pure)]/55 sm:flex-row sm:items-center">
+          <span>© {new Date().getFullYear()} DÉCONTRACTÉ. All Rights Reserved.</span>
+          <span>Made in Fukuoka, Japan</span>
         </div>
       </div>
     </footer>
@@ -103,13 +89,15 @@ function FooterCol({
 }) {
   return (
     <div>
-      <h4 className="font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet-mute)]">/ {title}</h4>
+      <h4 className="font-jp text-[12px] font-bold tracking-[0.12em] text-[var(--color-paper-pure)]/60">{title}</h4>
       <ul className="mt-4 space-y-3">
         {items.map((i) => (
           <li key={i.label}>
             <Link
               href={i.href}
-              className="font-jp text-[13px] text-[var(--color-on-jet)] transition hover:text-[var(--color-madder)]"
+              target={i.href.startsWith("http") ? "_blank" : undefined}
+              rel={i.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="font-jp text-[14px] font-medium text-[var(--color-paper-pure)] transition hover:text-[var(--color-madder-hi)]"
             >
               {i.label}
             </Link>
@@ -126,7 +114,7 @@ function Social({ label, href }: { label: string; href: string }) {
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      className="inline-flex h-10 items-center gap-2 border border-[var(--color-on-jet-quiet)] px-4 font-mono text-[10px] tracking-[0.32em] text-[var(--color-on-jet)] transition hover:border-[var(--color-madder)] hover:text-[var(--color-madder)]"
+      className="inline-flex h-10 items-center gap-2 border border-white/30 px-4 font-jp text-[12px] font-bold tracking-[0.08em] text-[var(--color-paper-pure)] transition hover:border-[var(--color-madder-hi)] hover:text-[var(--color-madder-hi)]"
     >
       {label}
       <span aria-hidden>↗</span>

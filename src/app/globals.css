@@ -93,7 +93,7 @@
   /* Eyebrow label used across sections */
   .eyebrow {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--color-ink-mute);

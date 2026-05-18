@@ -1,4 +1,3 @@
-import { Catalog } from "@/components/Catalog";
 import { Contact } from "@/components/Contact";
 import { Faq } from "@/components/Faq";
 import { Hero } from "@/components/Hero";
@@ -13,11 +12,10 @@ export default function HomePage() {
     <>
       <Hero />
       <Why />
-      <Price />
       <Items />
-      <Catalog />
-      <Works />
+      <Price />
       <OrderFlow />
+      <Works />
       <Faq />
       <Contact />
     </>

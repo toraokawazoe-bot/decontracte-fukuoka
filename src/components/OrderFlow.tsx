@@ -1,80 +1,66 @@
+import Image from "next/image";
 import { Reveal } from "./Reveal";
 
 const STEPS = [
   {
     n: "01",
-    title: "見積もり依頼",
-    en: "INQUIRY",
-    body: "LINE またはオーダーフォームから、希望枚数・納期・デザインイメージを送信。1営業日以内に返信します。",
+    title: "お見積もり依頼",
+    body: "オーダーフォーム／LINE から、希望枚数や使用シーンを共有いただきます。",
+    img: "/img/flow01.jpg",
   },
   {
     n: "02",
-    title: "ヒアリング",
-    en: "HEARING",
-    body: "メール／LINE で詳細をヒアリング。チームのコンセプト・推し配色・参考画像を共有してください。",
+    title: "お打ち合わせ",
+    body: "デザイナーがイメージ図を作成。配色・モチーフをすり合わせます。",
+    img: "/img/flow02.jpg",
   },
   {
     n: "03",
-    title: "デザイン提案",
-    en: "PROPOSAL",
-    body: "専属デザイナーがイメージ図を作成。修正を重ねて、納得のいくところまで詰めていきます。",
+    title: "デザイン確認",
+    body: "メール／LINE で何度でも修正対応。納得のいくところまで詰めます。",
+    img: "/img/flow03.jpg",
   },
   {
     n: "04",
     title: "詳細確認",
-    en: "REVIEW",
-    body: "プレイヤーネーム・ナンバー・サイズなどの最終チェックリストを共有して確定。",
+    body: "プレイヤー名・背番号・サイズ・枚数の最終チェック。",
+    img: "/img/flow04.jpg",
   },
   {
     n: "05",
     title: "ご入金",
-    en: "PAYMENT",
-    body: "銀行振込にてお支払い。請求書（PDF）もメールで発行します。",
+    body: "銀行振込にてお支払い。確認できしだい生産を開始します。",
+    img: "/img/flow05.jpg",
   },
   {
     n: "06",
     title: "納品",
-    en: "DELIVERY",
-    body: "ご入金確認後、約 4〜5 週間で発送。チームのもとに、新しい一着が届きます。",
+    body: "発注から約 4〜5 週間で発送。チームのもとに新しい一着が届きます。",
+    img: "/img/flow06.jpg",
   },
 ];
 
 export function OrderFlow() {
   return (
-    <section id="flow" className="stack-section relative overflow-hidden surface-paper">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(80% 50% at 10% 10%, rgba(185,74,53,0.10) 0%, transparent 55%)," +
-            "radial-gradient(80% 50% at 90% 90%, rgba(230,184,0,0.08) 0%, transparent 55%)",
-        }}
-      />
-
+    <section id="flow" className="stack-section relative overflow-hidden surface-ink">
       <div className="container-x section-y relative">
         <Reveal>
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <span className="eyebrow">/ 06 — ORDER FLOW</span>
-              <h2 className="mt-6 text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-ink)]">
-                ORDER
-                <br />
-                <span className="text-[var(--color-madder)]">FLOW.</span>
-              </h2>
-            </div>
-            <p className="max-w-md font-jp text-[14px] leading-[1.95] text-[var(--color-ink-dim)]">
-              ご注文から納品まで、約 4〜5 週間。
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <h2 className="text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-paper-pure)]">
+              ORDER
               <br />
-              迷ったらまず Step 01 から、気軽に投げてください。
+              <span className="text-[var(--color-madder-hi)]">FLOW.</span>
+            </h2>
+            <p className="max-w-md font-jp text-[15px] font-medium leading-[1.95] text-[var(--color-paper-pure)]/85">
+              依頼から納品まで、約 4〜5 週間。迷ったらまずステップ 01 から、気軽にどうぞ。
             </p>
           </div>
         </Reveal>
 
-        <ol className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mt-20 lg:grid-cols-3 lg:gap-6">
+        <ol className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 lg:mt-20 lg:grid-cols-3 lg:gap-7">
           {STEPS.map((s, i) => (
-            <Reveal as="li" key={s.n} delay={i * 60}>
-              <StepCard step={s} last={i === STEPS.length - 1} />
+            <Reveal as="li" key={s.n} delay={i * 70}>
+              <StepCard step={s} />
             </Reveal>
           ))}
         </ol>
@@ -82,7 +68,7 @@ export function OrderFlow() {
         <Reveal>
           <a
             href="#contact"
-            className="mt-12 group flex items-center justify-between border border-[var(--color-line-ink-strong)] px-6 py-5 font-mono text-[11px] tracking-[0.32em] text-[var(--color-ink)] transition hover:bg-[var(--color-ink)] hover:text-[var(--color-paper-pure)] lg:mt-16"
+            className="mt-14 group flex items-center justify-between border-2 border-[var(--color-paper-pure)] px-7 py-5 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-paper-pure)] hover:text-[var(--color-ink)] lg:mt-20"
           >
             まずはステップ 01 から始める
             <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -93,54 +79,39 @@ export function OrderFlow() {
   );
 }
 
-function StepCard({ step, last }: { step: (typeof STEPS)[number]; last: boolean }) {
+function StepCard({ step }: { step: (typeof STEPS)[number] }) {
   return (
-    <article
-      className="group card-lift card-lift-shadow relative h-full border border-[var(--color-line-ink)] bg-[var(--color-paper-pure)] p-7 lg:p-9"
-    >
-      {/* BG watermark */}
-      <span
-        aria-hidden
-        className="text-stencil pointer-events-none absolute -right-2 -top-6 select-none text-[140px] leading-[0.8] text-[var(--color-paper-2)] lg:text-[180px]"
-      >
-        {step.n}
-      </span>
-
-      <header className="relative flex items-center justify-between">
-        <span className="font-num text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]">
-          STEP {step.n}
-        </span>
-        <span className="font-mono text-[9px] tracking-[0.32em] text-[var(--color-ink-mute)]">
-          / {step.en}
-        </span>
-      </header>
-
-      <div className="relative mt-6 h-px w-full bg-[var(--color-line-ink-strong)]" />
-
-      <h3 className="relative mt-6 text-stencil text-[28px] leading-tight text-[var(--color-ink)] lg:text-[32px]">
-        {step.title}
-      </h3>
-      <p className="relative mt-3 font-jp text-[13px] leading-[1.95] text-[var(--color-ink-dim)]">
-        {step.body}
-      </p>
-
-      {!last ? (
-        <span
+    <article className="group card-lift relative h-full overflow-hidden border border-white/10 bg-[var(--color-jet-2)]">
+      {/* Photo */}
+      <div className="relative aspect-[5/3] overflow-hidden">
+        <Image
+          src={step.img}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 33vw, 100vw"
+          className="object-cover transition-transform duration-1000 group-hover:scale-[1.04]"
+        />
+        <div
           aria-hidden
-          className="relative mt-7 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-mute)]"
-        >
-          <span className="block h-px w-8 bg-current" />
-          NEXT STEP
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(180deg, rgba(13,10,8,0.3) 0%, rgba(13,10,8,0.85) 100%)",
+          }}
+        />
+        <span className="text-stencil absolute bottom-3 left-5 text-[64px] leading-none text-[var(--color-paper-pure)] lg:text-[80px]">
+          {step.n}
         </span>
-      ) : (
-        <span
-          aria-hidden
-          className="relative mt-7 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.32em] text-[var(--color-madder)]"
-        >
-          <span className="rec-dot rec-dot-sm" />
-          DELIVERED
-        </span>
-      )}
+      </div>
+
+      {/* Body */}
+      <div className="p-6 lg:p-7">
+        <h3 className="font-jp text-[20px] font-bold leading-tight text-[var(--color-paper-pure)] lg:text-[22px]">
+          {step.title}
+        </h3>
+        <p className="mt-3 font-jp text-[14px] font-medium leading-[1.95] text-[var(--color-paper-pure)]/80">
+          {step.body}
+        </p>
+      </div>
     </article>
   );
 }

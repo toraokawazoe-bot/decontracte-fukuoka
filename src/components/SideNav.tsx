@@ -3,14 +3,13 @@
 import { useEffect, useState } from "react";
 
 const SECTIONS = [
-  { id: "why",     en: "WHY",     label: "理由" },
-  { id: "price",   en: "PRICE",   label: "料金" },
+  { id: "why",     en: "WHY",     label: "選ばれる理由" },
   { id: "items",   en: "ITEM",    label: "アイテム" },
-  { id: "catalog", en: "CATALOG", label: "カタログ" },
-  { id: "works",   en: "WORKS",   label: "実績" },
-  { id: "flow",    en: "FLOW",    label: "流れ" },
+  { id: "price",   en: "PRICE",   label: "料金" },
+  { id: "flow",    en: "FLOW",    label: "注文の流れ" },
+  { id: "works",   en: "WORKS",   label: "制作実績" },
   { id: "faq",     en: "FAQ",     label: "Q&A" },
-  { id: "contact", en: "CONTACT", label: "連絡" },
+  { id: "contact", en: "CONTACT", label: "お問い合わせ" },
 ];
 
 export function SideNav() {

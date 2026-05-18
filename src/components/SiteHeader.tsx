@@ -1,16 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NAV = [
-  { href: "#why",     label: "理由",       en: "WHY" },
-  { href: "#price",   label: "料金",       en: "PRICE" },
-  { href: "#items",   label: "アイテム",   en: "ITEM" },
-  { href: "#catalog", label: "カタログ",   en: "CATALOG" },
-  { href: "#works",   label: "実績",       en: "WORKS" },
-  { href: "#flow",    label: "流れ",       en: "FLOW" },
-  { href: "#faq",     label: "Q&A",        en: "FAQ" },
+  { href: "#why",   label: "選ばれる理由", en: "WHY" },
+  { href: "#items", label: "アイテム",     en: "ITEM" },
+  { href: "#price", label: "料金",         en: "PRICE" },
+  { href: "#flow",  label: "注文の流れ",   en: "FLOW" },
+  { href: "#works", label: "制作実績",     en: "WORKS" },
+  { href: "#faq",   label: "Q&A",          en: "FAQ" },
 ];
 
 export function SiteHeader() {
@@ -33,36 +33,41 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  // Hero is dark, so default text is white. When scrolled, switch to dark bg.
+  const onDark = !scrolled;
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all ${
         scrolled
-          ? "bg-[var(--color-paper-pure)]/85 backdrop-blur"
+          ? "bg-[var(--color-paper-pure)]/90 backdrop-blur border-b border-[var(--color-line-ink)]"
           : "bg-transparent"
       }`}
-      style={scrolled ? { borderBottom: "1px solid var(--color-line-ink)" } : undefined}
     >
       <div className="container-x flex h-16 items-center justify-between lg:h-20">
-        <Link href="/" className="group flex items-center gap-3" aria-label="DÉCONTRACTÉ">
-          <span className="relative block size-2.5 rotate-45 bg-[var(--color-madder)] shadow-[0_0_18px_rgba(185,74,53,0.7)]" aria-hidden />
-          <span className="text-stencil text-[16px] leading-none text-[var(--color-ink)] lg:text-[18px]">
-            DÉCONTRACTÉ
-          </span>
-          <span className="font-mono text-[9px] tracking-[0.32em] text-[var(--color-ink-mute)] hidden md:inline">
-            ™ · 026
-          </span>
+        <Link href="/" className="group flex items-center" aria-label="DÉCONTRACTÉ">
+          <Image
+            src={onDark ? "/img/logo_white.svg" : "/img/logo_black.svg"}
+            alt="DÉCONTRACTÉ"
+            width={188}
+            height={40}
+            priority
+            className="h-7 w-auto lg:h-9"
+          />
         </Link>
 
-        {/* PC inline nav */}
         <nav className="hidden lg:flex items-center gap-7">
           {NAV.map((n) => (
             <a
               key={n.href}
               href={n.href}
-              className="group inline-flex items-baseline gap-1.5 font-mono text-[10px] tracking-[0.32em] text-[var(--color-ink-dim)] transition hover:text-[var(--color-ink)]"
+              className={`group inline-flex items-baseline gap-1.5 font-jp text-[13px] font-bold tracking-[0.06em] transition ${
+                onDark
+                  ? "text-[var(--color-paper-pure)]/85 hover:text-[var(--color-paper-pure)]"
+                  : "text-[var(--color-ink)]/80 hover:text-[var(--color-ink)]"
+              }`}
             >
-              <span>{n.en}</span>
-              <span className="text-[var(--color-ink-mute)] group-hover:text-[var(--color-madder)] transition">·</span>
+              {n.label}
             </a>
           ))}
         </nav>
@@ -70,9 +75,13 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center gap-2 border border-[var(--color-line-ink-strong)] px-4 py-2 font-mono text-[10px] tracking-[0.28em] text-[var(--color-ink)] transition hover:border-[var(--color-madder)] hover:bg-[var(--color-madder)] hover:text-[var(--color-paper-pure)]"
+            className={`hidden md:inline-flex items-center gap-2 px-5 py-2.5 font-jp text-[13px] font-bold tracking-[0.06em] transition ${
+              onDark
+                ? "border-2 border-[var(--color-paper-pure)] text-[var(--color-paper-pure)] hover:bg-[var(--color-paper-pure)] hover:text-[var(--color-ink)]"
+                : "border-2 border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper-pure)]"
+            }`}
           >
-            GET A QUOTE
+            お見積もり
             <span aria-hidden>→</span>
           </a>
 
@@ -85,19 +94,19 @@ export function SiteHeader() {
           >
             <span className="relative block h-3.5 w-5">
               <span
-                className={`absolute left-0 top-0 h-px w-full bg-[var(--color-ink)] transition-transform duration-500 ${
-                  open ? "translate-y-[7px] rotate-45" : ""
-                }`}
+                className={`absolute left-0 top-0 h-px w-full transition-transform duration-500 ${
+                  onDark ? "bg-[var(--color-paper-pure)]" : "bg-[var(--color-ink)]"
+                } ${open ? "translate-y-[7px] rotate-45 bg-[var(--color-ink)]" : ""}`}
               />
               <span
-                className={`absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[var(--color-ink)] transition-opacity duration-300 ${
-                  open ? "opacity-0" : "opacity-100"
-                }`}
+                className={`absolute left-0 top-1/2 h-px w-full -translate-y-1/2 transition-opacity duration-300 ${
+                  onDark ? "bg-[var(--color-paper-pure)]" : "bg-[var(--color-ink)]"
+                } ${open ? "opacity-0" : "opacity-100"}`}
               />
               <span
-                className={`absolute bottom-0 left-0 h-px w-full bg-[var(--color-ink)] transition-transform duration-500 ${
-                  open ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
+                className={`absolute bottom-0 left-0 h-px w-full transition-transform duration-500 ${
+                  onDark ? "bg-[var(--color-paper-pure)]" : "bg-[var(--color-ink)]"
+                } ${open ? "-translate-y-[7px] -rotate-45 bg-[var(--color-ink)]" : ""}`}
               />
             </span>
           </button>
@@ -118,18 +127,13 @@ export function SiteHeader() {
                 <a
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="container-x group flex items-baseline gap-5 py-5 transition hover:bg-[var(--color-paper)]"
+                  className="container-x group flex items-center gap-5 py-5 transition hover:bg-[var(--color-paper)]"
                 >
-                  <span className="font-mono text-[10px] tracking-[0.28em] text-[var(--color-ink-mute)] tabular-nums">
+                  <span className="font-mono text-[11px] font-bold text-[var(--color-ink-mute)] tabular-nums">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="flex-1">
-                    <span className="block text-stencil text-2xl tracking-tight text-[var(--color-ink)]">
-                      {n.en}
-                    </span>
-                    <span className="mt-0.5 block font-jp text-[11px] text-[var(--color-ink-dim)]">
-                      / {n.label}
-                    </span>
+                  <span className="flex-1 font-jp text-[18px] font-bold text-[var(--color-ink)]">
+                    {n.label}
                   </span>
                   <span aria-hidden className="text-[var(--color-ink-mute)] transition group-hover:translate-x-1 group-hover:text-[var(--color-madder)]">→</span>
                 </a>
@@ -139,10 +143,10 @@ export function SiteHeader() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="container-x flex items-center justify-between bg-[var(--color-madder)] py-5 text-[var(--color-paper-pure)]"
+                className="container-x flex items-center justify-between bg-[var(--color-madder)] py-6 text-[var(--color-paper-pure)]"
               >
-                <span className="text-stencil text-xl tracking-wide">無料見積もり</span>
-                <span className="font-mono text-[10px] tracking-[0.28em] text-[var(--color-paper-pure)]/85">GET A QUOTE →</span>
+                <span className="font-jp text-[18px] font-bold">無料お見積もり</span>
+                <span aria-hidden className="text-[var(--color-paper-pure)]/85">→</span>
               </a>
             </li>
           </ul>

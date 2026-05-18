@@ -24,8 +24,10 @@ export function MobileFixedCTA() {
     >
       <div className="container-x pb-3 pt-3">
         <a
-          href="#contact"
-          className="pointer-events-auto flex h-14 w-full items-center justify-center gap-3 rounded-full bg-[var(--color-line-brand)] px-6 font-mono text-[11px] tracking-[0.28em] text-[var(--color-paper-pure)] shadow-[0_-2px_18px_rgba(0,0,0,0.35)] transition active:scale-[0.98]"
+          href="https://lpo8bfj3.autosns.app/addfriend/s/UZQRqrdzlc/@uyn8037j"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pointer-events-auto flex h-14 w-full items-center justify-center gap-3 rounded-full bg-[var(--color-line-brand)] px-6 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-paper-pure)] shadow-[0_-4px_20px_rgba(0,0,0,0.35)] transition active:scale-[0.98]"
         >
           <LineLogo />
           LINE で見積もり
