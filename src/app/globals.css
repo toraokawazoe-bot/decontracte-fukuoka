@@ -123,10 +123,10 @@
   .surface-madder  { background: var(--color-madder); color: var(--color-paper-pure); }
   .surface-hazard  { background: var(--color-hazard); color: var(--color-ink); }
 
-  /* Stacking section — on PC, sticky-pinned just below the fixed
-     header and locked to the remaining viewport height so each
-     card sits cleanly inside the visible area. On mobile we let
-     sections flow naturally so tall content is never clipped. */
+  /* Stacking section — visual card stack via rounded top + slight
+     negative margin so each section rises up and over the previous
+     as the user scrolls. Content flows naturally (no sticky pin)
+     so nothing is ever clipped, regardless of viewport height. */
   .stack-section {
     position: relative;
     z-index: 1;
@@ -137,20 +137,10 @@
   }
   @media (min-width: 1024px) {
     .stack-section {
-      position: sticky;
-      top: 80px;
-      min-height: calc(100svh - 80px);
-      max-height: calc(100svh - 80px);
-      overflow: hidden;
       margin-top: -48px;
       border-top-left-radius: 48px;
       border-top-right-radius: 48px;
       box-shadow: 0 -24px 60px -24px rgba(13, 10, 8, 0.4);
-      display: flex;
-      flex-direction: column;
-    }
-    .stack-section > * {
-      flex-shrink: 0;
     }
   }
 
