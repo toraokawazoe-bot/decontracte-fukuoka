@@ -33,9 +33,9 @@ export function OrderFlow() {
           </div>
         </Reveal>
 
-        <ol className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 lg:mt-20 lg:grid-cols-3 lg:gap-7">
+        <ol className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mt-10 lg:grid-cols-3 lg:gap-5">
           {STEPS.map((s, i) => (
-            <Reveal as="li" key={s.n} delay={i * 70}>
+            <Reveal as="li" key={s.n} delay={i * 60}>
               <StepCard step={s} />
             </Reveal>
           ))}
@@ -44,7 +44,7 @@ export function OrderFlow() {
         <Reveal>
           <a
             href="#contact"
-            className="mt-14 group flex items-center justify-between rounded-2xl border-2 border-[var(--color-paper-pure)] px-7 py-5 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-paper-pure)] hover:text-[var(--color-ink)] lg:mt-20"
+            className="mt-8 group flex items-center justify-between rounded-2xl border-2 border-[var(--color-paper-pure)] px-7 py-4 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-paper-pure)] hover:text-[var(--color-ink)] lg:mt-10"
           >
             ステップ 01 から始める
             <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -58,7 +58,7 @@ export function OrderFlow() {
 function StepCard({ step }: { step: (typeof STEPS)[number] }) {
   return (
     <article className="group card-lift relative h-full overflow-hidden rounded-3xl border border-white/10 bg-[var(--color-jet-2)] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
-      <div className="relative aspect-[5/3] overflow-hidden">
+      <div className="relative aspect-[16/9] overflow-hidden">
         <Image
           src={step.img}
           alt=""
@@ -70,19 +70,19 @@ function StepCard({ step }: { step: (typeof STEPS)[number] }) {
           aria-hidden
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(180deg, rgba(13,10,8,0.25) 0%, rgba(13,10,8,0.85) 100%)",
+            background: "linear-gradient(180deg, rgba(13,10,8,0.20) 0%, rgba(13,10,8,0.78) 100%)",
           }}
         />
-        <span className="absolute bottom-3 left-5 font-jp text-[52px] font-black leading-none text-[var(--color-paper-pure)] lg:text-[64px]">
+        <span className="absolute bottom-2 left-4 font-jp text-[40px] font-black leading-none text-[var(--color-paper-pure)] lg:text-[48px]">
           {step.n}
         </span>
       </div>
 
-      <div className="p-6 lg:p-7">
-        <h3 className="font-jp text-[20px] font-bold leading-tight text-[var(--color-paper-pure)] lg:text-[22px]">
+      <div className="p-5 lg:p-6">
+        <h3 className="font-jp text-[17px] font-bold leading-tight text-[var(--color-paper-pure)] lg:text-[19px]">
           {step.title}
         </h3>
-        <p className="mt-3 font-jp text-[14px] font-medium leading-[1.9] text-[var(--color-paper-pure)]/80">
+        <p className="mt-2 font-jp text-[13px] font-medium leading-[1.75] text-[var(--color-paper-pure)]/80">
           {step.body}
         </p>
       </div>

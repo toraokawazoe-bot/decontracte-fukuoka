@@ -123,13 +123,13 @@
   .surface-madder  { background: var(--color-madder); color: var(--color-paper-pure); }
   .surface-hazard  { background: var(--color-hazard); color: var(--color-ink); }
 
-  /* Stacking section — sticky to top so each card slides up and
-     covers the previous one as the user scrolls. Combined with
-     rounded top + a slight negative margin, the page reads as a
-     deck of cards being dealt over the top. */
+  /* Stacking section — on PC, sticky-pinned and locked to 100svh
+     so content stays inside the viewport while the next section
+     slides up to cover it. On mobile we let it flow naturally so
+     tall content (long forms, FAQ accordions, image cards) is
+     never clipped. */
   .stack-section {
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 1;
     margin-top: -32px;
     border-top-left-radius: 32px;
@@ -138,10 +138,20 @@
   }
   @media (min-width: 1024px) {
     .stack-section {
+      position: sticky;
+      top: 0;
+      min-height: 100svh;
+      max-height: 100svh;
+      overflow: hidden;
       margin-top: -48px;
       border-top-left-radius: 48px;
       border-top-right-radius: 48px;
       box-shadow: 0 -24px 60px -24px rgba(13, 10, 8, 0.4);
+      display: flex;
+      flex-direction: column;
+    }
+    .stack-section > * {
+      flex-shrink: 0;
     }
   }
 
@@ -429,20 +439,55 @@
   @media (min-width: 1024px) { .container-x { padding-left: 48px; padding-right: 48px; max-width: 1280px; } }
   @media (min-width: 1440px) { .container-x { padding-left: 64px; padding-right: 64px; max-width: 1440px; } }
 
-  /* Section padding helpers */
+  /* Section padding helpers — tighter to fit 100svh */
   .section-y {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
-  @media (min-width: 1024px) {
-    .section-y { padding-top: 140px; padding-bottom: 140px; }
-  }
-  .section-y-tight {
     padding-top: 56px;
     padding-bottom: 56px;
   }
   @media (min-width: 1024px) {
-    .section-y-tight { padding-top: 80px; padding-bottom: 80px; }
+    .section-y { padding-top: 96px; padding-bottom: 96px; }
+  }
+  .section-y-tight {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  @media (min-width: 1024px) {
+    .section-y-tight { padding-top: 64px; padding-bottom: 64px; }
+  }
+
+  /* Hero animations */
+  .drift-dots {
+    animation: drift-dots 40s linear infinite;
+  }
+  @keyframes drift-dots {
+    0%   { background-position: 0 0; }
+    100% { background-position: 220px 220px; }
+  }
+
+  .ambient-pulse {
+    animation: ambient-pulse 8s ease-in-out infinite;
+  }
+  @keyframes ambient-pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.08); }
+  }
+
+  .line-sweep {
+    animation: line-sweep 9s ease-in-out infinite;
+  }
+  @keyframes line-sweep {
+    0%   { transform: translateX(-110%); opacity: 0; }
+    20%  { opacity: 0.8; }
+    80%  { opacity: 0.8; }
+    100% { transform: translateX(110%); opacity: 0; }
+  }
+
+  .marquee-y {
+    animation: marquee-y 24s linear infinite;
+  }
+  @keyframes marquee-y {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
   }
 
   /* Reduced motion */

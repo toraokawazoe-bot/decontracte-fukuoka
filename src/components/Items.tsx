@@ -56,32 +56,32 @@ export function Items() {
 function ItemCard({ item }: { item: (typeof ITEMS)[number] }) {
   return (
     <article className="group card-lift relative h-full overflow-hidden rounded-3xl border border-white/10 bg-[var(--color-jet-2)] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
-      <div className="relative aspect-[5/4] overflow-hidden bg-white">
+      <div className="relative aspect-[16/10] overflow-hidden bg-white">
         <Image
           src={item.img}
           alt={item.title}
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
-          className="object-contain p-6 transition-transform duration-700 group-hover:scale-[1.03] lg:p-10"
+          className="object-contain p-5 transition-transform duration-700 group-hover:scale-[1.03] lg:p-8"
         />
         <span
           aria-hidden
-          className="pointer-events-none absolute right-5 top-4 select-none font-jp text-[80px] font-black leading-none text-[var(--color-ink)]/8 lg:text-[120px]"
+          className="pointer-events-none absolute right-4 top-3 select-none font-jp text-[72px] font-black leading-none text-[var(--color-ink)]/8 lg:text-[100px]"
         >
           {item.no}
         </span>
       </div>
 
-      <div className="p-7 lg:p-9">
-        <h3 className="font-jp text-[24px] font-bold leading-tight text-[var(--color-paper-pure)] lg:text-[28px]">
+      <div className="p-6 lg:p-7">
+        <h3 className="font-jp text-[22px] font-bold leading-tight text-[var(--color-paper-pure)] lg:text-[26px]">
           {item.title}
         </h3>
-        <p className="mt-4 font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-paper-pure)]/80">
+        <p className="mt-3 font-jp text-[14px] font-medium leading-[1.85] text-[var(--color-paper-pure)]/80">
           {item.desc}
         </p>
-        <ul className="mt-6 flex flex-wrap gap-2">
+        <ul className="mt-5 flex flex-wrap gap-2">
           {item.points.map((p) => (
-            <li key={p} className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 font-jp text-[12px] font-bold tracking-[0.04em] text-[var(--color-paper-pure)]">
+            <li key={p} className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-jp text-[11px] font-bold tracking-[0.04em] text-[var(--color-paper-pure)]">
               {p}
             </li>
           ))}

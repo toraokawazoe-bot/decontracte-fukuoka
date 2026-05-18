@@ -4,6 +4,15 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Magnetic } from "./motion/Magnetic";
 
+const SIDE_WORDS = [
+  "SUBLIMATION",
+  "FULL CUSTOM",
+  "SOCCER ／ FUTSAL",
+  "MADE IN FUKUOKA",
+  "MIN 5 PCS",
+  "ADD-ON FROM 1",
+];
+
 export function Hero() {
   const [phase, setPhase] = useState(0);
   const [time, setTime] = useState("");
@@ -33,48 +42,74 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative isolate min-h-[100svh] overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper-pure)]">
-      {/* Dot grid */}
+    <section className="relative isolate flex h-[100svh] flex-col overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper-pure)]">
+      {/* Drifting dot grid */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.18]"
+        className="drift-dots pointer-events-none absolute inset-0 opacity-[0.22]"
         style={{
           backgroundImage:
-            "radial-gradient(rgba(245,239,228,0.45) 1px, transparent 1px)",
+            "radial-gradient(rgba(245,239,228,0.5) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
           maskImage:
-            "radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)",
+            "radial-gradient(ellipse 90% 70% at 50% 50%, black 35%, transparent 100%)",
         }}
       />
 
-      {/* Soft madder corner glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(50% 40% at 100% 0%, rgba(185,74,53,0.20) 0%, transparent 60%)," +
-            "radial-gradient(45% 35% at 0% 100%, rgba(230,184,0,0.10) 0%, transparent 60%)",
-        }}
-      />
+      {/* Ambient pulsing corner orbs */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div
+          className="ambient-pulse absolute right-0 top-0 size-[50vmax] -translate-y-1/3 translate-x-1/4 rounded-full"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(185,74,53,0.32) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          className="ambient-pulse absolute bottom-0 left-0 size-[40vmax] -translate-x-1/4 translate-y-1/3 rounded-full"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(230,184,0,0.18) 0%, transparent 70%)",
+            animationDelay: "2s",
+          }}
+        />
+      </div>
 
-      {/* Top status line — pushed below fixed header */}
+      {/* Horizontal sweeping line */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[42%] overflow-hidden">
+        <div
+          className="line-sweep h-px w-full bg-gradient-to-r from-transparent via-[var(--color-madder-hi)] to-transparent"
+          style={{ boxShadow: "0 0 18px rgba(226,90,62,0.7), 0 0 36px rgba(226,90,62,0.35)" }}
+        />
+      </div>
+
+      {/* Vertical marquee of side words (right edge, PC only) */}
+      <div aria-hidden className="pointer-events-none absolute -right-1 top-0 hidden h-full w-12 overflow-hidden lg:block">
+        <div className="marquee-y flex flex-col gap-12 font-mono text-[10px] tracking-[0.32em] text-[var(--color-paper-pure)]/40">
+          {[...SIDE_WORDS, ...SIDE_WORDS].map((w, i) => (
+            <span key={i} className="vtext block whitespace-nowrap">
+              {w}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Top status row */}
       <div
-        className={`container-x relative z-10 flex items-center justify-between pt-24 font-jp text-[11px] font-bold tracking-[0.16em] text-[var(--color-paper-pure)]/55 transition-opacity delay-100 duration-700 lg:pt-28 ${
+        className={`container-x relative z-10 flex shrink-0 items-center justify-between pt-20 font-jp text-[11px] font-bold tracking-[0.16em] text-[var(--color-paper-pure)]/55 transition-opacity duration-700 lg:pt-24 ${
           phase >= 1 ? "opacity-100" : "opacity-0"
         }`}
       >
         <span className="inline-flex items-center gap-2">
-          <span className="size-1.5 rounded-full bg-[var(--color-madder-hi)] shadow-[0_0_8px_rgba(226,90,62,0.8)]" aria-hidden />
+          <span className="rec-dot rec-dot-sm" />
           FUKUOKA
         </span>
         <span className="font-mono tabular-nums">{time || "--:--:--"}</span>
-        <span className="hidden sm:inline">SUBLIMATION ／ TEAMWEAR</span>
+        <span className="hidden sm:inline">FULL CUSTOM ／ TEAMWEAR</span>
       </div>
 
-      {/* Main content — editorial asymmetric */}
-      <div className="container-x relative z-10 flex min-h-[88svh] flex-col justify-end pb-12 pt-12 lg:min-h-[80svh] lg:pb-20 lg:pt-20">
-        {/* Logo */}
+      {/* Main editorial block */}
+      <div className="container-x relative z-10 flex flex-1 flex-col justify-end pb-6 pt-6 lg:pb-10 lg:pt-10">
         <div
           className={`transition-all duration-1000 ${
             phase >= 1 ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
@@ -86,18 +121,16 @@ export function Hero() {
             width={420}
             height={89}
             priority
-            className="h-[44px] w-auto sm:h-[56px] lg:h-[72px]"
+            className="h-[40px] w-auto sm:h-[52px] lg:h-[68px]"
           />
         </div>
 
-        {/* Asymmetric editorial layout */}
-        <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-14 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-16">
-          {/* Headline */}
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:mt-10 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-14">
           <h1
-            className={`font-jp font-black leading-[1.1] tracking-[-0.02em] text-[var(--color-paper-pure)] transition-all delay-200 duration-1000 ${
+            className={`font-jp font-black leading-[1.05] tracking-[-0.02em] text-[var(--color-paper-pure)] transition-all delay-200 duration-1000 ${
               phase >= 2 ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
             }`}
-            style={{ fontSize: "clamp(44px, 8.5vw, 120px)" }}
+            style={{ fontSize: "clamp(40px, 8vw, 112px)" }}
           >
             <span className="block">チームを、</span>
             <span className="block">
@@ -105,13 +138,12 @@ export function Hero() {
             </span>
           </h1>
 
-          {/* Side details */}
           <div
-            className={`flex flex-col gap-7 transition-all delay-400 duration-1000 lg:items-end lg:text-right ${
+            className={`flex flex-col gap-6 transition-all delay-400 duration-1000 lg:items-end lg:text-right ${
               phase >= 3 ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
             }`}
           >
-            <p className="max-w-md font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-paper-pure)]/85 lg:text-[16px]">
+            <p className="max-w-md font-jp text-[14px] font-medium leading-[1.85] text-[var(--color-paper-pure)]/85 lg:text-[16px]">
               福岡発、サッカー／フットサル特化の昇華フルオーダー。
               <br className="hidden lg:block" />
               初回 <span className="font-bold text-[var(--color-paper-pure)]">5 枚</span>
@@ -122,7 +154,7 @@ export function Hero() {
               <Magnetic strength={0.22}>
                 <a
                   href="#contact"
-                  className="group inline-flex items-center justify-center gap-3 rounded-2xl bg-[var(--color-madder)] px-8 py-5 font-jp text-[15px] font-bold tracking-[0.04em] text-[var(--color-paper-pure)] shadow-[0_18px_36px_-12px_rgba(185,74,53,0.7)] transition hover:bg-[var(--color-madder-deep)]"
+                  className="group inline-flex items-center justify-center gap-3 rounded-2xl bg-[var(--color-madder)] px-7 py-4 font-jp text-[14px] font-bold tracking-[0.04em] text-[var(--color-paper-pure)] shadow-[0_18px_36px_-12px_rgba(185,74,53,0.7)] transition hover:bg-[var(--color-madder-deep)]"
                 >
                   見積もりを依頼
                   <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -131,7 +163,7 @@ export function Hero() {
               <Magnetic strength={0.18}>
                 <a
                   href="#flow"
-                  className="group inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-[var(--color-paper-pure)]/30 px-8 py-5 font-jp text-[15px] font-bold tracking-[0.04em] text-[var(--color-paper-pure)] transition hover:border-[var(--color-paper-pure)] hover:bg-[var(--color-paper-pure)]/5"
+                  className="group inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-[var(--color-paper-pure)]/30 px-7 py-4 font-jp text-[14px] font-bold tracking-[0.04em] text-[var(--color-paper-pure)] transition hover:border-[var(--color-paper-pure)] hover:bg-[var(--color-paper-pure)]/5"
                 >
                   注文の流れ
                   <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -142,13 +174,13 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Footer ticker — 3 stat pills */}
+      {/* Footer stat strip */}
       <div
-        className={`container-x relative z-10 pb-8 transition-opacity delay-700 duration-1000 ${
+        className={`container-x relative z-10 shrink-0 pb-6 transition-opacity delay-700 duration-1000 ${
           phase >= 3 ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="flex flex-col gap-2.5 sm:grid sm:grid-cols-3 sm:gap-3">
+        <div className="flex flex-col gap-2 sm:grid sm:grid-cols-3 sm:gap-3">
           <StatChip k="5 枚〜" jp="最低発注" />
           <StatChip k="1 枚〜" jp="追加発注" />
           <StatChip k="4–5 週" jp="納期目安" />
@@ -160,11 +192,11 @@ export function Hero() {
 
 function StatChip({ k, jp }: { k: string; jp: string }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-2xl border border-white/15 bg-white/[0.04] px-5 py-4 backdrop-blur transition hover:border-white/30 hover:bg-white/[0.08]">
+    <div className="flex items-center justify-between gap-4 rounded-2xl border border-white/15 bg-white/[0.04] px-5 py-3 backdrop-blur transition hover:border-white/30 hover:bg-white/[0.08]">
       <span className="font-jp text-[12px] font-bold tracking-[0.16em] text-[var(--color-paper-pure)]/65">
         {jp}
       </span>
-      <span className="font-jp text-[22px] font-black leading-none text-[var(--color-paper-pure)] sm:text-[24px]">
+      <span className="font-jp text-[20px] font-black leading-none text-[var(--color-paper-pure)] sm:text-[24px]">
         {k}
       </span>
     </div>

@@ -58,7 +58,7 @@ export function Works() {
 function WorkCard({ w }: { w: (typeof WORKS)[number] }) {
   return (
     <article className="group card-lift relative h-full overflow-hidden rounded-3xl border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
-      <div className="relative aspect-[4/5] overflow-hidden bg-[var(--color-ink)]">
+      <div className="relative aspect-[3/4] overflow-hidden bg-[var(--color-ink)]">
         <Image
           src={w.img}
           alt={`${w.name} の制作実績`}
