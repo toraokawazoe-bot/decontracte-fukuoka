@@ -499,14 +499,14 @@
     100% { transform: translate3d(-4%, -3%, 0) scale(1.03); }
   }
 
-  /* Particle drift — 4 variants with irregular paths */
+  /* Particle drift — 4 fast variants */
   .particle {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
     will-change: transform, opacity;
     animation-iteration-count: infinite;
-    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
     animation-direction: alternate;
   }
   .pv0 { animation-name: particle-v0; }
@@ -514,27 +514,93 @@
   .pv2 { animation-name: particle-v2; }
   .pv3 { animation-name: particle-v3; }
   @keyframes particle-v0 {
-    0%   { transform: translate(0, 0)        scale(1);   opacity: 0.3; }
-    35%  { transform: translate(70px, -45px) scale(1.3); opacity: 0.95; }
-    70%  { transform: translate(-30px, 30px) scale(0.7); opacity: 0.5; }
-    100% { transform: translate(-50px, 80px) scale(1.1); opacity: 0.2; }
+    0%   { transform: translate(0, 0)         scale(1);   opacity: 0.4; }
+    35%  { transform: translate(120px, -90px) scale(1.5); opacity: 1;   }
+    70%  { transform: translate(-60px, 60px)  scale(0.5); opacity: 0.6; }
+    100% { transform: translate(-90px, 130px) scale(1.2); opacity: 0.2; }
   }
   @keyframes particle-v1 {
-    0%   { transform: translate(0, 0)         scale(0.9); opacity: 0.7; }
-    50%  { transform: translate(-90px, 60px)  scale(1.4); opacity: 0.2; }
-    100% { transform: translate(40px, -70px)  scale(1.0); opacity: 0.9; }
+    0%   { transform: translate(0, 0)          scale(0.8); opacity: 0.7; }
+    50%  { transform: translate(-150px, 110px) scale(1.6); opacity: 0.2; }
+    100% { transform: translate(80px, -120px)  scale(1.0); opacity: 1;   }
   }
   @keyframes particle-v2 {
-    0%   { transform: translate(0, 0)        scale(1);   opacity: 0.4; }
-    25%  { transform: translate(-60px, -50px) scale(1.6); opacity: 1;   }
-    65%  { transform: translate(80px, 20px)  scale(0.6); opacity: 0.3; }
-    100% { transform: translate(20px, 70px)  scale(1.2); opacity: 0.7; }
+    0%   { transform: translate(0, 0)          scale(1);   opacity: 0.5; }
+    25%  { transform: translate(-110px, -90px) scale(1.8); opacity: 1;   }
+    65%  { transform: translate(140px, 40px)   scale(0.4); opacity: 0.3; }
+    100% { transform: translate(50px, 130px)   scale(1.3); opacity: 0.8; }
   }
   @keyframes particle-v3 {
-    0%   { transform: translate(0, 0)         scale(1.1); opacity: 0.5; }
-    40%  { transform: translate(50px, 80px)   scale(0.8); opacity: 0.9; }
-    80%  { transform: translate(-70px, -40px) scale(1.5); opacity: 0.2; }
-    100% { transform: translate(30px, -20px)  scale(1.0); opacity: 0.6; }
+    0%   { transform: translate(0, 0)          scale(1.2); opacity: 0.5; }
+    40%  { transform: translate(90px, 140px)   scale(0.7); opacity: 1;   }
+    80%  { transform: translate(-130px, -70px) scale(1.7); opacity: 0.2; }
+    100% { transform: translate(60px, -40px)   scale(1.0); opacity: 0.8; }
+  }
+
+  /* Fast blinking dots — pop in and out rapidly */
+  .blink-dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: blink-dot 1.2s steps(2, end) infinite;
+  }
+  @keyframes blink-dot {
+    0%, 49%  { opacity: 0; transform: scale(0.6); }
+    50%, 99% { opacity: 1; transform: scale(1); }
+    100%     { opacity: 0; transform: scale(0.6); }
+  }
+
+  /* Fast scan line — quick horizontal flash */
+  .scan-flash {
+    position: absolute;
+    inset-inline: 0;
+    height: 1px;
+    pointer-events: none;
+    animation: scan-flash 3.4s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+  }
+  @keyframes scan-flash {
+    0%   { transform: translateY(-100vh); opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+
+  /* RGB glitch — chromatic split offset for a brief moment */
+  .glitch {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .glitch::before {
+    color: #ff3030;
+    animation: glitch-r 6s steps(1, end) infinite;
+    mix-blend-mode: screen;
+  }
+  .glitch::after {
+    color: #00b8ff;
+    animation: glitch-b 6s steps(1, end) infinite;
+    mix-blend-mode: screen;
+  }
+  @keyframes glitch-r {
+    0%, 96% { transform: translate(0, 0);  opacity: 0; }
+    97%     { transform: translate(-4px, 1px); opacity: 0.9; }
+    98%     { transform: translate(3px, -2px); opacity: 0.9; }
+    99%     { transform: translate(-2px, 2px); opacity: 0.8; }
+    100%    { transform: translate(0, 0);  opacity: 0; }
+  }
+  @keyframes glitch-b {
+    0%, 96% { transform: translate(0, 0);  opacity: 0; }
+    97%     { transform: translate(4px, -1px); opacity: 0.9; }
+    98%     { transform: translate(-3px, 2px); opacity: 0.9; }
+    99%     { transform: translate(2px, -2px); opacity: 0.8; }
+    100%    { transform: translate(0, 0);  opacity: 0; }
   }
 
   /* Slow background gradient shift */
