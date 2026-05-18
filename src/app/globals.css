@@ -123,20 +123,25 @@
   .surface-madder  { background: var(--color-madder); color: var(--color-paper-pure); }
   .surface-hazard  { background: var(--color-hazard); color: var(--color-ink); }
 
-  /* Stacking section — rounded top corners + negative top margin
-     so successive sections look like a deck of cards stacked from below. */
+  /* Stacking section — sticky to top so each card slides up and
+     covers the previous one as the user scrolls. Combined with
+     rounded top + a slight negative margin, the page reads as a
+     deck of cards being dealt over the top. */
   .stack-section {
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 1;
     margin-top: -32px;
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
+    box-shadow: 0 -20px 40px -20px rgba(13, 10, 8, 0.35);
   }
   @media (min-width: 1024px) {
     .stack-section {
       margin-top: -48px;
       border-top-left-radius: 48px;
       border-top-right-radius: 48px;
+      box-shadow: 0 -24px 60px -24px rgba(13, 10, 8, 0.4);
     }
   }
 

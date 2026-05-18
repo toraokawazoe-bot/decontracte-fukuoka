@@ -5,20 +5,16 @@ const ITEMS = [
   {
     no: "01",
     title: "昇華ユニフォーム",
-    en: "SUBLIMATION JERSEY",
     img: "/img/uniform.png",
-    desc:
-      "型・配色・ロゴ・ナンバー・ネーム、すべて自由設計の完全フルオーダー。シャツとパンツの 2 点セットで仕立てます。",
-    points: ["フィールド／GK 仕様", "短袖・長袖どちらも対応", "初回 5 枚〜、追加 1 枚〜"],
+    desc: "シャツ + パンツの 2 点セット。型・配色・ロゴ・ナンバー、すべて自由設計。",
+    points: ["フィールド／GK 仕様", "短袖／長袖 対応", "初回 5 枚〜・追加 1 枚〜"],
   },
   {
     no: "02",
     title: "昇華ビブス",
-    en: "BIBS / SCRIMMAGE",
     img: "/img/bibusu.png",
-    desc:
-      "ユニフォームと配色をリンクさせた、練習・紅白戦専用のビブス。シングル／リバーシブルから選べます。",
-    points: ["シングル／リバーシブル", "ユニフォームと共通デザイン", "初回 5 枚〜、追加 1 枚〜"],
+    desc: "ユニフォームと配色をリンクさせる、練習・紅白戦専用のビブス。",
+    points: ["シングル／リバーシブル", "ユニフォームと共通デザイン", "初回 5 枚〜・追加 1 枚〜"],
   },
 ];
 
@@ -28,13 +24,19 @@ export function Items() {
       <div className="container-x section-y">
         <Reveal>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <h2 className="text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-paper-pure)]">
-              ITEM
-              <br />
-              <span className="text-[var(--color-madder-hi)]">LINEUP.</span>
-            </h2>
-            <p className="max-w-md font-jp text-[15px] font-medium leading-[1.95] text-[var(--color-paper-pure)]/85">
-              主力は 2 種。ユニフォームとビブスを同じ配色で揃えれば、練習も試合もチームの空気が一段上がります。
+            <div>
+              <p className="font-jp text-[12px] font-bold tracking-[0.32em] text-[var(--color-madder-hi)]">
+                ITEM
+              </p>
+              <h2
+                className="mt-3 font-jp font-black leading-[1.1] tracking-[-0.01em] text-[var(--color-paper-pure)]"
+                style={{ fontSize: "clamp(40px, 5.5vw, 84px)" }}
+              >
+                アイテム。
+              </h2>
+            </div>
+            <p className="max-w-md font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-paper-pure)]/85">
+              主力は 2 種。ユニフォームとビブスを同じ配色で揃えれば、チームの空気はもう一段上がる。
             </p>
           </div>
         </Reveal>
@@ -54,7 +56,6 @@ export function Items() {
 function ItemCard({ item }: { item: (typeof ITEMS)[number] }) {
   return (
     <article className="group card-lift relative h-full overflow-hidden rounded-3xl border border-white/10 bg-[var(--color-jet-2)] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
-      {/* Image */}
       <div className="relative aspect-[5/4] overflow-hidden bg-white">
         <Image
           src={item.img}
@@ -63,21 +64,19 @@ function ItemCard({ item }: { item: (typeof ITEMS)[number] }) {
           sizes="(min-width: 1024px) 50vw, 100vw"
           className="object-contain p-6 transition-transform duration-700 group-hover:scale-[1.03] lg:p-10"
         />
-        {/* Floating no. */}
         <span
           aria-hidden
-          className="text-stencil pointer-events-none absolute right-5 top-4 select-none text-[80px] leading-none text-[var(--color-ink)]/8 lg:text-[120px]"
+          className="pointer-events-none absolute right-5 top-4 select-none font-jp text-[80px] font-black leading-none text-[var(--color-ink)]/8 lg:text-[120px]"
         >
           {item.no}
         </span>
       </div>
 
-      {/* Body */}
       <div className="p-7 lg:p-9">
         <h3 className="font-jp text-[24px] font-bold leading-tight text-[var(--color-paper-pure)] lg:text-[28px]">
           {item.title}
         </h3>
-        <p className="mt-4 font-jp text-[15px] font-medium leading-[1.95] text-[var(--color-paper-pure)]/80">
+        <p className="mt-4 font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-paper-pure)]/80">
           {item.desc}
         </p>
         <ul className="mt-6 flex flex-wrap gap-2">

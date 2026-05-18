@@ -32,15 +32,17 @@ export function Contact() {
         <Reveal>
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             <div>
-              <h2 className="text-stencil text-[clamp(48px,7vw,108px)] leading-[0.88] text-[var(--color-paper-pure)]">
-                GET A
-                <br />
-                <span className="text-[var(--color-madder-hi)]">QUOTE.</span>
+              <p className="font-jp text-[12px] font-bold tracking-[0.32em] text-[var(--color-madder-hi)]">
+                CONTACT
+              </p>
+              <h2
+                className="mt-3 font-jp font-black leading-[1.1] tracking-[-0.01em] text-[var(--color-paper-pure)]"
+                style={{ fontSize: "clamp(40px, 5.5vw, 84px)" }}
+              >
+                お見積もり。
               </h2>
-              <p className="mt-7 max-w-md font-jp text-[15px] font-medium leading-[1.95] text-[var(--color-paper-pure)]/85">
-                ざっくりした要望で構いません。デザイナーが叩き台を作って、何度でも調整します。
-                <br />
-                まずは LINE でお気軽にどうぞ。
+              <p className="mt-7 max-w-md font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-paper-pure)]/85">
+                ざっくりでも大丈夫。叩き台はこちらで作ります。まずは LINE で。
               </p>
 
               <Magnetic strength={0.18}>
