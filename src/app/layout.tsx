@@ -3,7 +3,6 @@ import { Fraunces, Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google"
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { SideNav } from "@/components/SideNav";
 import { MobileFixedCTA } from "@/components/MobileFixedCTA";
 
 const inter = Inter({
@@ -61,7 +60,6 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-[var(--color-canvas)] text-[var(--color-ink)]">
         <SiteHeader />
-        <SideNav />
         <main className="relative flex min-h-screen flex-col">{children}</main>
         <SiteFooter />
         <MobileFixedCTA />
