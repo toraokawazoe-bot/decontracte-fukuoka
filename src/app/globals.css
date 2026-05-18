@@ -1,0 +1,482 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark canvas around the article column (visible on desktop) */
+  --color-canvas: #050505;
+  --color-canvas-2: #0a0a0a;
+
+  /* Sport-tech jet (deepest blacks) */
+  --color-jet: #050505;
+  --color-jet-2: #0a0a0a;
+
+  /* Article / "phone frame" surface — sport-tech: dark base */
+  --color-paper: #f3efe6;
+  --color-paper-2: #ebe4d5;
+  --color-paper-3: #ddd4be;
+  --color-paper-pure: #ffffff;
+  --color-line: #e3ddd0;
+  --color-line-strong: #cabfa7;
+  --color-line-soft: rgba(243, 239, 230, 0.10);
+  --color-line-rule: rgba(243, 239, 230, 0.22);
+
+  /* Ink */
+  --color-ink: #111111;
+  --color-ink-2: #1a1a1a;
+  --color-ink-3: #242424;
+  --color-ink-dim: #6b6b6b;
+  --color-ink-mute: #9a9286;
+
+  /* On-dark text scale */
+  --color-on-jet: #f3efe6;
+  --color-on-jet-dim: rgba(243, 239, 230, 0.7);
+  --color-on-jet-mute: rgba(243, 239, 230, 0.45);
+  --color-on-jet-quiet: rgba(243, 239, 230, 0.22);
+
+  /* Accents */
+  --color-madder: #b94a35;
+  --color-madder-deep: #8c331f;
+  --color-madder-hi: #e25a3e;
+  --color-navy: #1d2a36;
+  --color-navy-2: #2b3a4a;
+  --color-cream-hi: #f8f5ee;
+
+  /* LINE brand */
+  --color-line-brand: #06c755;
+
+  --font-sans: var(--font-inter), var(--font-noto-jp), ui-sans-serif, system-ui, sans-serif;
+  --font-jp: var(--font-noto-jp), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+  --font-display: var(--font-fraunces), "Times New Roman", "Hiragino Mincho ProN", serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 64px;
+  }
+  html, body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+  }
+  body {
+    font-family: var(--font-jp);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-madder);
+    color: var(--color-cream-hi);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    letter-spacing: -0.01em;
+  }
+  .font-mono { font-family: var(--font-mono); }
+  .font-jp   { font-family: var(--font-jp); }
+  .font-en   { font-family: var(--font-sans); }
+
+  /* The article column: looks like a centered editorial column on desktop,
+     full-bleed on mobile. Sport-tech: ink base. */
+  .article-col {
+    width: 100%;
+    background: var(--color-ink);
+    color: var(--color-on-jet);
+    position: relative;
+  }
+  @media (min-width: 900px) {
+    .article-col {
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.04),
+        0 40px 80px -20px rgba(0,0,0,0.7),
+        0 80px 160px -40px rgba(0,0,0,0.85);
+    }
+  }
+
+  /* Dark canvas decorative grain — visible only on desktop where canvas shows */
+  .canvas-grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(at 20% 10%, rgba(185, 74, 53, 0.14), transparent 40%),
+      radial-gradient(at 80% 90%, rgba(29, 42, 54, 0.38), transparent 45%);
+  }
+  .canvas-grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,0.018) 0 1px, transparent 1px 3px);
+    mix-blend-mode: overlay;
+    opacity: 0.55;
+  }
+
+  /* Eyebrow label used across sections */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-ink-mute);
+  }
+
+  .hairline { border-color: var(--color-line); }
+  .hairline-strong { border-color: var(--color-line-strong); }
+
+  .ink-rule {
+    background: var(--color-ink);
+  }
+
+  /* Subtle paper grain inside the column */
+  .paper-grain {
+    background-image:
+      radial-gradient(rgba(17,17,17,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+
+  /* Diagonal hatch used in card placeholders */
+  .hatch {
+    background-image: repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 9px,
+      rgba(17,17,17,0.06) 9px,
+      rgba(17,17,17,0.06) 10px
+    );
+  }
+
+  /* FV animation helpers (consumed by Hero client component) */
+  .fv-fade-in {
+    animation: fv-fade 900ms cubic-bezier(.2,.7,.2,1) both;
+  }
+  .fv-rise {
+    animation: fv-rise 1100ms cubic-bezier(.2,.7,.2,1) both;
+  }
+  .fv-letter-spread {
+    animation: fv-spread 1200ms cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes fv-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes fv-rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fv-spread {
+    from { letter-spacing: -0.06em; opacity: 0; }
+    to   { letter-spacing: 0.02em;  opacity: 1; }
+  }
+
+  /* Marquee */
+  .scroll-marquee {
+    animation: scroll-marquee 32s linear infinite;
+  }
+  @keyframes scroll-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Brand letterform breathing — perpetual letter-spacing pulse */
+  .fv-breath {
+    animation: fv-breath 7s ease-in-out infinite;
+  }
+  @keyframes fv-breath {
+    0%, 100% { letter-spacing: 0.02em; }
+    50%      { letter-spacing: 0.07em; }
+  }
+
+  /* Vertical caption helper (used in poster cards) */
+  .vtext {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-orientation: mixed;
+  }
+
+  /* Hover lift utility used by cards */
+  .card-lift {
+    transition: transform 600ms cubic-bezier(.2,.7,.2,1), border-color 300ms;
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Small caps for serif headings where wanted */
+  .smcp {
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.08em;
+  }
+
+  /* ============================================================
+     SPORT-TECH / Y-3 × OFF-WHITE LANGUAGE
+     ============================================================ */
+
+  /* Stencil display — Helvetica-style oversized blocks */
+  .text-stencil {
+    font-family: var(--font-sans);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    font-feature-settings: "ss01", "ss02";
+  }
+
+  .text-tech {
+    font-family: var(--font-mono);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  /* Surface variants for sport-tech sections */
+  .surface-jet     { background: var(--color-jet);   color: var(--color-on-jet); }
+  .surface-ink     { background: var(--color-ink);   color: var(--color-on-jet); }
+  .surface-ink-2   { background: var(--color-ink-2); color: var(--color-on-jet); }
+  .surface-paper   { background: var(--color-paper); color: var(--color-ink); }
+  .surface-paper-pure { background: var(--color-paper-pure); color: var(--color-ink); }
+
+  /* Hairline on dark */
+  .border-on-jet      { border-color: var(--color-line-soft) !important; }
+  .border-on-jet-strong { border-color: var(--color-line-rule) !important; }
+
+  /* Hazard tape stripes — sport-tech accent strip (red on black) */
+  .hazard-strip {
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--color-madder) 0 12px,
+      var(--color-ink)    12px 24px
+    );
+  }
+  .hazard-strip-thin {
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--color-madder) 0 6px,
+      var(--color-ink)    6px 12px
+    );
+  }
+  .hazard-strip-mono {
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--color-on-jet) 0 8px,
+      transparent         8px 16px
+    );
+  }
+
+  /* HUD: registration / crop marks at corners of the article column */
+  .reg-mark {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+  }
+  .reg-mark::before,
+  .reg-mark::after {
+    content: "";
+    position: absolute;
+    background: var(--color-on-jet-mute);
+  }
+  .reg-mark::before { width: 100%; height: 1px; top: 50%; left: 0; }
+  .reg-mark::after  { width: 1px; height: 100%; left: 50%; top: 0; }
+  .reg-mark-tl { top: 6px;  left: 6px;  }
+  .reg-mark-tr { top: 6px;  right: 6px; }
+  .reg-mark-bl { bottom: 6px; left: 6px; }
+  .reg-mark-br { bottom: 6px; right: 6px; }
+
+  /* HUD frame — fixed overlay inside article-col on desktop */
+  .hud-frame {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 30;
+  }
+
+  /* Industrial corner brackets [ ] */
+  .bracket-frame {
+    position: relative;
+  }
+  .bracket-frame::before,
+  .bracket-frame::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: var(--color-on-jet);
+    border-style: solid;
+  }
+  .bracket-frame::before {
+    top: 0;
+    left: 0;
+    border-width: 1px 0 0 1px;
+  }
+  .bracket-frame::after {
+    bottom: 0;
+    right: 0;
+    border-width: 0 1px 1px 0;
+  }
+
+  /* REC dot — pulsing recording indicator */
+  .rec-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-madder);
+    box-shadow: 0 0 12px rgba(185,74,53,0.85), 0 0 24px rgba(185,74,53,0.4);
+    animation: pulse-rec 1.6s ease-in-out infinite;
+  }
+  .rec-dot-sm { width: 6px; height: 6px; }
+  @keyframes pulse-rec {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.35; transform: scale(0.85); }
+  }
+
+  /* Mask reveal — clip-path inset reveal for headlines */
+  .mask-reveal {
+    clip-path: inset(0 100% 0 0);
+    animation: mask-reveal 1100ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
+  }
+  @keyframes mask-reveal {
+    0%   { clip-path: inset(0 100% 0 0); }
+    100% { clip-path: inset(0 0 0 0); }
+  }
+
+  /* Letter stagger — each letter rises on its own timing */
+  .letter-stagger > span {
+    display: inline-block;
+    transform: translateY(110%);
+    opacity: 0;
+    animation: letter-rise 900ms cubic-bezier(0.2, 0.85, 0.2, 1) forwards;
+  }
+  @keyframes letter-rise {
+    0%   { transform: translateY(110%); opacity: 0; }
+    100% { transform: translateY(0);    opacity: 1; }
+  }
+
+  /* Hazard wipe — diagonal stripe sweep transition */
+  .hazard-wipe {
+    position: relative;
+    overflow: hidden;
+  }
+  .hazard-wipe::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-madder);
+    transform: translateX(-110%) skewX(-12deg);
+    animation: hazard-wipe 1400ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
+  }
+  @keyframes hazard-wipe {
+    0%   { transform: translateX(-110%) skewX(-12deg); }
+    55%  { transform: translateX(0%)    skewX(-12deg); }
+    100% { transform: translateX(110%)  skewX(-12deg); }
+  }
+
+  /* Scanline sweep — top-to-bottom scanning line */
+  .scanline-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+  .scanline-sweep::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-madder-hi) 50%, transparent);
+    box-shadow: 0 0 18px var(--color-madder-hi), 0 0 36px rgba(226,90,62,0.6);
+    animation: scanline 3.6s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+    pointer-events: none;
+  }
+  @keyframes scanline {
+    0%   { transform: translateY(0);     opacity: 0;   }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0;   }
+  }
+
+  /* Slow pan — used on hero / poster backgrounds for cinematic feel */
+  .slow-pan {
+    animation: slow-pan 22s ease-in-out infinite alternate;
+  }
+  @keyframes slow-pan {
+    0%   { transform: scale(1.02) translate3d(0, 0, 0); }
+    100% { transform: scale(1.08) translate3d(-2%, -1%, 0); }
+  }
+
+  /* Orbit conic — rotating conic gradient background */
+  .orbit-conic {
+    animation: orbit-conic 18s linear infinite;
+  }
+  @keyframes orbit-conic {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Boot tick — frame counter ticking up on load */
+  .boot-tick {
+    animation: boot-tick 1200ms steps(24, end) forwards;
+  }
+  @keyframes boot-tick {
+    0%   { opacity: 0; }
+    20%  { opacity: 1; }
+    100% { opacity: 1; }
+  }
+
+  /* Digit flip — odometer-style number roll */
+  .digit-track {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    line-height: 1;
+  }
+  .digit-track-inner {
+    display: flex;
+    flex-direction: column;
+    transition: transform 900ms cubic-bezier(0.7, 0, 0.15, 1);
+    will-change: transform;
+  }
+
+  /* Tick rule — a thin animated underline used under section heads */
+  .tick-rule {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-madder) 0 28%, var(--color-on-jet-quiet) 28% 100%);
+  }
+
+  /* Magnetic CTA base — used with JS to follow cursor */
+  .magnetic-cta {
+    transition: transform 250ms cubic-bezier(0.2, 0.85, 0.2, 1);
+    will-change: transform;
+  }
+
+  /* Slow boot — gentle initial entrance for full sections */
+  .boot-in {
+    animation: boot-in 1400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes boot-in {
+    0%   { opacity: 0; transform: translateY(8px) scale(0.985); filter: blur(6px); }
+    100% { opacity: 1; transform: translateY(0)   scale(1);     filter: blur(0);   }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .fv-fade-in, .fv-rise, .fv-letter-spread, .scroll-marquee, .fv-breath,
+    .mask-reveal, .letter-stagger > span, .hazard-wipe::after,
+    .scanline-sweep::before, .slow-pan, .orbit-conic, .boot-tick,
+    .rec-dot, .boot-in {
+      animation: none !important;
+    }
+    .mask-reveal { clip-path: none !important; }
+    .letter-stagger > span { transform: none !important; opacity: 1 !important; }
+  }
+}
