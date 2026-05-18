@@ -6,12 +6,11 @@ import { Magnetic } from "./motion/Magnetic";
 
 export function Hero() {
   const [phase, setPhase] = useState(0);
-  const [time, setTime] = useState("");
 
   useEffect(() => {
     const t1 = window.setTimeout(() => setPhase(1), 250);
-    const t2 = window.setTimeout(() => setPhase(2), 750);
-    const t3 = window.setTimeout(() => setPhase(3), 1200);
+    const t2 = window.setTimeout(() => setPhase(2), 700);
+    const t3 = window.setTimeout(() => setPhase(3), 1100);
     return () => {
       window.clearTimeout(t1);
       window.clearTimeout(t2);
@@ -19,21 +18,8 @@ export function Hero() {
     };
   }, []);
 
-  useEffect(() => {
-    const update = () => {
-      const d = new Date();
-      const hh = String(d.getHours()).padStart(2, "0");
-      const mm = String(d.getMinutes()).padStart(2, "0");
-      setTime(`${hh}:${mm}:${ss(d)}`);
-    };
-    const ss = (d: Date) => String(d.getSeconds()).padStart(2, "0");
-    update();
-    const id = window.setInterval(update, 1000);
-    return () => window.clearInterval(id);
-  }, []);
-
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper-pure)]">
+    <section className="relative isolate flex h-[100svh] flex-col justify-center overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper-pure)]">
       {/* Drifting dot grid */}
       <div
         aria-hidden
@@ -67,32 +53,19 @@ export function Hero() {
       </div>
 
       {/* Horizontal sweeping line */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[45%] overflow-hidden">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[50%] overflow-hidden">
         <div
           className="line-sweep h-px w-full bg-gradient-to-r from-transparent via-[var(--color-madder-hi)] to-transparent"
           style={{ boxShadow: "0 0 18px rgba(226,90,62,0.7), 0 0 36px rgba(226,90,62,0.35)" }}
         />
       </div>
 
-      {/* Top status row */}
-      <div
-        className={`container-x relative z-10 flex shrink-0 items-center justify-between pt-20 font-jp text-[11px] font-bold tracking-[0.16em] text-[var(--color-paper-pure)]/55 transition-opacity duration-700 lg:pt-24 ${
-          phase >= 1 ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <span className="inline-flex items-center gap-2">
-          <span className="rec-dot rec-dot-sm" />
-          FUKUOKA
-        </span>
-        <span className="font-mono tabular-nums">{time || "--:--:--"}</span>
-        <span className="hidden sm:inline">FULL CUSTOM ／ TEAMWEAR</span>
-      </div>
-
-      {/* Main */}
-      <div className="container-x relative z-10 flex flex-1 flex-col justify-center pb-6 pt-8 lg:py-10">
+      {/* All content centered inside one container */}
+      <div className="container-x relative z-10 flex flex-col items-start pt-24 lg:pt-28">
+        {/* Logo */}
         <div
-          className={`transition-all duration-1000 ${
-            phase >= 1 ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          className={`transition-all duration-700 ${
+            phase >= 1 ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
           }`}
         >
           <Image
@@ -101,15 +74,16 @@ export function Hero() {
             width={420}
             height={89}
             priority
-            className="h-[36px] w-auto sm:h-[48px] lg:h-[60px]"
+            className="h-[32px] w-auto sm:h-[40px] lg:h-[52px]"
           />
         </div>
 
+        {/* Headline */}
         <h1
-          className={`mt-6 max-w-5xl font-jp font-black leading-[1.05] tracking-[-0.02em] text-[var(--color-paper-pure)] transition-all delay-200 duration-1000 lg:mt-8 ${
-            phase >= 2 ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          className={`mt-6 max-w-5xl font-jp font-black leading-[1.04] tracking-[-0.02em] text-[var(--color-paper-pure)] transition-all delay-150 duration-700 lg:mt-8 ${
+            phase >= 2 ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
           }`}
-          style={{ fontSize: "clamp(40px, 7.5vw, 104px)" }}
+          style={{ fontSize: "clamp(38px, 7vw, 96px)" }}
         >
           <span className="block">チームを、</span>
           <span className="block">
@@ -117,8 +91,9 @@ export function Hero() {
           </span>
         </h1>
 
+        {/* Subtitle */}
         <p
-          className={`mt-6 max-w-2xl font-jp text-[14px] font-medium leading-[1.85] text-[var(--color-paper-pure)]/85 transition-all delay-300 duration-1000 lg:text-[16px] ${
+          className={`mt-5 max-w-2xl font-jp text-[13px] font-medium leading-[1.85] text-[var(--color-paper-pure)]/85 transition-all delay-250 duration-700 lg:mt-6 lg:text-[15px] ${
             phase >= 3 ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
           }`}
         >
@@ -127,8 +102,9 @@ export function Hero() {
           <span className="font-bold text-[var(--color-paper-pure)]">1 枚</span>から。
         </p>
 
+        {/* CTAs */}
         <div
-          className={`mt-8 flex flex-col items-stretch gap-3 transition-all delay-500 duration-1000 sm:flex-row sm:items-center ${
+          className={`mt-6 flex flex-col items-stretch gap-3 transition-all delay-350 duration-700 sm:flex-row sm:items-center lg:mt-8 ${
             phase >= 3 ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
           }`}
         >
@@ -151,18 +127,18 @@ export function Hero() {
             </a>
           </Magnetic>
         </div>
-      </div>
 
-      {/* Footer stat strip */}
-      <div
-        className={`container-x relative z-10 shrink-0 pb-6 transition-opacity delay-700 duration-1000 ${
-          phase >= 3 ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <div className="flex flex-col gap-2 sm:grid sm:grid-cols-3 sm:gap-3">
-          <StatChip k="5 枚〜" jp="最低発注" />
-          <StatChip k="1 枚〜" jp="追加発注" />
-          <StatChip k="4–5 週" jp="納期目安" />
+        {/* Inline stat row — same flow, not pinned to viewport bottom */}
+        <div
+          className={`mt-8 w-full transition-opacity delay-500 duration-700 lg:mt-12 ${
+            phase >= 3 ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="flex flex-col gap-2 sm:grid sm:grid-cols-3 sm:gap-3">
+            <StatChip k="5 枚〜" jp="最低発注" />
+            <StatChip k="1 枚〜" jp="追加発注" />
+            <StatChip k="4–5 週" jp="納期目安" />
+          </div>
         </div>
       </div>
     </section>
@@ -172,10 +148,10 @@ export function Hero() {
 function StatChip({ k, jp }: { k: string; jp: string }) {
   return (
     <div className="flex items-center justify-between gap-4 rounded-2xl border border-white/15 bg-white/[0.04] px-5 py-3 backdrop-blur transition hover:border-white/30 hover:bg-white/[0.08]">
-      <span className="font-jp text-[12px] font-bold tracking-[0.16em] text-[var(--color-paper-pure)]/65">
+      <span className="font-jp text-[11px] font-bold tracking-[0.16em] text-[var(--color-paper-pure)]/65">
         {jp}
       </span>
-      <span className="font-jp text-[20px] font-black leading-none text-[var(--color-paper-pure)] sm:text-[22px]">
+      <span className="font-jp text-[18px] font-black leading-none text-[var(--color-paper-pure)] sm:text-[20px]">
         {k}
       </span>
     </div>
