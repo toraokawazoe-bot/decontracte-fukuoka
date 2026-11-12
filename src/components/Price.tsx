@@ -142,7 +142,7 @@ export function Price() {
               <ul className="mt-8 space-y-2 font-jp text-[12px] font-medium leading-[1.9] text-[var(--color-ink-dim)] lg:text-[13px]">
                 <li>※ オプションは税抜、送料は税込。</li>
                 <li>※ 納期はご注文確定後、約 4〜5 週間。</li>
-                <li>※ ロゴデータは Ai 形式推奨。他形式は別途料金。</li>
+                <li>※ ロゴデータは Ai 形式が必要。お持ちでない場合はデータ作成料 11,000 円／1 データ。</li>
               </ul>
             </div>
           </div>
