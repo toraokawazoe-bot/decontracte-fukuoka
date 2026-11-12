@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Reveal } from "./Reveal";
+import { SectionBg } from "./motion/SectionBg";
 
 const STEPS = [
   { n: "01", title: "見積もり依頼",    body: "フォーム／LINE で、枚数と使用シーンを共有。",       img: "/img/flow01.jpg" },
@@ -12,80 +12,73 @@ const STEPS = [
 
 export function OrderFlow() {
   return (
-    <section id="flow" className="stack-section relative overflow-hidden surface-ink">
-      <div className="container-x section-y relative">
-        <Reveal>
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="font-jp text-[12px] font-bold tracking-[0.32em] text-[var(--color-madder-hi)]">
-                FLOW
-              </p>
-              <h2
-                className="mt-3 font-jp font-black leading-[1.1] tracking-[-0.01em] text-[var(--color-paper-pure)]"
-                style={{ fontSize: "clamp(40px, 5.5vw, 84px)" }}
-              >
-                注文の流れ。
-              </h2>
-            </div>
-            <p className="max-w-md font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-paper-pure)]/85">
-              依頼から納品まで約 4〜5 週間。まずはステップ 01 から。
-            </p>
-          </div>
-        </Reveal>
+    <section id="flow" className="stack-section relative overflow-hidden bg-black text-white">
+      <SectionBg word="PROCESS" dark rotate="left" />
+      <div className="container-x relative z-10 py-28 lg:py-48">
+        <header className="border-b border-white/60 pb-6 lg:pb-8">
+          <p className="font-mono text-[10px] uppercase tracking-[0.42em] text-white/70">
+            05 / FLOW
+          </p>
+          <h2
+            className="v-mask mt-5 font-display leading-[1.02] text-white"
+            style={{
+              fontStyle: "italic",
+              fontWeight: 500,
+              letterSpacing: "-0.005em",
+              fontSize: "clamp(44px, 7vw, 124px)",
+            }}
+          >
+            Process.
+          </h2>
+          <p className="font-jp-serif mt-5 text-[16px] font-medium leading-[1.7] text-white lg:text-[19px]">
+            注文の流れ。
+          </p>
+          <p className="mt-4 max-w-xl font-jp text-[13px] font-medium leading-[1.95] text-white/65 lg:text-[14px]">
+            依頼から納品まで約 4〜5 週間。まずはステップ 01 から。
+          </p>
+        </header>
 
-        <ol className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mt-10 lg:grid-cols-3 lg:gap-5">
-          {STEPS.map((s, i) => (
-            <Reveal as="li" key={s.n} delay={i * 60}>
-              <StepCard step={s} />
-            </Reveal>
+        <ol className="border-b border-white">
+          {STEPS.map((s) => (
+            <li
+              key={s.n}
+              className="v-rise grid grid-cols-1 gap-6 border-t border-white py-10 md:grid-cols-[auto_minmax(0,1fr)_180px] md:items-center md:gap-10 lg:py-14"
+            >
+              <span
+                className="font-sans font-bold leading-none tracking-[-0.025em] text-white"
+                style={{ fontSize: "clamp(44px, 5vw, 84px)" }}
+              >
+                {s.n}
+              </span>
+              <div>
+                <h3 className="font-jp text-[19px] font-bold leading-tight text-white lg:text-[24px]">
+                  {s.title}
+                </h3>
+                <p className="mt-3 max-w-xl font-jp text-[13px] font-medium leading-[1.95] text-white/70 lg:text-[14px]">
+                  {s.body}
+                </p>
+              </div>
+              <div className="relative hidden aspect-[4/3] w-full overflow-hidden md:block">
+                <Image
+                  src={s.img}
+                  alt=""
+                  fill
+                  sizes="180px"
+                  className="object-cover grayscale transition-all duration-700 hover:grayscale-0"
+                />
+              </div>
+            </li>
           ))}
         </ol>
 
-        <Reveal>
-          <a
-            href="#contact"
-            className="mt-8 group flex items-center justify-between rounded-2xl border-2 border-[var(--color-paper-pure)] px-7 py-4 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-paper-pure)] transition hover:bg-[var(--color-paper-pure)] hover:text-[var(--color-ink)] lg:mt-10"
-          >
-            ステップ 01 から始める
-            <span aria-hidden className="transition group-hover:translate-x-1">→</span>
-          </a>
-        </Reveal>
+        <a
+          href="#contact"
+          className="group mt-16 inline-flex items-center justify-between gap-6 border-2 border-white bg-white px-8 py-5 font-jp text-[14px] font-bold tracking-[0.04em] text-black transition hover:bg-black hover:text-white lg:mt-24"
+        >
+          <span>ステップ 01 から始める</span>
+          <span aria-hidden className="transition group-hover:translate-x-1">→</span>
+        </a>
       </div>
     </section>
-  );
-}
-
-function StepCard({ step }: { step: (typeof STEPS)[number] }) {
-  return (
-    <article className="group card-lift relative h-full overflow-hidden rounded-3xl border border-white/10 bg-[var(--color-jet-2)] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
-      <div className="relative aspect-[16/9] overflow-hidden">
-        <Image
-          src={step.img}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 33vw, 100vw"
-          className="object-cover transition-transform duration-1000 group-hover:scale-[1.04]"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(180deg, rgba(13,10,8,0.20) 0%, rgba(13,10,8,0.78) 100%)",
-          }}
-        />
-        <span className="absolute bottom-2 left-4 font-jp text-[40px] font-black leading-none text-[var(--color-paper-pure)] lg:text-[48px]">
-          {step.n}
-        </span>
-      </div>
-
-      <div className="p-5 lg:p-6">
-        <h3 className="font-jp text-[17px] font-bold leading-tight text-[var(--color-paper-pure)] lg:text-[19px]">
-          {step.title}
-        </h3>
-        <p className="mt-2 font-jp text-[13px] font-medium leading-[1.75] text-[var(--color-paper-pure)]/80">
-          {step.body}
-        </p>
-      </div>
-    </article>
   );
 }

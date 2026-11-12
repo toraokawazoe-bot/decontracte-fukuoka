@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { Reveal } from "./Reveal";
+import { SectionBg } from "./motion/SectionBg";
 
 const ITEMS = [
   {
     no: "01",
     title: "昇華ユニフォーム",
+    en: "JERSEY",
     img: "/img/uniform.png",
     desc: "シャツ + パンツの 2 点セット。型・配色・ロゴ・ナンバー、すべて自由設計。",
     points: ["フィールド／GK 仕様", "短袖／長袖 対応", "初回 5 枚〜・追加 1 枚〜"],
@@ -12,6 +13,7 @@ const ITEMS = [
   {
     no: "02",
     title: "昇華ビブス",
+    en: "BIBS",
     img: "/img/bibusu.png",
     desc: "ユニフォームと配色をリンクさせる、練習・紅白戦専用のビブス。",
     points: ["シングル／リバーシブル", "ユニフォームと共通デザイン", "初回 5 枚〜・追加 1 枚〜"],
@@ -20,73 +22,81 @@ const ITEMS = [
 
 export function Items() {
   return (
-    <section id="items" className="stack-section relative overflow-hidden surface-ink">
-      <div className="container-x section-y">
-        <Reveal>
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="font-jp text-[12px] font-bold tracking-[0.32em] text-[var(--color-madder-hi)]">
-                ITEM
-              </p>
-              <h2
-                className="mt-3 font-jp font-black leading-[1.1] tracking-[-0.01em] text-[var(--color-paper-pure)]"
-                style={{ fontSize: "clamp(40px, 5.5vw, 84px)" }}
-              >
-                アイテム。
-              </h2>
-            </div>
-            <p className="max-w-md font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-paper-pure)]/85">
-              主力は 2 種。ユニフォームとビブスを同じ配色で揃えれば、チームの空気はもう一段上がる。
-            </p>
-          </div>
-        </Reveal>
+    <section id="items" className="stack-section relative overflow-hidden bg-black text-white">
+      <SectionBg word="CATALOG" dark rotate="left" />
+      <div className="container-x relative z-10 py-28 lg:py-48">
+        <header className="border-b border-white/60 pb-6 lg:pb-8">
+          <p className="font-mono text-[10px] uppercase tracking-[0.42em] text-white/70">
+            03 / ITEM
+          </p>
+          <h2
+            className="v-mask mt-5 font-display leading-[1.02] text-white"
+            style={{
+              fontStyle: "italic",
+              fontWeight: 500,
+              letterSpacing: "-0.005em",
+              fontSize: "clamp(44px, 7vw, 124px)",
+            }}
+          >
+            Catalog.
+          </h2>
+          <p className="font-jp-serif mt-5 text-[16px] font-medium leading-[1.7] text-white lg:text-[19px]">
+            アイテム。
+          </p>
+        </header>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 lg:mt-20 lg:grid-cols-2 lg:gap-8">
-          {ITEMS.map((it, i) => (
-            <Reveal key={it.no} delay={i * 100}>
-              <ItemCard item={it} />
-            </Reveal>
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {ITEMS.map((item, i) => (
+            <article
+              key={item.no}
+              className={`v-rise group flex flex-col border-b border-white py-12 lg:py-16 ${
+                i === 0 ? "" : "lg:border-l lg:pl-10"
+              } ${i === 0 ? "lg:pr-10" : ""}`}
+            >
+              <div className="flex items-baseline justify-between">
+                <span
+                  className="font-sans font-bold leading-none tracking-[-0.025em] text-white"
+                  style={{ fontSize: "clamp(40px, 4.5vw, 72px)" }}
+                >
+                  {item.no}
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.42em] text-white/55">
+                  {item.en}
+                </span>
+              </div>
+
+              <div className="relative mt-8 aspect-[5/4] w-full overflow-hidden bg-white">
+                <Image
+                  src={item.img}
+                  alt={item.title}
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 90vw"
+                  className="object-contain p-8 transition-transform duration-700 group-hover:scale-[1.04] lg:p-12"
+                />
+              </div>
+
+              <h3 className="mt-8 font-jp text-[19px] font-bold leading-tight text-white lg:text-[22px]">
+                {item.title}
+              </h3>
+              <p className="mt-3 max-w-md font-jp text-[13px] font-medium leading-[1.95] text-white/70 lg:text-[14px]">
+                {item.desc}
+              </p>
+
+              <ul className="mt-6 flex flex-col gap-2">
+                {item.points.map((p) => (
+                  <li
+                    key={p}
+                    className="flex items-baseline gap-3 font-mono text-[11px] uppercase tracking-[0.32em] text-white/70"
+                  >
+                    <span aria-hidden className="text-white">→</span>
+                    <span className="font-jp tracking-normal text-white/85">{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function ItemCard({ item }: { item: (typeof ITEMS)[number] }) {
-  return (
-    <article className="group card-lift relative h-full overflow-hidden rounded-3xl border border-white/10 bg-[var(--color-jet-2)] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
-      <div className="relative aspect-[16/10] overflow-hidden bg-white">
-        <Image
-          src={item.img}
-          alt={item.title}
-          fill
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          className="object-contain p-5 transition-transform duration-700 group-hover:scale-[1.03] lg:p-8"
-        />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute right-4 top-3 select-none font-jp text-[72px] font-black leading-none text-[var(--color-ink)]/8 lg:text-[100px]"
-        >
-          {item.no}
-        </span>
-      </div>
-
-      <div className="p-6 lg:p-7">
-        <h3 className="font-jp text-[22px] font-bold leading-tight text-[var(--color-paper-pure)] lg:text-[26px]">
-          {item.title}
-        </h3>
-        <p className="mt-3 font-jp text-[14px] font-medium leading-[1.85] text-[var(--color-paper-pure)]/80">
-          {item.desc}
-        </p>
-        <ul className="mt-5 flex flex-wrap gap-2">
-          {item.points.map((p) => (
-            <li key={p} className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-jp text-[11px] font-bold tracking-[0.04em] text-[var(--color-paper-pure)]">
-              {p}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </article>
   );
 }

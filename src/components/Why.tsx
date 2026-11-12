@@ -1,4 +1,4 @@
-import { Reveal } from "./Reveal";
+import { SectionBg } from "./motion/SectionBg";
 
 const REASONS = [
   {
@@ -35,61 +35,51 @@ const REASONS = [
 
 export function Why() {
   return (
-    <section id="why" className="stack-section relative overflow-hidden surface-paper-pure">
-      <div className="container-x section-y">
-        <div className="grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-20">
-          <Reveal>
-            <div className="sticky top-32">
-              <p className="font-jp text-[12px] font-bold tracking-[0.32em] text-[var(--color-madder)]">
-                WHY
-              </p>
-              <h2
-                className="mt-3 font-jp font-black leading-[1.1] tracking-[-0.01em] text-[var(--color-ink)]"
-                style={{ fontSize: "clamp(40px, 5.5vw, 84px)" }}
-              >
-                選ばれる、
-                <br />
-                <span className="text-[var(--color-madder)]">6 つの</span>理由。
-              </h2>
-              <p className="mt-7 max-w-md font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-ink)]">
-                チームウェアは &ldquo;道具&rdquo; じゃない。チームそのものだ。
-              </p>
-            </div>
-          </Reveal>
+    <section id="why" className="stack-section relative overflow-hidden bg-white text-[var(--color-ink)]">
+      <SectionBg word="REASONS" rotate="right" />
+      <div className="container-x relative z-10 py-28 lg:py-48">
+        <header className="border-b border-[var(--color-ink)] pb-6 lg:pb-8">
+          <p className="font-mono text-[10px] uppercase tracking-[0.42em] text-[var(--color-ink-dim)]">
+            02 / WHY
+          </p>
+          <h2
+            className="v-mask mt-5 font-display leading-[1.02] text-[var(--color-ink)]"
+            style={{
+              fontStyle: "italic",
+              fontWeight: 500,
+              letterSpacing: "-0.005em",
+              fontSize: "clamp(44px, 7vw, 124px)",
+            }}
+          >
+            Reasons.
+          </h2>
+          <p className="font-jp-serif mt-5 text-[16px] font-medium leading-[1.7] text-[var(--color-ink)] lg:text-[19px]">
+            選ばれる、6 つの理由。
+          </p>
+        </header>
 
-          <ol className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:gap-6">
-            {REASONS.map((r, i) => (
-              <Reveal as="li" key={r.n} delay={i * 60}>
-                <ReasonCard r={r} />
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {REASONS.map((r) => (
+            <li
+              key={r.n}
+              className="v-rise flex flex-col gap-6 border-b border-[var(--color-ink)] py-10 pr-8 md:[&:nth-child(2n)]:border-l md:[&:nth-child(2n)]:border-[var(--color-ink)] md:[&:nth-child(2n)]:pl-8 lg:[&:nth-child(3n+2)]:border-l lg:[&:nth-child(3n+3)]:border-l lg:[&:nth-child(3n+2)]:border-[var(--color-ink)] lg:[&:nth-child(3n+3)]:border-[var(--color-ink)] lg:[&:nth-child(3n+2)]:pl-8 lg:[&:nth-child(3n+3)]:pl-8 lg:py-12"
+            >
+              <span
+                className="font-sans font-bold leading-none tracking-[-0.025em] text-[var(--color-ink)]"
+                style={{ fontSize: "clamp(40px, 4.5vw, 72px)" }}
+              >
+                {r.n}
+              </span>
+              <h3 className="font-jp text-[17px] font-bold leading-snug text-[var(--color-ink)] lg:text-[20px]">
+                {r.title}
+              </h3>
+              <p className="font-jp text-[13px] font-medium leading-[1.9] text-[var(--color-ink-dim)] lg:text-[14px]">
+                {r.body}
+              </p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
-  );
-}
-
-function ReasonCard({ r }: { r: (typeof REASONS)[number] }) {
-  return (
-    <article className="group card-lift card-lift-shadow relative h-full overflow-hidden rounded-3xl border border-[var(--color-line-ink-strong)] bg-[var(--color-paper-pure)] p-7 lg:p-9">
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -right-3 -top-7 select-none font-jp text-[140px] font-black leading-[0.8] text-[var(--color-paper-2)] lg:text-[180px]"
-      >
-        {r.n}
-      </span>
-
-      <span className="relative font-jp text-[36px] font-black leading-none text-[var(--color-madder)] lg:text-[44px]">
-        {r.n}
-      </span>
-
-      <h3 className="relative mt-6 font-jp text-[20px] font-bold leading-snug text-[var(--color-ink)] lg:text-[22px]">
-        {r.title}
-      </h3>
-      <p className="relative mt-3 font-jp text-[14px] font-medium leading-[1.9] text-[var(--color-ink)]">
-        {r.body}
-      </p>
-    </article>
   );
 }

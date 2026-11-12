@@ -1,4 +1,4 @@
-import { Reveal } from "./Reveal";
+import { SectionBg } from "./motion/SectionBg";
 
 const FAQ = [
   {
@@ -45,54 +45,63 @@ const FAQ = [
 
 export function Faq() {
   return (
-    <section id="faq" className="stack-section relative overflow-hidden surface-paper-pure">
-      <div className="container-x section-y">
-        <Reveal>
-          <div className="grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-20">
-            <div>
-              <p className="font-jp text-[12px] font-bold tracking-[0.32em] text-[var(--color-madder)]">
-                FAQ
-              </p>
-              <h2
-                className="mt-3 font-jp font-black leading-[1.1] tracking-[-0.01em] text-[var(--color-ink)]"
-                style={{ fontSize: "clamp(40px, 5.5vw, 84px)" }}
-              >
-                よくある
-                <br />
-                ご質問。
-              </h2>
-              <p className="mt-7 max-w-md font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-ink)]">
-                ここに無い質問は、LINE またはフォームから気軽にどうぞ。1 営業日以内に返信します。
-              </p>
-            </div>
+    <section id="faq" className="stack-section relative overflow-hidden bg-white text-[var(--color-ink)]">
+      <SectionBg word="QUESTIONS" rotate="left" />
+      <div className="container-x relative z-10 py-28 lg:py-48">
+        <header className="border-b border-[var(--color-ink)] pb-6 lg:pb-8">
+          <p className="font-mono text-[10px] uppercase tracking-[0.42em] text-[var(--color-ink-dim)]">
+            07 / FAQ
+          </p>
+          <h2
+            className="v-mask mt-5 font-display leading-[1.02]"
+            style={{
+              fontStyle: "italic",
+              fontWeight: 500,
+              letterSpacing: "-0.005em",
+              fontSize: "clamp(44px, 7vw, 124px)",
+            }}
+          >
+            Q &amp; A.
+          </h2>
+          <p className="font-jp-serif mt-5 text-[16px] font-medium leading-[1.7] lg:text-[19px]">
+            よくあるご質問。
+          </p>
+          <p className="mt-4 max-w-xl font-jp text-[13px] font-medium leading-[1.95] text-[var(--color-ink-dim)] lg:text-[14px]">
+            ここに無い質問は、LINE またはフォームから気軽にどうぞ。1 営業日以内に返信します。
+          </p>
+        </header>
 
-            <div className="border-t-2 border-[var(--color-ink)]">
-              {FAQ.map((f) => (
-                <details
-                  key={f.q}
-                  className="group border-b border-[var(--color-line-ink-strong)]"
+        <div>
+          {FAQ.map((f, i) => (
+            <details
+              key={f.q}
+              className="v-rise group border-b border-[var(--color-ink)]"
+            >
+              <summary className="flex cursor-pointer list-none items-baseline gap-6 py-7 [&::-webkit-details-marker]:hidden lg:py-9">
+                <span className="font-mono text-[10px] uppercase tracking-[0.42em] text-[var(--color-ink-mute)]">
+                  Q.{String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="flex-1 font-jp text-[15px] font-bold leading-snug lg:text-[18px]">
+                  {f.q}
+                </span>
+                <span
+                  aria-hidden
+                  className="inline-flex size-8 shrink-0 items-center justify-center border border-[var(--color-ink)] font-sans text-[16px] font-medium transition-transform duration-300 group-open:rotate-45"
                 >
-                  <summary className="flex cursor-pointer list-none items-start gap-5 py-6 [&::-webkit-details-marker]:hidden">
-                    <span className="flex-1 font-jp text-[17px] font-bold leading-snug text-[var(--color-ink)] lg:text-[19px]">
-                      {f.q}
-                    </span>
-                    <span
-                      aria-hidden
-                      className="mt-1 inline-flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] font-mono text-[18px] font-bold text-[var(--color-ink)] transition group-open:rotate-45 group-open:border-[var(--color-madder)] group-open:text-[var(--color-madder)]"
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <div className="pb-7 pr-12">
-                    <p className="font-jp text-[15px] font-medium leading-[1.9] text-[var(--color-ink)]">
-                      {f.a}
-                    </p>
-                  </div>
-                </details>
-              ))}
-            </div>
-          </div>
-        </Reveal>
+                  +
+                </span>
+              </summary>
+              <div className="grid grid-cols-[auto_1fr] items-baseline gap-6 pb-7 lg:pb-9">
+                <span className="font-mono text-[10px] uppercase tracking-[0.42em] text-[var(--color-ink-mute)]">
+                  A.{String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="max-w-2xl font-jp text-[13px] font-medium leading-[1.95] text-[var(--color-ink)] lg:text-[15px]">
+                  {f.a}
+                </p>
+              </div>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
   );
