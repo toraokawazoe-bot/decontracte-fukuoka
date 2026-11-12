@@ -27,7 +27,7 @@ export function Items() {
       <div className="container-x relative z-10 py-28 lg:py-48">
         <header className="border-b border-white/60 pb-6 lg:pb-8">
           <p className="font-mono text-[10px] uppercase tracking-[0.42em] text-white/70">
-            03 / ITEM
+            02 / ITEM
           </p>
           <h2
             className="v-mask mt-5 font-display leading-[1.02] text-white"
