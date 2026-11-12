@@ -57,8 +57,8 @@ export function Hero() {
 
   return (
     <section
-      aria-label="DÉCONTRACTÉ"
-      className="relative flex h-[100svh] flex-col overflow-hidden bg-white text-[var(--color-ink)]"
+      aria-label="DÉCONTRACTÉ チームオーダーのユニフォーム"
+      className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[var(--color-jet)] text-[var(--color-on-jet)]"
     >
       {/* Giant slow-rotating outline wordmark in the background */}
       <div
@@ -73,7 +73,7 @@ export function Hero() {
             fontSize: "38vw",
             letterSpacing: "-0.05em",
             color: "transparent",
-            WebkitTextStroke: "1.5px rgba(13,10,8,0.08)",
+            WebkitTextStroke: "1.5px rgba(245,239,228,0.10)",
             lineHeight: 0.9,
           }}
         >
@@ -104,39 +104,66 @@ export function Hero() {
       </div>
 
       {/* Scan line that crosses occasionally */}
-      <span aria-hidden className="hero-scan absolute inset-x-0 z-[5] h-px bg-[var(--color-ink)]/40" />
+      <span aria-hidden className="hero-scan absolute inset-x-0 z-[5] h-px bg-[var(--color-on-jet)]/40" />
 
-      {/* Brand name — centered, slightly below center, each letter glitches */}
-      <h1
-        aria-label="DÉCONTRACTÉ"
-        className="kinetic-brand absolute inset-x-0 z-10 flex justify-center px-4"
-        style={{
-          top: "58%",
-          transform: "translateY(-50%)",
-          fontFamily: "var(--font-sans)",
-          fontWeight: 900,
-          fontSize: "clamp(36px, 12.5vw, 224px)",
-          letterSpacing: "-0.055em",
-          lineHeight: 0.9,
-          color: "var(--color-ink)",
-        }}
-      >
-        <span className="inline-block whitespace-nowrap">
-          {LETTERS.map((l, i) => (
-            <span
-              key={i}
-              aria-hidden
-              className={`kinetic-letter ${l.anim}`}
-              style={{
-                animationDelay: `${LETTER_TIMING[i].delay}s`,
-                animationDuration: `${LETTER_TIMING[i].duration}s`,
-              }}
-            >
-              {l.ch}
-            </span>
-          ))}
-        </span>
-      </h1>
+      <div className="container-x relative z-10 flex flex-1 flex-col justify-center pb-10 pt-28 lg:pb-16 lg:pt-32">
+        <p className="font-jp text-[13px] font-bold tracking-[0.12em] text-[var(--color-on-jet-dim)] lg:text-[15px]">
+          福岡発・昇華フルオーダー
+        </p>
+
+        <h1
+          aria-label="DÉCONTRACTÉ"
+          className="kinetic-brand mt-4 flex"
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 900,
+            fontSize: "clamp(30px, 10.5vw, 168px)",
+            letterSpacing: "-0.055em",
+            lineHeight: 0.95,
+            color: "var(--color-on-jet)",
+          }}
+        >
+          <span className="inline-block whitespace-nowrap">
+            {LETTERS.map((l, i) => (
+              <span
+                key={i}
+                aria-hidden
+                className={`kinetic-letter ${l.anim}`}
+                style={{
+                  animationDelay: `${LETTER_TIMING[i].delay}s`,
+                  animationDuration: `${LETTER_TIMING[i].duration}s`,
+                }}
+              >
+                {l.ch}
+              </span>
+            ))}
+          </span>
+        </h1>
+
+        <p className="mt-6 font-jp text-[22px] font-black leading-[1.35] text-[var(--color-on-jet)] sm:text-[34px] lg:mt-8 lg:text-[52px]">
+          チームオーダーのユニフォーム
+          <span className="block text-[var(--color-on-jet-dim)]">見積もり無料</span>
+        </p>
+        <p className="mt-4 max-w-xl font-jp text-[14px] font-medium leading-[1.9] text-[var(--color-on-jet-dim)] lg:text-[16px]">
+          サッカー・フットサル・ソサイチ向け。最低5枚から、追加は1枚〜。
+        </p>
+
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:mt-10">
+          <a
+            href="#contact"
+            className="inline-flex h-14 items-center justify-center gap-3 rounded-full bg-[var(--color-on-jet)] px-8 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-ink)] transition hover:bg-[var(--color-madder-hi)] hover:text-[var(--color-paper-pure)]"
+          >
+            見積もりを依頼する
+            <span aria-hidden>→</span>
+          </a>
+          <a
+            href="#items"
+            className="inline-flex h-14 items-center justify-center gap-3 rounded-full border-2 border-[var(--color-on-jet)]/70 px-8 font-jp text-[15px] font-bold tracking-[0.06em] text-[var(--color-on-jet)] transition hover:bg-[var(--color-on-jet)] hover:text-[var(--color-ink)]"
+          >
+            アイテムを見る
+          </a>
+        </div>
+      </div>
     </section>
   );
 }

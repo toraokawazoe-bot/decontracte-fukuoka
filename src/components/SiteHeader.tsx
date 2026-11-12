@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NAV = [
-  { href: "#why",   label: "選ばれる理由", en: "WHY" },
   { href: "#items", label: "アイテム",     en: "ITEM" },
   { href: "#price", label: "料金",         en: "PRICE" },
   { href: "#flow",  label: "注文の流れ",   en: "FLOW" },
   { href: "#works", label: "制作実績",     en: "WORKS" },
+  { href: "#why",   label: "選ばれる理由", en: "WHY" },
   { href: "#faq",   label: "Q&A",          en: "FAQ" },
 ];
 
@@ -61,10 +61,10 @@ export function SiteHeader() {
             <a
               key={n.href}
               href={n.href}
-              className={`group inline-flex items-baseline gap-1.5 font-jp text-[13px] font-bold tracking-[0.06em] transition ${
+              className={`group inline-flex items-baseline gap-1.5 font-jp text-[14px] font-bold tracking-[0.06em] transition ${
                 onDark
-                  ? "text-[var(--color-paper-pure)]/85 hover:text-[var(--color-paper-pure)]"
-                  : "text-[var(--color-ink)]/80 hover:text-[var(--color-ink)]"
+                  ? "text-[var(--color-paper-pure)] hover:text-[var(--color-madder-hi)]"
+                  : "text-[var(--color-ink)] hover:text-[var(--color-madder)]"
               }`}
             >
               {n.label}
