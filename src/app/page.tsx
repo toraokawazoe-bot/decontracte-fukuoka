@@ -6,27 +6,24 @@ import { FLOW, ITEMS, LINE_URL, MINIMUMS, PRICES } from "@/lib/site";
 export default function HomePage() {
   return (
     <>
-      <section className="hero" data-cur="PLAY">
-        <div className="ph" data-scroll="zoom">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/img/first_view.jpg" alt="DÉCONTRACTÉのユニフォームを着てボールを争う選手" fetchPriority="high" />
-        </div>
-        <p className="side">FUKUOKA, JAPAN</p>
-        <h1 className="en">
-          <span className="ln"><span>FULL ORDER</span></span>
-          <span className="ln"><span>UNIFORMS</span></span>
-          <span className="sr">福岡のチームユニフォーム フルオーダー DÉCONTRACTÉ</span>
-        </h1>
-        <div className="bar fade">
-          <p className="lead">
-            サッカー・フットサル・ソサイチの<br />
-            チームユニフォームを、<span className="nb">フルオーダーで。</span>
+      <section className="hero">
+        <div className="top">
+          <h1 className="jpt">
+            <span className="ln"><span>チームユニフォームを、</span></span>
+            <span className="ln"><span>フルオーダーで。</span></span>
+            <span className="sr">福岡のサッカー・フットサル・ソサイチ向けユニフォーム DÉCONTRACTÉ</span>
+          </h1>
+          <div className="meta fade">
             <small>初回5枚から／追加1枚から／福岡・薬院</small>
-          </p>
-          <div className="ctas">
             <Link className="btn btn-signal" href="/contact">見積もりを依頼する<span className="ar">→</span></Link>
           </div>
         </div>
+        <div className="ph" data-cur="PLAY">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/img/hero_bright.jpg" alt="おそろいの青いユニフォームを着てチームで並ぶ選手たち(イメージ)" fetchPriority="high" data-scroll="zoom" />
+        </div>
+        <p className="side">FUKUOKA, JAPAN</p>
+        <span className="wm" aria-hidden data-scroll="slideL">DÉCONTRACTÉ</span>
       </section>
 
       <Ticker />

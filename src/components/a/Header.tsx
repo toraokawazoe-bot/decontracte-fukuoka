@@ -50,7 +50,7 @@ export function Header() {
       <header className={`hd${solid || open ? " is-solid" : ""}${hidden && !open ? " is-hidden" : ""}`}>
         <Link href="/" className="logo" aria-label="DÉCONTRACTÉ トップへ">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/img/logo_white.svg" alt="DÉCONTRACTÉ" width={113} height={24} />
+          <img src="/img/logo_black.svg" alt="DÉCONTRACTÉ" width={113} height={24} />
         </Link>
         <nav aria-label="メイン">
           {NAV.map((n) => (

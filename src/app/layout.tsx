@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Anton, Noto_Sans_JP } from "next/font/google";
+import { DM_Sans, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/a/Header";
 import { Footer } from "@/components/a/Footer";
 import { Motion } from "@/components/a/Motion";
 
-const anton = Anton({ variable: "--font-anton", subsets: ["latin"], weight: "400", display: "swap" });
+const dm = DM_Sans({ variable: "--font-dm", subsets: ["latin"], weight: ["500", "700"], display: "swap" });
 // 日本語の字形も配信させるため subsets を指定せず preload を切る(CJKフォントの推奨設定)
 const noto = Noto_Sans_JP({ variable: "--font-noto", weight: ["500", "700", "900"], display: "swap", preload: false });
 
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ja" className={`${anton.variable} ${noto.variable}`} suppressHydrationWarning>
+    <html lang="ja" className={`${dm.variable} ${noto.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>

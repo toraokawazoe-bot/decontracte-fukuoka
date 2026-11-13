@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Lenis from "lenis";
 
 // 読み込み時のせり上がり・スクロール連動・カーソル追従・SP下部バー。
 // prefers-reduced-motion では連動を止める(CSS側でも止めている)。
@@ -31,6 +32,8 @@ export function Motion() {
     document.querySelectorAll(".rv,[data-reveal] .ln").forEach((el) => io.observe(el));
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // 慣性つきのなめらかなスクロール(参考サイトのezobolic等と同じ方式)。動きを減らす設定では使わない
+    const lenis = reduce ? null : new Lenis({ lerp: 0.12, autoRaf: true });
     const els = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll]"));
     // 画面内(前後1画面)の要素だけ、スクロール・リサイズ時に1フレームだけ更新する
     const visible = new Set<HTMLElement>();
@@ -93,6 +96,7 @@ export function Motion() {
       window.clearTimeout(t);
       io.disconnect();
       vio.disconnect();
+      lenis?.destroy();
       cancelAnimationFrame(raf);
       cancelAnimationFrame(craf);
       window.removeEventListener("scroll", schedule);
