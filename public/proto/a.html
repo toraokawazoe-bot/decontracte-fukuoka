@@ -1,0 +1,50 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="base.css">
+<title>案A 写真×巨大英字</title>
+<style>
+.a-hero{position:relative;height:100svh;min-height:640px;overflow:hidden}
+.a-hero .ph{position:absolute;inset:0}
+.a-hero .ph img{width:100%;height:100%;object-fit:cover;object-position:60% 40%}
+.a-hero .ph::after{content:"";position:absolute;inset:0;background:rgba(11,11,11,.48)}
+.a-hero h1{position:absolute;left:24px;right:24px;bottom:176px;font-size:clamp(64px,15vw,260px)}
+.a-hero h1 .ln:nth-child(2)>span{padding-left:12vw}
+.a-hero .bar{position:absolute;left:24px;right:24px;bottom:32px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;border-top:1px solid rgba(244,244,241,var(--o2));padding-top:24px}
+.a-hero .lead{font-size:clamp(18px,2vw,28px);font-weight:900;line-height:1.5}
+.a-hero .lead small{display:block;font-size:13px;font-weight:500;opacity:var(--o2);margin-top:8px}
+.a-hero .side{position:absolute;top:50%;right:24px;writing-mode:vertical-rl;font-family:Anton;font-size:13px;letter-spacing:.2em;opacity:var(--o2)}
+.a-items{background:var(--paper);color:var(--ink);padding:96px 0 0;overflow:hidden}
+.a-items .row{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:48px;padding:48px 24px;border-top:2px solid var(--ink)}
+.a-items .row:nth-child(even) .pic{order:-1}
+.a-items .big{font-size:clamp(72px,13vw,220px);white-space:nowrap}
+.a-items .num{font-family:Anton;color:var(--signal);font-size:20px}
+.a-items .pic{background:var(--ink);aspect-ratio:4/3;overflow:hidden}
+.a-items .pic img{width:100%;height:100%;object-fit:cover}
+.a-items p.d{font-weight:700;font-size:15px;margin-top:16px}
+.a-items .row:nth-child(2) .big{margin-left:-4vw}
+.a-items .row:nth-child(3){padding-top:96px}
+@media(max-width:760px){.a-hero h1{bottom:240px}.a-hero .bar{flex-direction:column;align-items:flex-start}.a-items .row{grid-template-columns:1fr}.a-items .row:nth-child(even) .pic{order:0}.a-hero .side{display:none}}
+</style></head><body>
+<header class="hd"><a href="#"><img src="../img/logo_white.svg" alt="DÉCONTRACTÉ"></a>
+<nav><a href="#items">作れるもの</a><a href="#">料金</a><a href="#">注文の流れ</a><a href="#">制作例</a><a class="cta" href="#">見積もり依頼</a></nav></header>
+<div class="cur"></div>
+<section class="a-hero" data-cur="PLAY">
+  <div class="ph" data-scroll="zoom"><img src="../img/first_view.jpg" alt="ユニフォームを着てボールを争う選手"></div>
+  <p class="side">FUKUOKA, JAPAN</p>
+  <h1 class="en"><span class="ln"><span>FULL ORDER</span></span><span class="ln"><span>UNIFORMS</span></span><span class="sr">福岡のチームユニフォーム フルオーダー</span></h1>
+  <div class="bar fade">
+    <p class="lead">サッカー・フットサル・ソサイチの<br>チームユニフォームを、フルオーダーで。<small>初回5枚から／追加1枚から／福岡</small></p>
+    <a class="btn primary" href="#">見積もりを依頼する<span class="ar">→</span></a>
+  </div>
+</section>
+<div class="tk"><div>
+<span>SUBLIMATION</span><i>●</i><span>FULL ORDER</span><i>●</i><span>SOCCER</span><i>●</i><span>FUTSAL</span><i>●</i><span>7-A-SIDE</span><i>●</i><span>FROM 5 PCS</span><i>●</i>
+<span>SUBLIMATION</span><i>●</i><span>FULL ORDER</span><i>●</i><span>SOCCER</span><i>●</i><span>FUTSAL</span><i>●</i><span>7-A-SIDE</span><i>●</i><span>FROM 5 PCS</span><i>●</i>
+</div></div>
+<section class="a-items" id="items">
+  <div class="row"><div><p class="num">01</p><p class="big en" data-scroll="slideR">UNIFORM</p><p class="d">ユニフォーム 上下セット ¥11,000〜(税抜)</p></div><div class="pic" data-cur="VIEW"><img src="../img/spec_shirt.jpg" alt="ユニフォームのシャツ"></div></div>
+  <div class="row"><div><p class="num">02</p><p class="big en" data-scroll="slideL">BIBS</p><p class="d">ビブス 5枚から</p></div><div class="pic" data-cur="VIEW"><img src="../img/spec_bibs.jpg" alt="ビブス"></div></div>
+  <div class="row"><div><p class="num">03</p><p class="big en" data-scroll="slideR">SOCKS</p><p class="d">ソックス 5足から</p></div><div class="pic" data-cur="VIEW"><img src="../img/spec_pants.jpg" alt="パンツ(ソックス画像は仮)"></div></div>
+</section>
+<nav class="sw"><a class="on" href="a.html">A</a><a href="b.html">B</a><a href="c.html">C</a></nav>
+<script src="base.js"></script></body></html>

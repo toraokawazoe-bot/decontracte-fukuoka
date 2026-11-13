@@ -1,0 +1,57 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="base.css">
+<title>案B 生地の寄り×分割</title>
+<style>
+.b-hero{position:relative;height:100svh;min-height:640px;display:grid;grid-template-columns:5fr 7fr;overflow:hidden}
+.b-hero .l{padding:120px 24px 48px;display:flex;flex-direction:column;justify-content:flex-end;gap:24px;position:relative;z-index:2}
+.b-hero .r{position:relative;overflow:hidden;background:var(--signal)}
+.b-hero .r img{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover}
+.b-hero h1{position:absolute;z-index:3;left:24px;top:13%;font-size:clamp(64px,13vw,220px);color:var(--paper);pointer-events:none}
+.b-hero h1 .ln:nth-child(2)>span{padding-left:20vw}
+.b-hero .eyebrow{font-family:Anton;font-size:14px;letter-spacing:.2em;color:var(--signal)}
+.b-hero .lead{font-size:clamp(20px,1.8vw,30px);font-weight:900;line-height:1.45}
+.b-hero .facts{display:flex;gap:24px;border-top:1px solid rgba(244,244,241,var(--o3));padding-top:16px}
+.b-hero .facts b{font-family:Anton;font-size:40px;font-weight:400;line-height:1;display:block}
+.b-hero .facts span{font-size:12px;opacity:var(--o2)}
+.b-hero .cap{position:absolute;right:16px;bottom:16px;font-family:Anton;font-size:12px;letter-spacing:.2em;color:var(--paper)}
+.b-items{background:var(--ink);padding:96px 0;overflow:hidden}
+.b-items h2{font-size:clamp(28px,3vw,40px);font-weight:900;padding:0 24px 48px}
+.b-items h2 .en{display:block;color:var(--signal);font-size:14px;letter-spacing:.2em;margin-bottom:8px}
+.b-strip{display:flex;gap:24px;padding:0 24px;width:max-content}
+.b-card{width:min(72vw,520px);border-top:2px solid var(--paper);padding-top:16px}
+.b-card:nth-child(2){margin-top:96px}.b-card:nth-child(3){margin-top:48px;width:min(60vw,420px)}
+.b-card .pic{aspect-ratio:4/3;overflow:hidden;background:var(--paper)}
+.b-card .pic img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.b-card:hover img{transform:scale(1.06)}
+.b-card h3{font-family:Anton;font-weight:400;font-size:56px;line-height:1;margin-top:16px}
+.b-card p{font-weight:700}
+@media(max-width:760px){.b-hero{grid-template-columns:1fr;grid-template-rows:45svh auto}.b-hero .r{order:-1}.b-hero .l{padding:24px}.b-hero h1{top:30svh}}
+</style></head><body>
+<header class="hd"><a href="#"><img src="../img/logo_white.svg" alt="DÉCONTRACTÉ"></a>
+<nav><a href="#items">作れるもの</a><a href="#">料金</a><a href="#">注文の流れ</a><a href="#">制作例</a><a class="cta" href="#">見積もり依頼</a></nav></header>
+<div class="cur"></div>
+<section class="b-hero">
+  <h1 class="en"><span class="ln"><span>FULL ORDER</span></span><span class="ln"><span>UNIFORMS</span></span><span class="sr">福岡のチームユニフォーム フルオーダー</span></h1>
+  <div class="l fade">
+    <p class="eyebrow">FUKUOKA / SUBLIMATION</p>
+    <p class="lead">サッカー・フットサル・ソサイチの<br>チームユニフォームを、フルオーダーで。</p>
+    <div class="facts"><div><b>5</b><span>初回は5枚から</span></div><div><b>1</b><span>追加は1枚から</span></div><div><b>¥11,000〜</b><span>上下セット(税抜)</span></div></div>
+    <div><a class="btn primary" href="#">見積もりを依頼する<span class="ar">→</span></a></div>
+  </div>
+  <div class="r" data-cur="ZOOM"><img data-scroll="zoom" src="../img/team_order_01.png" alt="昇華プリントの生地の寄り"><p class="cap">SUBLIMATED FABRIC</p></div>
+</section>
+<div class="tk"><div>
+<span>SUBLIMATION</span><i>●</i><span>FULL ORDER</span><i>●</i><span>SOCCER</span><i>●</i><span>FUTSAL</span><i>●</i><span>7-A-SIDE</span><i>●</i><span>FROM 5 PCS</span><i>●</i>
+<span>SUBLIMATION</span><i>●</i><span>FULL ORDER</span><i>●</i><span>SOCCER</span><i>●</i><span>FUTSAL</span><i>●</i><span>7-A-SIDE</span><i>●</i><span>FROM 5 PCS</span><i>●</i>
+</div></div>
+<section class="b-items" id="items">
+  <h2><span class="en">WHAT WE MAKE</span>作れるもの</h2>
+  <div class="b-strip" data-scroll="slideL">
+    <article class="b-card" data-cur="VIEW"><div class="pic"><img src="../img/spec_shirt.jpg" alt="ユニフォームのシャツ"></div><h3>UNIFORM</h3><p>上下セット ¥11,000〜(税抜)</p></article>
+    <article class="b-card" data-cur="VIEW"><div class="pic"><img src="../img/spec_bibs.jpg" alt="ビブス"></div><h3>BIBS</h3><p>ビブス 5枚から</p></article>
+    <article class="b-card" data-cur="VIEW"><div class="pic"><img src="../img/spec_pants.jpg" alt="パンツ(ソックス画像は仮)"></div><h3>SOCKS</h3><p>ソックス 5足から</p></article>
+  </div>
+</section>
+<nav class="sw"><a href="a.html">A</a><a class="on" href="b.html">B</a><a href="c.html">C</a></nav>
+<script src="base.js"></script></body></html>

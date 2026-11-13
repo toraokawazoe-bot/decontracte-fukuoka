@@ -1,0 +1,62 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="base.css">
+<title>案C 白地の実物×縦帯</title>
+<style>
+body{background:var(--paper);color:var(--ink)}
+.hd{mix-blend-mode:normal;color:var(--ink);background:var(--paper);border-bottom:2px solid var(--ink)}
+.hd .cta{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.c-hero{position:relative;min-height:100svh;display:grid;grid-template-columns:72px 1fr 1fr;padding-top:66px}
+.c-band{background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center}
+.c-band p{writing-mode:vertical-rl;transform:rotate(180deg);font-family:Anton;font-size:28px;letter-spacing:.04em;white-space:nowrap}
+.c-txt{padding:48px 48px 48px 48px;display:flex;flex-direction:column;justify-content:center;gap:24px}
+.c-txt h1{font-size:clamp(56px,8.4vw,150px)}
+.c-txt h1 em{font-style:normal;color:var(--signal)}
+.c-txt .lead{font-size:clamp(20px,2vw,28px);font-weight:900;line-height:1.5}
+.c-facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.c-facts div{padding:16px;border-right:1px solid rgba(11,11,11,var(--o3))}.c-facts div:last-child{border:0}
+.c-facts b{font-family:Anton;font-weight:400;font-size:44px;line-height:1;display:block}
+.c-facts span{font-size:12px}
+.c-btns{display:flex;flex-wrap:wrap;gap:16px}
+.c-pic{position:relative;overflow:hidden;border-left:2px solid var(--ink);display:flex;align-items:center;justify-content:center;background:#fff}
+.c-pic .set{width:86%;aspect-ratio:1200/852;overflow:hidden}.c-pic .set img{width:100%;margin-top:-15%}
+.c-pic .tag{position:absolute;left:16px;top:16px;font-family:Anton;font-size:14px;letter-spacing:.2em}
+.c-pic .tag i{font-style:normal;color:var(--signal)}
+.c-pic .no{position:absolute;right:16px;bottom:8px;font-family:Anton;font-size:120px;line-height:1;color:var(--ink);opacity:var(--o3)}
+.c-items{border-top:2px solid var(--ink);display:grid;grid-template-columns:72px repeat(3,1fr)}
+.c-items .lab{background:var(--signal)}
+.c-items article{padding:24px;border-right:2px solid var(--ink)}
+.c-items article:last-child{border:0}
+.c-items .pic{aspect-ratio:1;overflow:hidden;background:#fff}
+.c-items .pic img{width:100%;height:100%;object-fit:contain;transition:transform .8s var(--ease)}
+.c-items article:hover img{transform:scale(1.06) rotate(-2deg)}
+.c-items h3{font-family:Anton;font-weight:400;font-size:48px;line-height:1;margin-top:16px}
+.c-items p{font-weight:700}
+.tk{background:var(--ink);color:var(--paper)}
+@media(max-width:860px){.c-hero>*,.c-items>*{min-width:0}.c-hero{grid-template-columns:40px minmax(0,1fr)}.c-txt .lead{font-size:18px}.c-facts{grid-template-columns:repeat(3,minmax(0,1fr))}.c-btns .btn{padding:16px}.c-txt{min-width:0}.c-facts b{font-size:26px}.c-facts div{padding:8px}.c-pic{grid-column:2;border-left:0;border-top:2px solid var(--ink);min-height:60vw}.c-band{grid-row:span 2}.c-band p{font-size:18px}.c-txt{padding:32px 16px}.c-items{grid-template-columns:1fr}.c-items .lab{display:none}.c-items article{border-right:0;border-bottom:2px solid var(--ink)}}
+</style></head><body>
+<header class="hd"><a href="#"><img src="../img/logo_black.svg" alt="DÉCONTRACTÉ"></a>
+<nav><a href="#items">作れるもの</a><a href="#">料金</a><a href="#">注文の流れ</a><a href="#">制作例</a><a class="cta" href="#">見積もり依頼</a></nav></header>
+<div class="cur"></div>
+<section class="c-hero">
+  <div class="c-band"><p>Full Order Uniforms</p></div>
+  <div class="c-txt">
+    <h1 class="en"><span class="ln"><span>YOUR TEAM.</span></span><span class="ln"><span>YOUR <em>KIT.</em></span></span><span class="sr">チームのユニフォームをフルオーダーで</span></h1>
+    <p class="lead fade">サッカー・フットサル・ソサイチの<br>チームユニフォームを、フルオーダーで。</p>
+    <div class="c-facts fade"><div><b>5</b><span>初回は5枚から</span></div><div><b>1</b><span>追加は1枚から</span></div><div><b>¥11,000〜</b><span>上下セット(税抜)</span></div></div>
+    <div class="c-btns fade"><a class="btn primary" href="#">見積もりを依頼する<span class="ar">→</span></a><a class="btn lineb" href="#">LINEで相談する</a></div>
+  </div>
+  <div class="c-pic" data-cur="VIEW"><p class="tag">WORKS <i>●</i> FULL SET</p><div class="set" data-scroll="rise"><img src="../img/uniform.png" alt="昇華ユニフォーム 上下セットの表と裏"></div><p class="no">10</p></div>
+</section>
+<div class="tk"><div>
+<span>SUBLIMATION</span><i>●</i><span>FULL ORDER</span><i>●</i><span>SOCCER</span><i>●</i><span>FUTSAL</span><i>●</i><span>7-A-SIDE</span><i>●</i><span>FROM 5 PCS</span><i>●</i>
+<span>SUBLIMATION</span><i>●</i><span>FULL ORDER</span><i>●</i><span>SOCCER</span><i>●</i><span>FUTSAL</span><i>●</i><span>7-A-SIDE</span><i>●</i><span>FROM 5 PCS</span><i>●</i>
+</div></div>
+<section class="c-items" id="items">
+  <div class="lab"></div>
+  <article data-cur="VIEW"><div class="pic"><img src="../img/spec_shirt.jpg" alt="ユニフォームのシャツ"></div><h3>UNIFORM</h3><p>上下セット ¥11,000〜(税抜)</p></article>
+  <article data-cur="VIEW"><div class="pic"><img src="../img/bibusu.png" alt="ビブス"></div><h3>BIBS</h3><p>ビブス 5枚から</p></article>
+  <article data-cur="VIEW"><div class="pic"><img src="../img/spec_pants.jpg" alt="パンツ(ソックス画像は仮)"></div><h3>SOCKS</h3><p>ソックス 5足から</p></article>
+</section>
+<nav class="sw"><a href="a.html">A</a><a href="b.html">B</a><a class="on" href="c.html">C</a></nav>
+<script src="base.js"></script></body></html>
