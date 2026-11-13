@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STUDY: belmo.com replica (DÉCONTRACTÉ placeholder)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* live: html 10px (12.5px >=1500px); breakpoints 1024 / 959 / 569; body bg #000 */
+html{font-size:10px;-webkit-text-size-adjust:100%}
+@media (min-width:1500px){html{font-size:12.5px}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;color:#fff;font-size:1.4rem;line-height:1;font-feature-settings:"palt";-webkit-font-smoothing:antialiased;font-family:"Noto Sans JP","Hiragino Kaku Gothic Pro",sans-serif;overflow-x:hidden}
+body.modal-open{overflow:hidden}
+a{color:inherit;text-decoration:none}ul{list-style:none}img{display:block;max-width:100%}
+.f-en{font-family:"DM Sans",sans-serif;font-weight:400}.f-jp{font-family:"Noto Sans JP",sans-serif}
+.pc-block{display:block}.sp-block{display:none!important}
+.bg{background-size:cover;background-position:50% 50%;background-color:#444}
+:root{--beige:#f4ede5;--blue:#81c0e9;--red:#c83531;--ink2:#1e2021;--gray:#f2f3f4;--ease:cubic-bezier(.25,.82,.355,1)}
+
+/* ---- scroll-in system (class .active added on scroll: scroll > elemTop - winH + 100) ---- */
+.js-scroll__anime{display:block;overflow:hidden;position:relative}
+.js-scroll__anime-inner{transform:translateY(-100%);transition:transform 1.3s cubic-bezier(.55,.085,.68,.53);transform-origin:left top;overflow:hidden;position:relative}
+.js-scroll__anime-inner:before{content:"";position:absolute;inset:0;margin:auto;width:104%;height:104%;z-index:2;background:var(--beige);transform:scaleY(1);transform-origin:top;transition:transform 1.3s cubic-bezier(.55,.085,.68,.53)}
+.js-scroll__anime-inner.b-msk:before{background:#000}.js-scroll__anime-inner.w-msk:before{background:#fff}.js-scroll__anime-inner.g-msk:before{background:var(--gray)}
+.active .js-scroll__anime-inner{transform:none}.active .js-scroll__anime-inner:before{transform:scaleY(0)}
+.msk-set{display:block;overflow:hidden}
+.msk{display:inline-block;transform:translateY(110%);transition:transform 1s var(--ease)}
+.active .msk,.active.msk{transform:none}
+.js-fade__anime{opacity:0;transform:translate3d(0,40px,0);transition:transform .7s ease,opacity .7s ease}
+.active .js-fade__anime,.active.js-fade__anime{opacity:1;transform:none}
+.js-text__anime{display:inline-block;overflow:hidden}
+.js-text__anime-inner{display:inline-block;transform:translateX(100%);padding-right:.8rem;transition:transform 1s var(--ease)}
+.active .js-text__anime-inner{transform:none}
+.active .delay-01{transition-delay:.1s}.active .delay-02{transition-delay:.2s}.active .delay-03{transition-delay:.3s}.active .delay-04{transition-delay:.4s}.active .delay-05{transition-delay:.5s}.active .delay-06{transition-delay:.6s}.active .delay-07{transition-delay:.7s}
+.active.js-fade__anime.delay-06,.active .js-fade__anime.delay-06{transition-delay:.6s}
+
+/* ---- header: black logo tab fixed top-left, nav centre-left, MENU right; mix-blend difference ---- */
+.l-header__sitename{position:fixed;z-index:100;width:13rem;top:0;left:0;transition:all .3s linear}
+.l-header__sitename a{display:block;background:#000;padding:3.34rem 3.2rem;transition:all .3s linear;font-family:"DM Sans";font-weight:700;font-size:2.4rem;text-align:center;letter-spacing:-.02em;line-height:1.2;height:13rem;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.4rem}
+.l-header__sitename small{font-size:1rem;letter-spacing:.1em;font-weight:700}
+.l-header__body{position:absolute;width:100%;display:flex;mix-blend-mode:difference;z-index:120;pointer-events:none}
+.l-header__nav{position:fixed;top:4rem;left:27%;z-index:2;padding:0 0 2rem;transition:all .3s linear;pointer-events:auto}
+.l-nav__lst{display:flex;padding:0 0 .4rem}
+.l-nav__lst li{font-size:1.3rem;position:relative;margin:0 .8rem 0 0}
+.l-nav__lst li a{position:relative;color:#fff;display:block;font-weight:700;overflow:hidden;padding:1rem}
+.l-nav__lst li a p{position:relative;overflow:hidden}
+.l-nav__lst li a p span{display:block;transition:transform .5s ease,opacity .5s ease}
+.l-nav__lst li a p span.lst-clone{position:absolute;top:0;left:0;transform:translateY(110%)}
+.l-nav__lst li:hover a p span:first-child{transform:translateY(-110%)}
+.l-nav__lst li:hover a p span.lst-clone{transform:none}
+.l-nav__lst li:before{content:"";position:absolute;bottom:.2rem;left:0;right:0;margin:auto;width:.4rem;height:.4rem;border-radius:50%;background:var(--blue);transform:scale(0);transition:transform .5s}
+.l-nav__lst li:hover:before,.l-nav__lst li.current-label:before{transform:scale(1.3)}
+.l-header.active .l-header__sitename{width:8rem}.l-header.active .l-header__sitename a{padding:2.1rem 2rem;height:8rem}.l-header.active .l-header__sitename small{display:none}
+.l-header.active .l-header__nav{top:1.8rem}.l-header.active #l-header__toggle{top:2.5rem}
+#l-header__toggle{position:fixed;z-index:130;width:9rem;right:4rem;top:5.4rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s linear;mix-blend-mode:difference;pointer-events:auto}
+.toggle{position:relative;width:3.4rem;height:1.5rem;display:inline-block}
+.toggle span{position:absolute;left:0;width:100%;height:4px;background:#000;overflow:hidden;transition:all .4s}
+.toggle span:before{content:"";display:block;height:4px;background:#fff}
+.toggle span:nth-of-type(1){top:0}.toggle span:nth-of-type(2){top:10px;right:0;left:auto}
+#l-header__toggle:hover .toggle span:nth-of-type(1):before{animation:moveactive .8s cubic-bezier(.58,.3,.005,1)}
+#l-header__toggle:hover .toggle span:nth-of-type(2):before{animation:moveactive .8s cubic-bezier(.58,.3,.005,1) .06s}
+.toggle.on span:nth-of-type(1){transform:translateY(.9rem) rotate(-28deg);top:-.4rem}.toggle.on span:nth-of-type(2){transform:translateY(-1rem) rotate(28deg);top:1.5rem}
+.toggle-label{font-size:1.2rem;color:#fff;margin-left:10px;font-weight:700}
+@keyframes moveactive{0%{transform:translateX(0)}50%{transform:translateX(100%)}50.01%{transform:translateX(-100%)}to{transform:none}}
+.modal-menu{position:fixed;inset:0;background:var(--ink2);z-index:110;opacity:0;pointer-events:none;transition:opacity .4s;display:flex;align-items:center;padding:0 8rem}
+.modal-menu.open{opacity:1;pointer-events:auto}
+.modal-menu li{font-size:4rem;font-weight:700;margin:0 0 2.4rem;font-family:"DM Sans"}
+
+/* ---- main visual ---- */
+.l-main__visual{width:100%;height:calc(100vh + 2.5rem);position:relative;background:#000;z-index:0}
+.l-main__body{width:100%;height:calc(100vh + 2.5rem);position:relative;background:var(--beige);z-index:1}
+.l-main__body-inner{width:100%;height:100vh;position:relative;display:flex}
+.l-main__slide{width:100vw;height:calc(100vh - 6rem);position:relative;overflow:hidden;background:#000;z-index:0}
+.slider-unit{width:100%;height:100%;position:relative;z-index:1}
+/* signature: each slide is a skewX(15deg) wipe that grows 0 -> 140vw, image counter-skewed and drifting 100px -> 0 over 7s */
+.slide-item{width:0;height:100%;position:absolute;top:0;left:-25vw;z-index:0;transform:skewX(15deg);overflow:hidden}
+.slide-img{display:block;position:absolute;top:0;left:25vw;width:100vw;height:100%;transform:skewX(-15deg)}
+.slide-img>span{width:calc(100% + 100px);height:100%;position:absolute;top:0;right:0;transform:translateX(100px);background-size:cover;background-position:50% 50%}
+.slide-item.is-active{transition:width .8s cubic-bezier(.09,.34,.63,1);width:140vw}
+.slide-item.is-active .slide-img>span{transition:transform 7s linear;transform:none}
+.slide-item.s1 .slide-img>span{background-color:#3a3a3c;background-image:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.25) 65%),url(../../img/first_view.jpg)}
+.slide-item.s2 .slide-img>span{background-color:#2e3135;background-image:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.25) 65%),url(../../img/item_set.jpg)}
+.slide-item.s3 .slide-img>span{background-color:#35302c;background-image:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.25) 65%),url(../../img/work_bibs_rev.jpg)}
+.slider-navi{position:absolute;right:2rem;top:43.4%;transform:translateY(-50%);z-index:3}
+.slider-navi li{width:3.6rem;height:3.6rem;position:relative;cursor:pointer;margin-bottom:.6rem;color:#fff;font-size:1.2rem}
+.slider-navi li:last-child{margin:0}
+.slider-navi li:after{position:absolute;content:attr(data-l);font-size:1.2rem;font-weight:700;right:4.4rem;top:1.3rem;text-align:right;opacity:.6;white-space:nowrap}
+.slider-navi li.is-current:after{opacity:1}
+.slider-navi li:before{content:"";width:.7rem;height:.7rem;border-radius:50%;background:#fff;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.6}
+.slider-navi li.is-current:before{background:var(--blue);opacity:1}
+.slider-navi svg{width:100%;display:block}
+.slider-navi .circle{fill:none;stroke:var(--blue);stroke-width:1px;stroke-linecap:round;stroke-dasharray:82 82;stroke-dashoffset:246}
+.l-main__meta{position:absolute;inset:0 auto auto 0;width:100%;height:100vh;z-index:5;pointer-events:none}
+.l-main__meta-inner{position:absolute;top:46%;transform:translateY(-50%);padding:0 0 0 8rem;width:100%;z-index:3}
+.main-meta__copy{width:40%;position:relative;font-weight:900;font-style:italic;font-size:7rem;line-height:1.1;letter-spacing:-.02em;color:#fff;font-family:"Noto Sans JP"}
+.main-meta__copy span.ln{display:block;overflow:hidden;padding:.05em .12em .05em 0;margin-right:-.12em}
+.main-meta__copy span.ln>i{display:block;font-style:italic;transform:translateY(105%);transition:transform 1.2s var(--ease)}
+.main-meta__copy span.ln:nth-child(2)>i{transition-delay:.12s}
+.js-visual__anime.active .main-meta__copy span.ln>i{transform:none}
+.main-meta__read{font-size:1.5rem;color:#fff;margin:2.5rem 0 0;letter-spacing:.01em;font-style:italic;line-height:1.7}
+.main-meta__read .msk-set{display:block;margin-bottom:.4rem}
+.js-visual__anime .msk{transition-delay:.5s}.js-visual__anime .msk-set+.msk-set .msk{transition-delay:.6s}
+.js-visual__anime.active .msk{transform:none}
+.l-main__access{position:absolute;right:2.2rem;bottom:18rem;width:11rem;height:11rem;border-radius:50%;background:var(--blue);z-index:5;transform:scale(0);transition:transform .6s}
+.l-main__access.active{transform:scale(1)}
+.l-main__access:after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 var(--blue),0 0 0 0 var(--blue) inset;transition:.3s ease}
+.l-main__access:hover:after{box-shadow:0 0 0 6px var(--blue),0 0 0 3px var(--blue) inset}
+.l-main__access a{position:relative;z-index:10;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:"DM Sans";font-weight:700;font-size:1.5rem;letter-spacing:.08em;color:#000}
+.l-main__scroll{width:2rem;height:18rem;position:absolute;bottom:4.5rem;left:2.3rem;z-index:10}
+.scroll-label{font-size:1.3rem;font-weight:700;color:#fff;writing-mode:vertical-rl;position:absolute;left:50%;margin-left:.3rem;top:21%}
+.scroll-line{width:.3rem;margin:3rem auto 0;position:absolute;left:calc(50% + .7rem);top:40%}
+.scroll-line-ob-container{position:relative;overflow:hidden;width:.3rem;height:4rem}
+.scroll-line-ob{position:absolute;left:0;height:75%;width:.3rem;background:#fff}
+.ob01{animation:scl 2s linear infinite}.ob02{animation:scl 2s linear 1s infinite}
+@keyframes scl{0%{transform:translateY(-100%)}to{transform:translateY(150%)}}
+.l-main__brand{width:100%;position:absolute;left:0;bottom:0;margin:0 0 0 8rem;z-index:3;overflow:hidden}
+.brand-index{width:calc(100vw - 24rem);padding:2rem 2.8rem 0;background:#000;display:flex;align-items:center;border-radius:1rem 1rem 0 0}
+.brand-index h2{font-size:2rem;font-weight:700;color:#fff}
+.brand-index p{font-size:1.3rem;margin-left:1.2rem;letter-spacing:.05em}
+.l-main__brand-inner{position:relative;padding:1.5rem 2.8rem 2rem;background:#000}
+.brand-slider{width:100%;padding:0 4.8% 0 0;position:relative}
+.bs-unit{position:relative;overflow:visible}
+.bs-wrap{display:flex;gap:2rem;transition:transform .7s cubic-bezier(.25,.82,.355,1)}
+.bs-item{flex:0 0 calc((100% - 2rem*7.2)/8.2);aspect-ratio:3/2.1;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;font-family:"DM Sans";font-weight:700;font-size:1.6rem;letter-spacing:.04em;overflow:hidden;transition:transform .5s}
+.bs-item:nth-child(3n+1){font-family:"Noto Sans JP"}
+.bs-item:nth-child(4n+2){background:#c83531;color:#fff}
+.bs-item:nth-child(5n+3){background:#1e5fa8;color:#fff}
+.bs-item:hover{transform:scale(.97)}
+.bs-bar{position:absolute;right:25rem;top:-3rem;width:10rem;height:4px;background:#fff}
+.bs-bar i{display:block;height:100%;width:30%;background:#343434;transition:width .7s}
+.bs-btns{position:absolute;right:16rem;top:-4.3rem;display:flex;gap:1rem;z-index:3}
+.bs-btns button{width:3rem;height:3rem;border-radius:50%;background:#343434;border:0;color:#fff;cursor:pointer;transition:transform .5s ease;font-size:1.3rem;line-height:3rem}
+.bs-btns button:hover{transform:scale(1.3)}.bs-btns button:disabled{color:#8f8f8f;pointer-events:none}
+
+/* ---- sections ---- */
+.l-content{position:relative}
+.emblem-bg{position:absolute;z-index:0;pointer-events:none}
+.emblem-bg.typ-a{width:66%;right:-29rem;top:-13rem}.emblem-bg.typ-b{width:46%;left:-18rem;top:-6rem}
+.emblem-bg svg{display:block;width:100%;fill:#faf6f2}.emblem-black svg{fill:#1e2021}
+.p-section__index{position:relative;z-index:2}
+.p-section__title{font-size:5rem;font-weight:700;display:inline-block}
+.more-btn{position:relative;margin-top:2.8rem}
+.more-btn.btn-center{display:flex;justify-content:center}
+.more-btn__inner{position:relative;display:inline-block}
+.more-btn__unit{background:#000;display:inline-block;padding:2rem 4.5rem;position:relative;overflow:hidden;border-radius:9999px;transition:all .5s ease;color:#fff}
+.btn-label{font-size:1.3rem;font-weight:700;letter-spacing:.03em;color:#fff;text-align:center}
+.mouse-set:hover .more-btn__unit{background:var(--red)}
+.mouse-set a .mouse-on{overflow:hidden;position:relative}
+.mouse-set a .mouse-on__inner{transition:all .5s ease;transform:scale(1)}
+.mouse-set:hover a .mouse-on__inner{transform:scale(1.06)}
+.mouse-line{background:linear-gradient(currentColor,currentColor) no-repeat right bottom;background-size:0 1px;transition:background-size .3s cubic-bezier(.65,.4,.003,1)}
+.mouse-set:hover .mouse-line{background-position:left bottom;background-size:100% 1px}
+
+.p-top-about{width:100%;position:relative;overflow:hidden;background:var(--beige);z-index:0;color:#000}
+.p-top-about__body{width:calc(100% - 16rem);padding:15.5rem 0 12rem;margin:0 auto;display:flex;justify-content:space-between;position:relative;z-index:2}
+.about-unit{width:57%;position:relative}
+.about-unit__wrap{width:100%;padding:4.4rem 5% 0 0}
+.p-top-about .p-section__title{font-size:3rem;font-style:italic;padding:0 1rem 0 .8rem}
+.about-unit__inner{display:flex;align-items:center;justify-content:space-between;margin-top:2rem}
+.about-unit__inner:last-child{margin-top:.7rem}
+.about-unit__copy{width:75%;position:relative;display:inline-block;overflow:visible}
+.copy{font-weight:900;font-style:italic;font-size:8.2rem;line-height:1.08;letter-spacing:-.03em;color:#000;white-space:nowrap;overflow:hidden;padding:.06em .1em .06em 0}
+.copy>span{display:block;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+.active .copy>span{transform:none}
+.about-unit__img{width:23%;position:relative}
+.about-unit__img-inner span{display:block;width:100%;padding:32% 0}
+.about-unit__read{margin:3.8rem 0 0;padding:0 3% 0 24%}
+.about-unit__read p{font-size:1.6rem;line-height:1.7;color:#000}
+.about-bg{width:36.18%;position:relative}
+.about-bg__inner span{display:block;width:100%;padding:73.5% 0}
+.p-top-business{width:100%;position:relative;overflow:hidden;background:#000;z-index:0}
+.p-top-business__body{width:calc(100% - 16rem);padding:11.6rem 0 16.2rem;margin:0 auto;position:relative;z-index:2}
+.txt-center{text-align:center}
+.business-lst__unit{width:100%;margin:6.3rem auto 0;display:flex;justify-content:space-between;position:relative}
+.business-lst{width:30.5%;position:relative}
+.business-lst a{display:block;color:#fff}
+.business-lst__visual{width:100%;background:var(--ink2);position:relative}
+.business-lst__visual span{display:block;width:100%;padding:50% 0}
+.business-lst__text{width:100%;background:var(--ink2);padding:3.5rem 0 3rem;position:relative;z-index:5;text-align:center}
+.business-lst__num{color:var(--blue);font-style:italic;font-size:1.6rem;background:var(--ink2);width:5.4rem;height:5.4rem;border-radius:50%;position:absolute;top:-2rem;left:0;right:0;margin:auto;text-align:center;line-height:5rem;letter-spacing:.05em;font-weight:700;overflow:hidden}
+.business-lst__title{font-size:2.5rem;font-weight:700;font-style:italic;display:inline-block;overflow:hidden}
+.business-lst__title span{display:inline-block;padding-right:.5rem}
+.business-lst__text-inner{padding:2rem 2.8rem 0;position:relative;margin-top:2rem}
+.business-lst__text-inner:before{content:"";position:absolute;left:0;top:0;width:100%;height:1px;background:#000;transform:scale(0,1);transform-origin:right top;transition:transform .7s}
+.active .business-lst__text-inner:before{transform-origin:left top;transform:scale(1);transition-delay:1s}
+.business-lst__read{font-size:1.4rem;line-height:1.5;color:#b9b8b8;text-align:left;max-height:6.5rem;overflow:hidden}
+.business-lst .more-btn{margin-top:2.8rem}
+.p-top-company{width:100%;position:relative;overflow:hidden;background:var(--beige);z-index:0;color:#000}
+.p-top-company__body{width:calc(100% - 16rem);padding:10rem 0;margin:0 auto;position:relative;z-index:2}
+.company-lst__unit{width:100%;margin:3rem auto 0;display:flex;justify-content:space-between;position:relative}
+.company-lst.company-lst__large{width:50%}
+.company-lst__unit-inner{width:47%}
+.company-lst{width:100%;position:relative}
+.company-lst__unit-inner .company-lst:first-child{margin:0 0 7%}
+.company-lst a{display:block;color:#fff}
+.company-lst__text{width:100%;line-height:1;position:absolute;top:53%;left:50%;transform:translate(-50%,-50%);z-index:2;text-align:center}
+.company-lst__text span{display:inline-block}
+.company-lst__num{font-size:1.4rem;font-weight:700}
+.company-lst__title{font-size:3rem;font-weight:700;margin-top:1.4rem;font-style:italic;line-height:1;display:inline-block;padding-right:.5rem;overflow:hidden}
+.company-lst__arrow{width:4.2rem;height:4.2rem;border-radius:50%;border:1px solid #fff;display:flex;justify-content:center;align-items:center;margin:1.8rem auto 0;overflow:hidden;font-size:1.2rem}
+.mouse-set:hover .company-lst__arrow span{animation:moveactive .8s cubic-bezier(.58,.3,.005,1)}
+.company-lst__visual{position:relative;z-index:0;overflow:hidden}
+.company-lst__visual:before{content:"";position:absolute;inset:0;background:#000;opacity:.1;z-index:1}
+.company-lst__visual span{display:block;width:100%;padding:24.8% 0}
+.company-lst__large .company-lst__visual span{padding:50% 0}
+.p-top-news{width:100%;position:relative;overflow:hidden;background:#fff;z-index:0;color:#000}
+.p-top-news__body{width:calc(100% - 16rem);padding:10rem 0 8rem;margin:0 auto;position:relative;z-index:2}
+.news-lst__unit{width:100%;margin:2.5rem auto 0;display:flex;justify-content:space-between}
+.news-lst{width:23.5%;position:relative}
+.news-lst a{display:block}
+.news-lst__visual-inner span{display:block;width:100%;padding:33.3% 0}
+.news-lst__text{margin-top:1.2rem}
+.news-lst__text-meta{display:flex;align-items:center}
+.news-lst__cat{font-size:1.1rem;color:#95b300;margin-right:.5rem}
+.news-lst__cat span{display:inline-block;padding:.4rem .8rem;border:1px solid #95b300}
+.news-lst__day{font-size:1.2rem;letter-spacing:.02em}
+.news-lst__title{font-size:1.8rem;line-height:1.3;letter-spacing:.02em;margin-top:.7rem;max-height:5rem;overflow:hidden;padding-bottom:2rem}
+.news-lst__title span{position:relative}
+.p-top-news .more-btn{margin-top:5.8rem}
+.p-top-fragrance{width:100%;position:relative;overflow:hidden;background:var(--gray);z-index:0;color:#000}
+.p-top-fragrance__body{width:calc(100% - 16rem);margin:0 auto;position:relative;z-index:2;padding:9rem 0 10rem}
+.fragrance-body__wrap{width:100%;background:#fff;padding:5.4rem 5rem 5.4rem 0;display:flex;justify-content:space-between;align-items:center;position:relative}
+.fragrance-meta__unit{width:40rem}
+.fragrance-meta__title{font-size:2.5rem;text-align:center;font-weight:700;line-height:1.2}
+.method-logo{width:52%;margin:0 auto;font-family:"DM Sans";font-weight:700;font-size:3.2rem;letter-spacing:.04em}
+.fragrance-meta__title p:last-child{margin:2.7rem auto 0;display:inline-block}
+.fragrance-meta__will{text-align:center;margin:1.5rem 0 0}.fragrance-meta__will .more-btn{margin-top:0}
+.fragrance-lst__unit{width:calc(100% - 40rem);position:relative}
+.fragrance-lst__unit-inner{display:flex;justify-content:space-between}
+.fragrance-lst{width:22%}
+.fragrance-lst__visual-inner span{display:block;width:100%;padding:100% 0}
+
+/* ---- footer: black panel offset 8rem on grey ---- */
+.l-footer{width:100%;position:relative;background:var(--gray);padding:0 0 0 8rem;color:#fff}
+.l-footer__body{background:#000;padding:13.3rem 10rem}
+.l-footer__wrap{position:relative;display:flex;justify-content:space-between}
+.l-footer__sitename{width:9.4rem;font-family:"DM Sans";font-weight:700;font-size:2.4rem;line-height:1.1}
+.site-label{font-size:1.5rem;margin-top:2.4rem}
+.site-address{margin-top:2rem;font-size:1.4rem;line-height:1.8}
+.site-info{margin-top:2rem}
+.site-info p{margin:0 0 2rem;display:flex;align-items:center}
+.site-info p span:first-child{font-size:1.3rem;padding:.6rem 0;border:1px solid #5f5f5f;text-align:center;width:7.4rem}
+.site-info p span:last-child{font-size:1.4rem;margin-left:1rem}
+.l-footer__nav li{font-size:2rem;margin:0 0 2.3rem;font-weight:700}
+.l-footer__nav li a{display:block;padding:.6rem 0}
+.l-footer__nav .cat__child{margin-top:.8rem}.l-footer__nav .cat__child li{font-size:1.4rem;margin:0 0 .2rem;font-weight:500}
+.l-footer__store{background:#d8dde0;border-radius:10px;margin:7.5rem auto 0;color:#000;padding:2.4rem;font-weight:700;display:flex;justify-content:space-between;align-items:center;font-size:1.6rem}
+.l-footer__scroll{width:2rem;height:18rem;position:absolute;top:0;left:2.2rem}
+.l-footer__scroll .scroll-label{color:#000;margin-left:.1rem;top:31%}.l-footer__scroll .scroll-line{margin:0;top:0}.l-footer__scroll .scroll-line-ob{background:#000}
+.l-footer__bottom{display:flex;justify-content:space-between;margin-top:6rem;font-size:1.2rem;color:#999}
+
+/* ---- tablet <=1024 / 959 ---- */
+@media (max-width:1024px){
+ .l-header__nav{left:26%}.l-main__meta-inner{padding-left:6rem}.l-main__access{bottom:12rem;right:1.9rem}.l-main__scroll{left:1.3rem}
+ .l-main__brand{margin-left:6rem}.brand-index{width:calc(100vw - 20rem)}.bs-bar{right:27rem}.bs-btns{right:18.5rem}
+ .p-top-about__body{width:calc(100% - 12rem);padding:12.5rem 0 11rem}.about-bg__inner span{padding:90% 0}
+ .p-top-business__body{width:calc(100% - 12rem);padding:9.6rem 0 10.2rem}.business-lst__unit{margin-top:4.2rem}.business-lst__title{font-size:2rem}
+ .p-top-company__body,.p-top-news__body,.p-top-fragrance__body{width:calc(100% - 12rem)}
+ .l-footer{padding-left:6rem}.l-footer__body{padding:11.3rem 6rem}
+}
+@media (max-width:959px){
+ .l-header__sitename{width:11rem}.l-header__sitename a{height:11rem;padding:2.73rem 2.6rem}.l-header__nav{display:none}
+ #l-header__toggle{right:2.5rem;top:4.2rem}
+ .l-main__visual,.l-main__body{height:67.5rem}.l-main__body-inner{height:100%}.l-main__slide{height:62.5rem}.l-main__meta{height:100%}.l-main__meta-inner{padding-left:5rem}
+ .main-meta__copy{font-size:5.6rem;width:60%}
+ .l-main__access{width:9rem;height:9rem;bottom:13rem;right:1.8rem}.l-main__scroll{bottom:1.4rem;left:.8rem}.scroll-label{font-size:1.1rem}
+ .l-main__brand{margin-left:5rem}.brand-index{width:calc(100vw - 17rem);border-radius:.6rem .6rem 0 0;padding:2rem 2rem 0}.l-main__brand-inner{padding:2rem}.bs-bar{right:24.4rem;width:6.5rem}.bs-btns{right:16.5rem}
+ .copy{font-size:5.6rem}.p-section__title{font-size:3.7rem}.p-top-about .p-section__title{font-size:1.8rem}
+ .p-top-about__body{width:calc(100% - 10rem);padding:11rem 0 8rem}.about-unit{width:65%}.about-unit__wrap{padding:1rem 5% 0 0}.about-unit__read{padding:0 3% 0 0;margin-top:2rem}.about-unit__read p{font-size:1.4rem;line-height:1.6}.about-bg{width:29%}.about-bg__inner span{padding:100% 0}
+ .p-top-business__body{width:calc(100% - 10rem);padding:7rem 0 9rem}
+ .business-lst__unit{display:block}.business-lst{width:100%;background:var(--ink2);margin:0 0 3rem}.business-lst a{display:flex}.business-lst__visual{width:40%}.business-lst__text{width:60%;padding:3.5rem 2.4rem 0;text-align:left}
+ .business-lst__num{font-size:1.4rem;position:static;text-align:left;width:auto;height:auto;line-height:1;overflow:visible;margin:0}.business-lst__title{font-size:2.2rem;margin-top:1.3rem}.business-lst__text-inner{padding:1.5rem 0 0;margin-top:1.2rem}.business-lst .more-btn{justify-content:flex-start;margin-top:1.7rem}
+ .p-top-company__body,.p-top-news__body,.p-top-fragrance__body{width:calc(100% - 10rem)}
+ .news-lst__unit{flex-wrap:wrap}.news-lst{width:48.5%;margin-bottom:3rem}.news-lst__title{font-size:1.6rem}
+ .company-lst__title{font-size:2.2rem}
+ .fragrance-body__wrap{padding:5.4rem 3rem 5.4rem 0}.fragrance-meta__unit{width:44%}.fragrance-lst__unit{width:56%}.fragrance-meta__title{font-size:1.7rem}
+ .l-footer{padding-left:5rem}.l-footer__body{padding:9rem 6rem}.l-footer__wrap{flex-wrap:wrap;gap:4rem}
+ .more-btn__unit{padding:1.8rem 3.5rem}.btn-label{font-size:1.2rem}
+}
+/* ---- phone <=569 ---- */
+@media (max-width:569px){
+ .pc-block{display:none!important}.sp-block{display:block!important}
+ .l-header__sitename{width:8.5rem}.l-header__sitename a{height:8.5rem;padding:2.29rem 2.2rem}.l-header__sitename small{display:none}.l-header__sitename a{font-size:1.8rem}
+ #l-header__toggle{right:.5rem;top:3rem}.toggle{width:2.4rem}.toggle span{height:3px}.toggle-label{font-size:1.1rem}
+ .l-main__visual,.l-main__body{height:auto}.l-main__body-inner{height:auto;display:block}.l-main__slide{height:55rem}.slide-item.is-active{width:150vw}
+ .l-main__meta-inner{padding-left:2rem;top:13rem;transform:none}.main-meta__copy{width:96%;font-size:4.2rem}.main-meta__read{font-size:1.4rem;margin-top:1.5rem;letter-spacing:.05em}
+ .slider-navi{top:33.5rem;left:2rem;right:auto;display:flex;transform:none;width:100%}.slider-navi li{width:1.5rem;height:1.5rem;margin:0 7.5rem 0 0}.slider-navi li:after{top:.35rem;left:2.2rem;right:auto;font-size:1rem}
+ .l-main__access{width:9rem;height:9rem;bottom:15rem;right:1.5rem}.l-main__scroll{display:none}
+ .l-main__brand{margin:0;position:static}.brand-index{width:100%;border-radius:0;padding:2rem 1.5rem 0}.brand-index h2{font-size:1.6rem}.brand-index p{font-size:1.1rem;margin-left:.5rem}
+ .l-main__brand-inner{padding:1.2rem 1.5rem 2.1rem;border-radius:0}.bs-bar,.bs-btns{display:none}.bs-wrap{gap:1rem}.bs-item{flex-basis:calc((100% - 1rem*3.1)/3.1)}
+ .copy{font-size:3.6rem}.p-section__title{font-size:3.1rem}.p-top-about .p-section__title{font-size:1.6rem}.emblem-bg.typ-a{width:100%;right:-12rem;top:-2.2rem}.emblem-bg.typ-b{width:52%;left:auto;right:-5rem;top:-1rem}
+ .p-top-about{padding-bottom:4.5rem}.p-top-about__body{width:100%;padding:5.6rem 0 0;flex-direction:column}.about-unit__wrap{padding:0}.about-unit{width:calc(100% - 4rem);order:1;margin:0 auto}.about-unit__inner{margin-top:.8rem}.about-unit__read{margin-top:2.2rem;padding:0}.about-unit__read p{font-size:1.3rem;line-height:1.7}
+ .p-top-about .more-btn{display:flex;justify-content:center;margin-top:2.5rem}.about-unit .more-btn.pc-block{display:none}
+ .about-bg{width:calc(100% - 4rem);order:2;margin:2.5rem auto 0}.about-bg__inner span{padding:28% 0}
+ .p-top-business__body{width:calc(100% - 4rem);padding:4.2rem 0 5.2rem}.business-lst__unit{margin-top:2rem}.business-lst a{display:block}.business-lst__visual{width:100%}.business-lst__visual span{padding:33.3% 0}
+ .business-lst__text{width:100%;padding:2.4rem 0 2.5rem;text-align:center}.business-lst__text-inner{padding:1.3rem 1.8rem 0;margin-top:1rem}
+ .business-lst__num{font-size:1.6rem;position:absolute;text-align:center;width:4rem;height:4rem;line-height:4rem;top:-2.3rem;overflow:hidden;margin:auto}.business-lst__title{font-size:2.1rem;margin-top:0}.business-lst__read{font-size:1.3rem;max-height:58px}.business-lst .more-btn{justify-content:center;margin-top:2rem}
+ .p-top-company__body{width:calc(100% - 4rem);padding:4rem 0 4.5rem}.company-lst__unit{margin-top:1.2rem;display:block}.company-lst.company-lst__large{width:100%}.company-lst__large .company-lst__visual span{padding:29.2% 0}
+ .company-lst__unit-inner{width:100%;margin:1.5rem auto 0;display:flex;justify-content:space-between}.company-lst{width:48%}.company-lst__unit-inner .company-lst:first-child{margin:0}.company-lst__visual span{padding:50% 0}
+ .company-lst__title{font-size:2.1rem;margin-top:1rem}.company-lst__arrow{width:3.2rem;height:3.2rem;margin-top:1rem}.company-lst__num{font-size:1.3rem}
+ .p-top-news__body{width:calc(100% - 4rem);padding:3.7rem 0}.news-lst__unit{margin-top:1rem}.news-lst{width:48%;margin-bottom:2.8rem}.news-lst__title{font-size:1.3rem;line-height:1.2;max-height:3.1rem;padding:0}.news-lst__cat span{padding:.3rem .5rem}.p-top-news .more-btn{margin-top:3rem}
+ .p-top-fragrance__body{width:calc(100% - 4rem);padding:4rem 0}.fragrance-body__wrap{padding:2.7rem 0 3.4rem;display:block}.fragrance-meta__unit{width:100%}.method-logo{width:47%}.fragrance-meta__title{font-size:1.9rem}.fragrance-lst__unit{width:calc(100% - 4rem);margin:2.2rem auto 0}
+ .l-footer{padding:0}.l-footer__body{padding:6.5rem 4rem}.l-footer__wrap{display:block}.l-footer__sitename{width:7.3rem}.l-footer__nav{margin-top:3rem}.l-footer__nav li{font-size:1.8rem;margin:0 0 .6rem}.l-footer__store{border-radius:2px}.l-footer__scroll{display:none}.l-footer__bottom{flex-direction:column;gap:1rem}
+}
+</style>
+</head>
+<body>
+<header id="l-header" class="l-header">
+ <div class="l-header__sitename"><a href="#"><span>decon<br>tracté</span><small>FUKUOKA</small></a></div>
+ <div class="l-header__body">
+  <nav class="l-header__nav"><ul class="l-nav__lst f-en">
+   <li class="current-label"><a href="#"><p><span>HOME</span><span class="lst-clone">HOME</span></p></a></li>
+   <li><a href="#"><p><span>ABOUT</span><span class="lst-clone">ABOUT</span></p></a></li>
+   <li><a href="#"><p><span>BUSINESS</span><span class="lst-clone">BUSINESS</span></p></a></li>
+   <li><a href="#"><p><span>COMPANY</span><span class="lst-clone">COMPANY</span></p></a></li>
+   <li><a href="#"><p><span>NEWS</span><span class="lst-clone">NEWS</span></p></a></li>
+   <li><a href="#"><p><span>RECRUIT</span><span class="lst-clone">RECRUIT</span></p></a></li>
+   <li><a href="#"><p><span>CONTACT</span><span class="lst-clone">CONTACT</span></p></a></li>
+  </ul></nav>
+ </div>
+ <div id="l-header__toggle"><a class="toggle" id="tg"><span></span><span></span></a><span class="toggle-label f-en">MENU</span></div>
+</header>
+<div class="modal-menu" id="menu"><ul class="f-en"><li>HOME</li><li>ABOUT</li><li>BUSINESS</li><li>COMPANY</li><li>NEWS</li><li>RECRUIT</li><li>CONTACT</li></ul></div>
+
+<main id="top" class="l-main">
+ <div class="l-main__visual js-visual__anime" id="visual">
+  <div class="l-main__body"><div class="l-main__body-inner">
+   <div class="l-main__slide">
+    <div class="l-main__meta"><div class="l-main__meta-inner">
+     <h2 class="main-meta__copy"><span class="ln"><i>チームを、</i></span><span class="ln"><i>ひとつに。</i></span></h2>
+     <p class="main-meta__read f-jp"><span class="msk-set"><span class="msk">福岡のチームのための、昇華プリントの</span></span><span class="msk-set"><span class="msk">フルオーダーユニフォームを5着から。</span></span></p>
+    </div></div>
+    <div class="l-main__slide-inner slider-unit" id="slider">
+     <div class="slide-item s1"><div class="slide-img"><span></span></div></div>
+     <div class="slide-item s2"><div class="slide-img"><span></span></div></div>
+     <div class="slide-item s3"><div class="slide-img"><span></span></div></div>
+    </div>
+   </div>
+   <div class="l-main__brand">
+    <div class="brand-index"><h2 class="f-en">OUR ITEMS</h2><p class="f-jp">ユニフォームから小物まで、フルオーダーで。</p></div>
+    <div class="l-main__brand-inner"><div class="brand-slider" id="bs"><div class="bs-unit">
+     <div class="bs-wrap" id="bsw">
+      <div class="bs-item">UNIFORM</div><div class="bs-item">BIBS</div><div class="bs-item">SOCKS</div><div class="bs-item">PANTS</div><div class="bs-item">SHIRT</div><div class="bs-item">WARMER</div><div class="bs-item">BAG</div><div class="bs-item">TOWEL</div><div class="bs-item">FLAG</div><div class="bs-item">CAP</div>
+     </div>
+     <div class="bs-bar"><i id="bsbar"></i></div>
+     <div class="bs-btns"><button id="bsp" aria-label="prev">&larr;</button><button id="bsn" aria-label="next">&rarr;</button></div>
+    </div></div></div>
+   </div>
+   <div class="l-main__access" id="access"><a href="#" class="f-en">ACCESS</a></div>
+   <div class="l-main__scroll"><span class="scroll-label f-en">SCROLL</span><div class="scroll-line"><div class="scroll-line-ob-container"><span class="scroll-line-ob ob01"></span><span class="scroll-line-ob ob02"></span></div></div></div>
+  </div></div>
+ </div>
+
+ <div id="content" class="l-content">
+  <!-- ABOUT -->
+  <section class="p-top-about">
+   <div class="p-top-about__body">
+    <div class="about-bg js-scroll__anime"><div class="about-bg__inner js-scroll__anime-inner"><span class="pc-block bg" style="background-image:url(../../img/item_set.jpg)"></span><span class="sp-block bg" style="background-image:url(../../img/item_set.jpg)"></span></div></div>
+    <div class="about-unit"><div class="about-unit__wrap">
+     <div class="p-section__index js-scroll__anime"><h2 class="p-section__title f-en js-text__anime"><span class="js-text__anime-inner">ABOUT</span></h2></div>
+     <div class="about-unit__inner">
+      <div class="about-unit__copy js-scroll__anime"><p class="copy"><span>チームを、</span></p></div>
+      <div class="about-unit__img js-scroll__anime"><div class="about-unit__img-inner js-scroll__anime-inner"><span class="bg" style="background-image:url(../../img/item_socks.jpg)"></span></div></div>
+     </div>
+     <div class="about-unit__inner">
+      <div class="about-unit__img js-scroll__anime"><div class="about-unit__img-inner js-scroll__anime-inner"><span class="bg" style="background-image:url(../../img/item_bibs.jpg)"></span></div></div>
+      <div class="about-unit__copy js-scroll__anime"><p class="copy"><span>ひとつに。</span></p></div>
+     </div>
+    </div>
+    <div class="about-unit__read js-scroll__anime"><div class="js-fade__anime"><p>福岡のチームやクラブの、ここにしかない一着を。デザインのご相談から昇華プリントによる製造、納品まで、5着から承ります。仲間の誇りになるユニフォームを、一緒に形にしていきます。</p></div>
+     <div class="more-btn js-scroll__anime mouse-set pc-block"><div class="more-btn__inner js-fade__anime"><a href="#" class="more-btn__unit f-en"><p class="btn-label"><span>VIEW MORE</span></p></a></div></div></div>
+    </div>
+    <div class="more-btn js-scroll__anime mouse-set sp-block"><div class="more-btn__inner js-fade__anime"><a href="#" class="more-btn__unit f-en"><p class="btn-label"><span>VIEW MORE</span></p></a></div></div>
+   </div>
+   <div class="emblem-bg typ-a"><svg viewBox="0 0 200 200"><path d="M100 0a100 100 0 100 200 100 100 0 000-200zm0 40a60 60 0 110 120 60 60 0 010-120z" fill-rule="evenodd"/></svg></div>
+  </section>
+
+  <!-- BUSINESS -->
+  <section class="p-top-business">
+   <div class="p-top-business__body">
+    <div class="p-section__index txt-center js-scroll__anime"><h2 class="p-section__title f-en js-text__anime"><span class="js-text__anime-inner">BUSINESS</span></h2></div>
+    <div class="business-lst__unit">
+     <div class="business-lst js-scroll__anime mouse-set"><a href="#"><div class="business-lst__visual"><div class="mouse-on__inner"><span class="js-scroll__anime-inner b-msk bg" style="background-image:url(../../img/item_set.jpg)"></span></div></div>
+      <div class="business-lst__text"><p class="business-lst__num f-en msk-set"><span class="msk delay-04">01</span></p><h3 class="business-lst__title f-en msk-set"><span class="msk delay-07">TEAM UNIFORM</span></h3>
+       <div class="business-lst__text-inner"><p class="business-lst__read f-jp js-fade__anime delay-06">サッカー、フットサル、バスケなど競技を問わず、全身そろえるセットアップをフルオーダーで製作します。</p></div>
+       <div class="more-btn btn-center js-fade__anime delay-06"><div class="more-btn__inner"><div class="more-btn__unit f-en"><p class="btn-label"><span>VIEW MORE</span></p></div></div></div></div></a></div>
+     <div class="business-lst js-scroll__anime mouse-set"><a href="#"><div class="business-lst__visual"><div class="mouse-on__inner"><span class="js-scroll__anime-inner b-msk bg" style="background-image:url(../../img/item_bibs.jpg)"></span></div></div>
+      <div class="business-lst__text"><p class="business-lst__num f-en msk-set"><span class="msk delay-04">02</span></p><h3 class="business-lst__title f-en msk-set"><span class="msk delay-07">BIBS</span></h3>
+       <div class="business-lst__text-inner"><p class="business-lst__read f-jp js-fade__anime delay-06">練習も試合も見分けやすいビブスを、チームカラーとロゴ入りで少ロットから。</p></div>
+       <div class="more-btn btn-center js-fade__anime delay-06"><div class="more-btn__inner"><div class="more-btn__unit f-en"><p class="btn-label"><span>VIEW MORE</span></p></div></div></div></div></a></div>
+     <div class="business-lst js-scroll__anime mouse-set"><a href="#"><div class="business-lst__visual"><div class="mouse-on__inner"><span class="js-scroll__anime-inner b-msk bg" style="background-image:url(../../img/item_socks.jpg)"></span></div></div>
+      <div class="business-lst__text"><p class="business-lst__num f-en msk-set"><span class="msk delay-04">03</span></p><h3 class="business-lst__title f-en msk-set"><span class="msk delay-07">SOCKS &amp; GOODS</span></h3>
+       <div class="business-lst__text-inner"><p class="business-lst__read f-jp js-fade__anime delay-06">ソックスや小物まで、足元から世界観をそろえるアイテムを揃えています。</p></div>
+       <div class="more-btn btn-center js-fade__anime delay-06"><div class="more-btn__inner"><div class="more-btn__unit f-en"><p class="btn-label"><span>VIEW MORE</span></p></div></div></div></div></a></div>
+    </div>
+   </div>
+   <div class="emblem-bg typ-b"><span class="emblem-black"><svg viewBox="0 0 200 200"><path d="M100 0a100 100 0 100 200 100 100 0 000-200zm0 40a60 60 0 110 120 60 60 0 010-120z" fill-rule="evenodd"/></svg></span></div>
+  </section>
+
+  <!-- COMPANY -->
+  <section class="p-top-company">
+   <div class="p-top-company__body">
+    <div class="p-section__index js-scroll__anime"><h2 class="p-section__title f-en js-text__anime"><span class="js-text__anime-inner">COMPANY</span></h2></div>
+    <div class="company-lst__unit">
+     <div class="company-lst company-lst__large mouse-set js-scroll__anime"><a href="#"><div class="company-lst__text"><p class="company-lst__num f-en msk-set"><span class="msk delay-02">01</span></p><h3 class="company-lst__title f-en msk-set"><span class="msk delay-04">OVERVIEW</span></h3><p class="company-lst__arrow js-fade__anime delay-06"><span>&rarr;</span></p></div>
+      <div class="company-lst__visual mouse-on js-fade__anime"><div class="mouse-on__inner"><span class="bg" style="background-image:url(../../img/first_view.jpg)"></span></div></div></a></div>
+     <div class="company-lst__unit-inner js-scroll__anime">
+      <div class="company-lst mouse-set"><a href="#"><div class="company-lst__text"><p class="company-lst__num f-en msk-set"><span class="msk delay-02">02</span></p><h3 class="company-lst__title f-en msk-set"><span class="msk delay-04">WORKS</span></h3><p class="company-lst__arrow js-fade__anime delay-06"><span>&rarr;</span></p></div>
+       <div class="company-lst__visual mouse-on js-fade__anime"><div class="mouse-on__inner"><span class="bg" style="background-image:url(../../img/work_bibs_rev.jpg)"></span></div></div></a></div>
+      <div class="company-lst mouse-set"><a href="#"><div class="company-lst__text"><p class="company-lst__num f-en msk-set"><span class="msk delay-02">03</span></p><h3 class="company-lst__title f-en msk-set"><span class="msk delay-04">RECRUIT</span></h3><p class="company-lst__arrow js-fade__anime delay-06"><span>&rarr;</span></p></div>
+       <div class="company-lst__visual mouse-on js-fade__anime"><div class="mouse-on__inner"><span class="bg" style="background-image:url(../../img/item_socks.jpg)"></span></div></div></a></div>
+     </div>
+    </div>
+   </div>
+   <div class="emblem-bg typ-a"><svg viewBox="0 0 200 200"><path d="M100 0a100 100 0 100 200 100 100 0 000-200zm0 40a60 60 0 110 120 60 60 0 010-120z" fill-rule="evenodd"/></svg></div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="p-top-news">
+   <div class="p-top-news__body">
+    <div class="p-section__index js-scroll__anime"><h2 class="p-section__title f-en js-text__anime"><span class="js-text__anime-inner">NEWS</span></h2></div>
+    <div class="news-lst__unit">
+     <div class="news-lst js-scroll__anime mouse-set"><a href="#"><div class="news-lst__visual mouse-on"><div class="news-lst__visual-inner mouse-on__inner"><span class="js-scroll__anime-inner b-msk bg" style="background-image:url(../../img/item_set.jpg)"></span></div></div><div class="news-lst__text js-fade__anime delay-04"><div class="news-lst__text-meta"><p class="news-lst__cat f-jp"><span class="bodr">お知らせ</span></p><p class="news-lst__day f-en">Nov.06.2026</p></div><h3 class="news-lst__title f-jp"><span class="mouse-line">新作ビブスのフルオーダー受付を開始しました</span></h3></div></a></div>
+     <div class="news-lst js-scroll__anime mouse-set"><a href="#"><div class="news-lst__visual mouse-on"><div class="news-lst__visual-inner mouse-on__inner"><span class="js-scroll__anime-inner b-msk bg" style="background-image:url(../../img/item_bibs.jpg)"></span></div></div><div class="news-lst__text js-fade__anime delay-04"><div class="news-lst__text-meta"><p class="news-lst__cat f-jp"><span>制作事例</span></p><p class="news-lst__day f-en">Oct.30.2026</p></div><h3 class="news-lst__title f-jp"><span class="mouse-line">福岡のフットサルチーム様のユニフォームを納品しました</span></h3></div></a></div>
+     <div class="news-lst js-scroll__anime mouse-set"><a href="#"><div class="news-lst__visual mouse-on"><div class="news-lst__visual-inner mouse-on__inner"><span class="js-scroll__anime-inner b-msk bg" style="background-image:url(../../img/item_socks.jpg)"></span></div></div><div class="news-lst__text js-fade__anime delay-04"><div class="news-lst__text-meta"><p class="news-lst__cat f-jp"><span>お知らせ</span></p><p class="news-lst__day f-en">Oct.29.2026</p></div><h3 class="news-lst__title f-jp"><span class="mouse-line">ソックスの最小ロットを5足からに変更しました</span></h3></div></a></div>
+     <div class="news-lst js-scroll__anime mouse-set"><a href="#"><div class="news-lst__visual mouse-on"><div class="news-lst__visual-inner mouse-on__inner"><span class="js-scroll__anime-inner b-msk bg" style="background-image:url(../../img/work_bibs_rev.jpg)"></span></div></div><div class="news-lst__text js-fade__anime delay-04"><div class="news-lst__text-meta"><p class="news-lst__cat f-jp"><span>その他</span></p><p class="news-lst__day f-en">Oct.01.2026</p></div><h3 class="news-lst__title f-jp"><span class="mouse-line">オンライン見積りフォームをリニューアルしました</span></h3></div></a></div>
+    </div>
+    <div class="more-btn btn-center js-scroll__anime mouse-set"><a href="#" class="more-btn__inner js-fade__anime"><div class="more-btn__unit f-en"><p class="btn-label"><span>VIEW MORE</span></p></div></a></div>
+   </div>
+  </section>
+
+  <!-- ORIGINAL BRAND BANNER -->
+  <section class="p-top-fragrance">
+   <div class="p-top-fragrance__body"><a href="#" class="fragrance-body__wrap">
+    <div class="fragrance-meta__unit f-en"><div class="fragrance-meta__unit-inner js-scroll__anime">
+     <div class="fragrance-meta__title"><p class="method-logo"><span class="js-scroll__anime-inner w-msk" style="display:block">DÉCONTRACTÉ</span></p><p class="msk-set"><span class="msk delay-04">Original Team Uniform</span></p></div>
+     <div class="fragrance-meta__will msk-set"><div class="more-btn mouse-set msk delay-06"><div class="more-btn__inner"><div class="more-btn__unit f-en"><p class="btn-label"><span>VIEW MORE</span></p></div></div></div></div>
+    </div></div>
+    <div class="fragrance-lst__unit"><div class="fragrance-lst__unit-inner js-scroll__anime">
+     <div class="fragrance-lst"><div class="fragrance-lst__visual"><span class="js-scroll__anime-inner g-msk bg" style="display:block;padding:100% 0;background-image:url(../../img/spec_shirt.jpg)"></span></div></div>
+     <div class="fragrance-lst"><div class="fragrance-lst__visual"><span class="js-scroll__anime-inner delay-02 g-msk bg" style="display:block;padding:100% 0;background-image:url(../../img/spec_pants.jpg)"></span></div></div>
+     <div class="fragrance-lst"><div class="fragrance-lst__visual"><span class="js-scroll__anime-inner g-msk bg" style="display:block;padding:100% 0;background-image:url(../../img/spec_bibs.jpg)"></span></div></div>
+     <div class="fragrance-lst"><div class="fragrance-lst__visual"><span class="js-scroll__anime-inner delay-02 g-msk bg" style="display:block;padding:100% 0;background-image:url(../../img/item_socks.jpg)"></span></div></div>
+    </div></div>
+   </a></div>
+  </section>
+ </div>
+</main>
+
+<footer class="l-footer">
+ <div class="l-footer__scroll"><span class="scroll-label f-en">PAGE TOP</span><div class="scroll-line"><div class="scroll-line-ob-container"><span class="scroll-line-ob ob01"></span><span class="scroll-line-ob ob02"></span></div></div></div>
+ <div class="l-footer__body">
+  <div class="l-footer__wrap">
+   <div class="l-site__info">
+    <div class="l-footer__sitename">decon<br>tracté</div>
+    <h4 class="site-label f-jp">DÉCONTRACTÉ</h4>
+    <div class="site-address f-jp"><p>〒810-0000</p><p>福岡県福岡市(placeholder)</p></div>
+    <div class="site-info f-jp"><p><span>TEL</span><span>092-000-0000</span></p><p><span>MAIL</span><span>info@example.com</span></p></div>
+   </div>
+   <nav class="l-footer__nav f-en"><ul><li><a href="#">HOME</a></li><li><a href="#">ABOUT</a></li><li><a href="#">BUSINESS</a><ul class="cat__child"><li><a href="#">TEAM UNIFORM</a></li><li><a href="#">BIBS</a></li><li><a href="#">SOCKS &amp; GOODS</a></li></ul></li></ul></nav>
+   <nav class="l-footer__nav f-en"><ul><li><a href="#">COMPANY</a></li><li><a href="#">NEWS</a></li><li><a href="#">RECRUIT</a></li><li><a href="#">CONTACT</a></li></ul></nav>
+  </div>
+  <div class="l-footer__store f-en"><span>ONLINE ORDER</span><span>&rarr;</span></div>
+  <div class="l-footer__bottom f-en"><span>PRIVACY POLICY</span><span>All Rights Reserved &copy; DÉCONTRACTÉ (study replica)</span></div>
+ </div>
+</footer>
+
+<script>
+(function(){
+ var $=function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
+ /* opening: access bubble pops, visual gets .active (copy mask-rise) */
+ setTimeout(function(){document.getElementById('access').classList.add('active')},1000);
+ requestAnimationFrame(function(){requestAnimationFrame(function(){document.getElementById('visual').classList.add('active')})});
+ /* header shrinks after 800px */
+ var hd=document.getElementById('l-header');
+ /* scroll-in: add .active once scroll > elemTop - winH + 100 (same rule as live) */
+ var els=$('.js-scroll__anime');
+ function onScroll(){
+  var y=scrollY,h=innerHeight;hd.classList.toggle('active',y>800);
+  els.forEach(function(el){if(el.classList.contains('active'))return;var top=el.getBoundingClientRect().top+y;if(y>top-h+100)el.classList.add('active')});
+ }
+ addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);addEventListener('load',onScroll);onScroll();
+ /* key-visual slider: wipe-in every 6.2s with progress ring */
+ var slides=$('#slider .slide-item'),navi=document.createElement('ul'),cur=0,timer;navi.className='slider-navi f-en';
+ var labels=['UNIFORM','BIBS','SOCKS'];
+ slides.forEach(function(s,i){var li=document.createElement('li');li.dataset.l=labels[i];li.innerHTML='<svg viewBox="0 0 26 26"><path class="circle" d="M13,1A12,12,0,1,0,25,13,12,12,0,0,0,13,1Z"/></svg>';li.onclick=function(){if(i!==cur)go(i)};navi.appendChild(li)});
+ document.querySelector('.l-main__slide').appendChild(navi);
+ var lis=$('li',navi);
+ function go(i){
+  clearTimeout(timer);cur=i;
+  slides.forEach(function(s,k){if(k===i){s.style.zIndex=1;s.classList.remove('is-active');void s.offsetWidth;s.classList.add('is-active')}else{s.style.zIndex=0}});
+  setTimeout(function(){slides.forEach(function(s,k){if(k!==i)s.classList.remove('is-active')})},900);
+  lis.forEach(function(li,k){li.classList.toggle('is-current',k===i);var c=li.querySelector('.circle');c.style.transition='none';c.style.strokeDashoffset=k===i?82:246;if(k===i){void c.getBoundingClientRect();c.style.transition='stroke-dashoffset 6.2s linear';c.style.strokeDashoffset=164}else{c.style.transition='stroke-dashoffset .5s linear'}});
+  timer=setTimeout(function(){go((i+1)%slides.length)},6200);
+ }
+ go(0);
+ /* brand slider: 8.2 per view, 1 step per click, progress bar */
+ var w=document.getElementById('bsw'),items=$('.bs-item',w),idx=0,prev=document.getElementById('bsp'),next=document.getElementById('bsn'),bar=document.getElementById('bsbar');
+ function per(){return innerWidth>959?8.2:innerWidth>569?6.5:3.1}
+ function slide(){var max=Math.max(0,Math.ceil(items.length-per()));idx=Math.max(0,Math.min(idx,max));
+  var step=items[0].getBoundingClientRect().width+parseFloat(getComputedStyle(w).columnGap||getComputedStyle(w).gap||0);
+  w.style.transform='translateX('+(-idx*step)+'px)';prev.disabled=idx===0;next.disabled=idx===max;
+  bar.style.width=(max?30+70*idx/max:100)+'%'}
+ prev.onclick=function(){idx--;slide()};next.onclick=function(){idx++;slide()};addEventListener('resize',slide);slide();
+ /* menu toggle */
+ var tg=document.getElementById('tg'),mn=document.getElementById('menu');
+ document.getElementById('l-header__toggle').onclick=function(){var o=mn.classList.toggle('open');tg.classList.toggle('on',o);document.body.classList.toggle('modal-open',o)};
+})();
+</script>
+</body>
+</html>

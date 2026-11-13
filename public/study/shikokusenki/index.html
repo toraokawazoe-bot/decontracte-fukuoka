@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Study replica: shikokusenki (DECONTRACTE placeholder)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Noto+Sans+JP:wght@300;400;500&display=swap">
+<style>
+/* tokens (measured from live CSS): text #1e283c / blue #3296fa / dark band #53595d / grey #9b9b9b / pale #f4f7fb ; rem = 16px */
+:root{--ink:#1e283c;--blue:#3296fa;--band:#53595d;--grey:#9b9b9b;--pale:#f4f7fb;--ease:cubic-bezier(.19,1,.22,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{margin:0;font-family:"Noto Sans JP",sans-serif;font-size:16px;line-height:1.7;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none;margin:0;padding:0}
+p{margin:0}
+.f-eng{font-family:"Manrope",sans-serif;font-optical-sizing:auto}
+.img_bdr{border-radius:5px;overflow:hidden}
+.ph{background:#d5dae0}
+.ph img{width:100%;height:100%;object-fit:cover}
+@media(min-width:1200px){.img_bdr{border-radius:10px}}
+
+/* header */
+#header{position:fixed;top:0;left:0;width:100%;height:70px;background:#fff;z-index:1001;display:flex;transition:transform .4s ease-in-out}
+#header.hide{transform:translateY(-100%)}
+.header_container{width:92.3%;margin:0 auto;display:flex;justify-content:space-between;align-items:center;position:relative}
+.scroll_logo{margin:0;display:flex;align-items:center;gap:10px;font-family:"Manrope";font-weight:500;font-size:18px;letter-spacing:.02em}
+.scroll_logo i{width:34px;height:20px;border:1.5px solid var(--blue);transform:skewX(0);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:none;position:relative;display:block}
+.scroll_logo .mark{width:30px;height:30px;background:var(--blue);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.header_right{display:flex;align-items:center;justify-content:flex-end}
+.fixed_nav{display:none;margin-right:22px}
+.fixed_nav>li{position:relative;line-height:1.7}
+.fixed_nav>li+li{margin-left:26px}
+.fixed_nav a,.fixed_nav_item>div{font-size:14px;letter-spacing:.06em;color:var(--ink);transition:.3s;cursor:pointer;display:inline-flex;align-items:center}
+.fixed_nav a:hover,.fixed_nav_item>div:hover{color:var(--blue)}
+.fixed_nav .down{width:10px;height:5px;margin-left:10px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:scale(.55) rotate(45deg) translateY(-3px)}
+.dropdown{position:absolute;top:100%;left:0;background:#fff;margin-top:1.5rem;white-space:nowrap;max-height:0;overflow:hidden;visibility:hidden;transition:max-height .5s ease,visibility .5s ease;border-radius:0 0 10px 10px}
+.fixed_nav_item:hover .dropdown{max-height:500px;visibility:visible}
+.dropdown li:last-child{padding-bottom:20px}
+.dropdown a{display:block;padding:10px 35px}
+.dropdown a:hover{background:#f8f8f8}
+.header_contact{display:none;background:var(--blue);color:#fff;font-size:13px;font-weight:500;letter-spacing:.02em;border-radius:50px;align-items:center;justify-content:center;width:142px;height:35px;transition:.3s}
+.header_contact:hover{opacity:.7}
+.menu-trigger{width:62px;height:23px;background:var(--ink);border-radius:40px;display:flex;justify-content:center;align-items:center;margin-left:8px;cursor:pointer;position:relative;z-index:1002;border:0}
+.menu-trigger .inner{position:relative;width:20px;height:6px}
+.menu-trigger span{position:absolute;left:0;width:100%;height:1px;background:#fff;transition:.2s}
+.menu-trigger span:first-child{top:0}.menu-trigger span:last-child{bottom:0}
+.open .menu-trigger span:first-child{top:2.5px;transform:rotate(12deg)}
+.open .menu-trigger span:last-child{bottom:2.5px;transform:rotate(-12deg)}
+.menu-toggle{position:fixed;inset:0;background:#fff;z-index:1000;padding:110px 0 40px;overflow:auto;opacity:0;visibility:hidden;transition:.4s}
+.open .menu-toggle{opacity:1;visibility:visible}
+.menu-toggle_inner{width:92.3%;margin:0 auto}
+.toggle_nav{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 20px;margin-bottom:40px}
+.toggle_nav>li>a{display:block;font-size:16px;font-weight:500;margin-bottom:10px}
+.toggle_nav>li>a span{display:block;font-size:26px;font-weight:300;line-height:1.1;color:var(--ink)}
+.toggle_nav ul a{display:block;font-size:13px;color:var(--grey);padding:2px 0}
+@media(min-width:768px){#header{height:80px}}
+@media(min-width:992px){.fixed_nav{display:flex}.header_contact{display:inline-flex}}
+@media(min-width:1200px){#header{height:90px}.header_container{width:91.11%}.scroll_logo{font-size:22px}.fixed_nav{margin-right:26px}.fixed_nav a,.fixed_nav_item>div{font-size:14px}}
+@media(min-width:1400px){.fixed_nav{margin-right:41px}.fixed_nav>li+li{margin-left:41px}}
+
+/* MV */
+.mv{position:relative;width:92.3%;margin:0 auto;height:100vh;padding-top:70px;padding-bottom:4%}
+.mv_inner{position:relative;width:100%;height:100%}
+.mv_slider{width:100%;height:100%;border-radius:10px;overflow:hidden;position:relative;background:#26313a}
+.mv_slider li{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;overflow:hidden}
+.mv_slider li.on{opacity:1;z-index:1}
+.mv_slider li img{width:100%;height:100%;object-fit:cover;transform:scale(1)}
+.mv_slider li.on img{animation:zoomUp 10s linear 0s normal both}
+@keyframes zoomUp{0%{transform:scale(1)}100%{transform:scale(1.2)}}
+.mv_shade{position:absolute;inset:0;border-radius:10px;z-index:2;background:linear-gradient(180deg,rgba(2,30,46,.1) 0%,rgba(2,30,46,.55) 100%);pointer-events:none}
+.mv_txtArea{position:absolute;z-index:3;width:83.33%;left:50%;bottom:8.26%;transform:translateX(-50%);color:#fff}
+.mv_en{font-size:49px;font-weight:300;line-height:1.05;margin-bottom:12px}
+.mv_jp{font-size:16px;line-height:1.8;letter-spacing:.06em}
+.pc_topimg{display:none;position:absolute;z-index:4;width:21.976%;max-width:378px;top:75.326%;right:5.81%;aspect-ratio:4/3.1}
+.br-sp{display:inline}
+@media(min-width:768px){.mv{padding-top:80px}.mv_en{margin-bottom:25px}}
+@media(min-width:992px){.pc_topimg{display:block}}
+@media(min-width:1200px){.mv{width:95.55%;padding-top:90px;padding-bottom:2.5%}.mv_txtArea{width:88.139%;bottom:8.71%}.mv_en{font-size:65.9px;line-height:2.1;margin-bottom:-5.4px}.mv_jp{font-size:18.7px;letter-spacing:.1em}.br-sp{display:none}}
+@media(min-width:1400px){.mv_en{font-size:80px}}
+
+/* titles */
+.c-title1{margin-bottom:57px}
+.c-title1 .f-eng{display:block;font-size:56px;font-weight:300;letter-spacing:0;line-height:1;margin-bottom:20px}
+.c-title1 .f-jp{display:flex;align-items:center;font-size:13.8px;letter-spacing:.04em;line-height:1.2}
+.c-title1 .f-jp::before{content:"";width:14px;height:8px;margin-right:5px;background:var(--blue);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.c-title1.txt-center .f-jp{justify-content:center}
+.c-title1.txt-center .f-jp::after{content:"";width:14px;height:8px;margin-left:12px;background:var(--blue);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.c-title2{margin-bottom:44px}
+.c-title2 .e-tit{display:flex;align-items:center;font-size:17px;font-weight:300;margin-bottom:50px}
+.c-title2 .e-tit::before{content:"";width:14px;height:8px;margin-right:12px;background:var(--blue);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.c-title2 .tit{font-size:16px;line-height:1.8;letter-spacing:.06em}
+.c-title2 .tit .f-eng{display:block;font-size:47px;font-weight:300;line-height:1.05;margin-bottom:23px}
+@media(min-width:1200px){.c-title1{margin-bottom:88.6px}.c-title1 .f-eng{font-size:80px;letter-spacing:.02em;margin-bottom:23px}.c-title1 .f-jp{font-size:13px}.c-title1 .f-jp::before{width:15px;height:9px;margin-right:8px}.c-title1.txt-center .f-jp::after{width:15px;height:9px;margin-left:8px}.c-title2 .e-tit{font-size:18.7px}.c-title2 .tit{font-size:18.7px;letter-spacing:.1em}.c-title2 .tit .f-eng{font-size:80px;margin-bottom:43px}}
+
+/* button .vm */
+.vm{text-align:left;position:relative;display:inline-flex;align-items:center;justify-content:flex-start;background:var(--ink);color:#fff;font-size:15px;font-weight:300;letter-spacing:.02em;width:210px;height:60px;border-radius:70px;padding-left:30px;overflow:hidden;cursor:pointer}
+.vm-text{display:inline-flex;position:relative;height:1.2em;line-height:1.2;overflow:hidden;width:100%;min-width:120px}
+.vm-text span{position:absolute;left:0;top:0;width:100%;height:100%}
+.hover-text--bottom{transform:translateY(105%)}
+.vm:hover .hover-text--top{transform:translateY(-105%);opacity:0;transition:transform .6s cubic-bezier(.87,0,.13,1),opacity .6s}
+.vm:hover .hover-text--bottom{transform:translateY(0);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.vm::after{content:"";position:absolute;width:6px;height:6px;background:#fff;border-radius:50%;top:50%;right:20px;transform:translateY(-50%);transition:.5s}
+.vm:hover::after{width:12px;height:12px;right:16px}
+@media(min-width:1200px){.vm{width:280px;height:70px;font-size:15px}.vm::after{right:30px}.vm:hover::after{right:26px}}
+.txt-right{text-align:right}.txt-center{text-align:center}
+.txt_block{text-align:justify;line-height:1.8;letter-spacing:.04em}
+
+/* news */
+#top_news{width:76.92%;margin:79px auto 0}
+#top_news .c-title1 .f-eng{font-size:42.5px}
+#top_news .vm{margin-top:50px}
+.news_block li{position:relative}
+.news_block li::before,.news_block li::after{position:absolute;width:100%;height:1px;left:0;background:rgba(180,180,180,.25)}
+.news_block li:first-child::before{content:none}
+.news_block li::after{content:"";bottom:0}
+.news_block li a{display:block;padding:32px 0;transition:.5s}
+.news_cd{display:flex;align-items:center;margin-bottom:.6rem}
+.news_cat{background:var(--pale);font-size:12.8px;letter-spacing:.05em;width:90px;height:26px;border-radius:30px;display:flex;align-items:center;justify-content:center;margin-right:13px;transition:.3s}
+.news_date{font-size:13.8px;letter-spacing:.02em}
+.news_tit{position:relative;padding-right:20px;font-size:16px;letter-spacing:.06em}
+.news_tit::after{content:"";position:absolute;width:8px;height:8px;top:50%;right:2px;border-top:1px solid var(--ink);border-right:1px solid var(--ink);transform:translateY(-50%) rotate(45deg) scale(.8)}
+a:hover .news_cat{background:var(--blue);color:#fff}
+@media(max-width:767px){.news_block li::before{display:none}#top_news .c-title1{margin-bottom:27px}}
+@media(min-width:768px){#top_news{width:84.44%}.top_news_inner{width:75%;margin:0 auto}.news_block li:first-child::before{content:"";top:0}.news_block li a{display:flex;align-items:center}.news_cd{margin:0 30px 0 0}.news_block li a:hover{padding-left:30px}}
+@media(min-width:1200px){#top_news{margin-top:164px}#top_news .c-title1 .f-eng{font-size:52.6px}#top_news .vm{margin-top:60px}.news_block li a{padding:45px 0 40px}.news_cd{margin-right:56px}.news_cat{width:142px;height:35px;font-size:12.2px;margin-right:30px}.news_date{font-size:13.1px}.news_block li a:hover{padding-left:50px}}
+
+/* about */
+#top_aboutus{margin-top:92px}
+.sp-aboutimg{width:92.3%;margin:0 auto 59px;aspect-ratio:4/3}
+.about_txtArea{width:76.92%;margin:0 auto}
+#top_aboutus .vm{margin-top:50px}
+.aboutimg_flex{display:flex;flex-direction:column-reverse;align-items:flex-start;justify-content:space-between;width:92.3%;margin:64px auto 0;padding-right:4.16%}
+.aboutimg1_sp,.aboutimg2_sp{width:62.6%;aspect-ratio:4/5}
+.aboutimg1_sp{margin-top:43px}.aboutimg2_sp{margin-left:auto}
+.aboutimg1_pc,.aboutimg2_pc{display:none}
+@media(min-width:768px){
+ #top_aboutus{margin-top:102px}
+ .sp-aboutimg,.aboutimg1_sp,.aboutimg2_sp{display:none}
+ .about_txtArea{width:84.44%}
+ .about_block .c-title2{display:flex;align-items:flex-start;margin-bottom:40px}
+ .about_block .c-title2 .e-tit{width:25%}
+ .about_block .c-title2 .tit{margin-top:-7px;width:75%}
+ .about_txtinner{width:63.15%;margin-left:auto}
+ .about_txtinner .txt_block{max-width:760px}
+ .aboutimg_flex{flex-direction:row;padding-right:0}
+ .aboutimg1_pc{display:block;width:24.4186%;margin-top:calc(-4rem - 60px);aspect-ratio:3/4}
+ .aboutimg2_pc{display:block;width:61.046%;aspect-ratio:16/9.4}
+}
+@media(min-width:1200px){#top_aboutus{margin-top:183px}#top_aboutus .vm{margin-top:63px}.about_block .c-title2{margin-bottom:76px}.about_block .c-title2 .tit{margin-top:-11px}.aboutimg_flex{width:95.5%;margin-top:169px}.aboutimg1_pc{margin-top:calc(-10.58rem - 70px)}}
+
+/* business (pinned horizontal scroll >=992) */
+#top_business{position:relative;margin-top:90px;color:#fff;padding:82px 0 107px;overflow:hidden;background:var(--band)}
+.top_business_inner{width:76.92%;margin:0 auto}
+.business_slider .item{display:block;width:100%}
+.business_slider .item+.item{margin-top:75px}
+.business_img{width:92.3%;margin:0 auto 37px;aspect-ratio:4/3}
+.business_txtArea{width:76.923%;margin:0 auto}
+.counter{display:none;align-items:center;font-weight:300;font-size:13.8px;letter-spacing:.05em;color:var(--grey)}
+.counter .bar{position:relative;width:100px;height:1px;background:rgba(155,155,155,.5);margin:0 20px;overflow:hidden}
+.counter .fill{position:absolute;top:0;left:0;height:100%;width:0;background:#fff}
+.counter .count{color:#fff}
+.tb_block .no{width:48px;height:24px;border-radius:30px;background:var(--blue);display:flex;justify-content:center;align-items:center;font-size:12.8px;font-weight:500;letter-spacing:.05em;margin-bottom:23px}
+.tb_tit{font-size:28.8px;font-weight:400;letter-spacing:0;margin-bottom:17px}
+.tb_tit .f-eng{display:block;font-size:12.8px;font-weight:300;letter-spacing:.05em;margin-top:2.6px}
+.business_txtArea .txt_block{font-weight:400;line-height:1.66}
+.business_txtArea .vm{margin-top:43px;background:#fff;color:var(--ink)}
+.business_txtArea .vm::after{background:var(--ink)}
+@media(min-width:768px){
+ #top_business{padding:82px 0 48px}
+ .top_business_inner{width:84.44%}
+ .businnes_flex{width:92.22vw;display:flex;justify-content:space-between;padding-left:3.85%}
+ .business_img{width:54.179%;height:400px;aspect-ratio:auto;margin:0}
+ .business_txtArea{width:38.656%;margin:0;display:flex;flex-direction:column;justify-content:space-between}
+ .businnes_flex{align-items:flex-end}
+}
+@media(min-width:992px){
+ .business_block{width:100%;height:100vh}
+ .business_slider{display:flex!important}
+ .business_slider .item{flex:0 0 auto;width:auto}
+ .business_slider .item+.item{margin-top:0}
+ .businnes_flex{width:92.22vw;padding-right:15.55%;align-items:stretch}
+ .business_img{width:59.179%;height:500px}
+ .business_txtArea{width:33.656%}
+ .counter{display:flex}
+}
+@media(min-width:1200px){#top_business{padding:180px 0 64px;margin-top:188px}.businnes_flex{padding-left:2.25%}.business_img{height:600px}.tb_tit{font-size:28.2px;margin-bottom:35px}.tb_block .no{font-size:14px;width:60px;height:30px;margin-bottom:23px}.business_txtArea .vm{margin-top:52px}.counter{font-size:14px}.business_txtArea .txt_block{font-size:14px}}
+@media(min-width:1400px){.business_img{width:64.179%;height:700px}.business_txtArea{width:28.656%}}
+@media(min-width:1600px){.tb_tit{font-size:32px}}
+@media(min-width:1200px) and (max-height:850px){.business_img{height:550px}}
+@media(max-width:991px){.business_slider .item{display:block}}
+
+/* company */
+#top_company{position:relative;margin-top:86px}
+.company_inner{width:76.92%;margin:0 auto}
+.company_sptxt{margin-bottom:54px}
+.company_pctxt{display:none}
+.company_contents ul li{position:relative;padding:25px 0}
+.company_contents ul li:first-child{padding-top:0}
+.company_contents ul li::after{position:absolute;content:"";width:100%;height:1px;background:rgba(180,180,180,.5);left:0;bottom:0}
+.company_contents ul li a{display:flex;align-items:center;justify-content:space-between;position:relative}
+.company_contents .img{width:40%;aspect-ratio:3/2}
+.company_contents .txt{width:50%;font-size:18px;color:var(--ink)}
+.company_contents .txt .f-eng{display:block;font-size:11.7px;color:var(--grey);letter-spacing:.05em}
+.company_contents .arrow{position:absolute;width:12px;height:12px;border-radius:50%;top:50%;right:0;transform:translateY(-50%);transition:.3s;border:0;display:flex;align-items:center;justify-content:center}
+.company_contents .arrow::before{content:"";width:5px;height:5px;border-top:1px solid var(--ink);border-right:1px solid var(--ink);transform:rotate(45deg) translate(-1px,1px)}
+.company_contents a:hover .arrow{width:30px;height:30px;background:var(--blue)}
+.company_contents a:hover .arrow::before{border-color:#fff}
+.company_btn{text-align:center;margin-top:53px}
+.company_img{display:none}
+@media(min-width:768px){
+ .company_inner{width:84.44%;display:flex;justify-content:space-between}
+ .company_contents{width:50%}
+ .company_sptxt{display:none}
+ .company_pctxt{display:block;max-width:660px}
+ .company_pctxt .txt_block{font-size:13.8px;line-height:2}
+ .company_contents ul{margin-bottom:45px}
+ .company_contents ul li:last-child{padding-bottom:0}
+ .company_contents ul li:last-child::after{display:none}
+ .company_contents .img{width:33.68%}.company_contents .txt{width:57.1%}
+ .company_btn{text-align:right}
+ .company_img{display:block;position:absolute;width:27.77%;left:3.85%;bottom:0;aspect-ratio:4/5}
+}
+@media(min-width:992px){.company_contents .img{width:28.68%}.company_contents .txt{width:62.1%}}
+@media(min-width:1200px){#top_company{margin-top:177px}.company_pctxt .txt_block{font-size:14px}.company_contents{margin-top:11px}.company_contents ul{margin-bottom:67px}.company_contents ul li{padding:30px 0}.company_contents .img{width:23.68%}.company_contents .txt{width:67.1%;font-size:24.5px}.company_contents .txt .f-eng{font-size:16px}.company_contents .arrow{width:16px;height:16px}.company_contents a:hover .arrow{width:40px;height:40px}.company_btn{margin-top:174px}.company_img{left:2.25%}}
+
+/* recruit */
+#top_recruit{position:relative;overflow:hidden;margin-top:96px}
+.top_recruit_bg{position:relative;display:flex;align-items:center;justify-content:center;width:100vw;height:100vh;overflow:hidden;will-change:filter}
+.top_recruit_bg-figure{overflow:hidden;position:fixed;top:0;left:0;height:100vh;width:100%;z-index:0;margin:0}
+.top_recruit_bg-figure img{width:100%;height:calc(100% + 100px);object-fit:cover;will-change:transform}
+.top_recruit_bg-overlay{position:absolute;inset:0;background:#021e2e82;opacity:0;z-index:1}
+.top_recruit_bg-blur{position:absolute;inset:0;pointer-events:none;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);z-index:2}
+.top_recruit_main_wrap{position:relative;width:92.3%;min-height:100vh;margin:50vh auto 0;z-index:10;padding:96px 0 107px}
+.top_recruit_contents{width:76.92%;max-width:570px;margin:0 auto;color:#fff;position:relative}
+.top_recruit_contents .txt_block{line-height:1.66}
+.top_recruit_contents .vm{background:transparent;border:1px solid rgba(255,255,255,.5);margin-top:48px}
+.top_recruit_txt{position:absolute;left:0;bottom:32px;color:#fff;font-size:16px;font-weight:300;text-decoration:underline;z-index:10;margin:0}
+.rec_imgtop,.rec_imgbottom{position:relative;display:flex;justify-content:space-between;will-change:transform}
+.rec_imgtop{margin-bottom:60px}.rec_imgbottom{margin-top:93px}
+.rec_img1,.rec_img2,.rec_img3,.rec_img4{overflow:hidden;height:100%;will-change:transform,opacity;transform:translateY(70px);opacity:0}
+.rec_img1{width:55.55%;aspect-ratio:48/55;margin-left:8.33%}
+.rec_img2{width:25%;aspect-ratio:1/1;margin-top:308px;margin-right:8.33%}
+.rec_img3{width:43.05%;aspect-ratio:381/256;margin-left:4.16%}
+.rec_img4{width:44.44%;aspect-ratio:4/5;margin-top:155px}
+@media(min-width:768px){.rec_img1{width:27.9%;margin-top:104px;margin-left:0}.rec_img2{width:17.44%;margin-top:0;margin-right:21.51%}.rec_img3{width:22.15%;margin-top:104px;margin-left:27.9%}.rec_img4{width:22.09%;margin-top:0;margin-right:5.81%}}
+@media(min-width:1200px){#top_recruit{margin-top:188px}.top_recruit_main_wrap{width:95.55%}.top_recruit_contents .txt_block{font-size:14px;line-height:1.8}.top_recruit_contents .vm{margin-top:69px}.top_recruit_txt{font-size:18.7px;left:2.32%;bottom:118px}.rec_imgtop{margin-bottom:-180px}.rec_imgbottom{margin-top:75px}}
+@media(max-width:991px){.top_recruit_main_wrap{padding:96px 0 107px}}
+
+/* footer */
+#footer{padding:79px 0 128px;background:#fff;position:relative;z-index:11}
+.footer_container{width:84.61%;margin:0 auto}
+.fc_wrap{margin-bottom:86px}
+.fc_wrap .c-title1{display:block;margin-bottom:35px}
+.fc_wrap .c-title1 .f-eng{font-size:46.9px;position:relative}
+.fc_wrap .c-title1 .f-eng::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;right:0;top:50%;transform:translateY(-50%);transition:.3s;background:var(--ink)}
+.fc_wrap .c-title1:hover .f-eng::after{width:40px;height:40px;background:var(--blue)}
+.fc_img{display:none}
+.fc_tel{margin-top:22px}
+.fc_tel a{font-size:24.5px;font-weight:300;text-decoration:underline}
+.fc_tel p{font-size:13.8px;letter-spacing:.05em}
+.f_block_flex{margin-bottom:64px}
+.f_logo{width:250px;margin-bottom:22px;font-family:Manrope;font-weight:500;font-size:22px;display:flex;align-items:center;gap:10px}
+.f_logo .mark{width:30px;height:30px;background:var(--blue);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.f_company li{font-size:14.9px;letter-spacing:.06em;line-height:1.78}
+.f_company li+li{margin-top:16px}
+.f_company li p{font-size:17px;margin-bottom:5px}
+.footer_nav{display:grid;grid-template-columns:repeat(2,1fr);gap:32px 16px;margin-top:48px}
+.fnav_tit{display:block;font-size:11.7px;color:#999;letter-spacing:.06em;margin-bottom:0}
+.fnav_tit .f-eng{display:block;color:var(--ink);font-size:24.5px;font-weight:300;line-height:1;margin-bottom:8px}
+.footer_nav ul ul a{display:block;font-size:13px;line-height:2}
+.f_policy{font-size:13px}
+.f_end{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+.f_copy{font-size:12px;color:var(--grey);margin:0}
+.sp-none{display:none}
+@media(min-width:768px){
+ .fc_wrap{display:flex;justify-content:space-between;margin-bottom:99px}
+ .fc_img{display:block;width:21.05%;aspect-ratio:3/4}
+ .fc_txtArea{width:62.5%;position:relative;padding-top:36px}
+ .fc_txtArea::before{content:"";position:absolute;width:100%;height:1px;background:rgba(30,40,60,.1);top:0;left:0}
+ .fc_tel a{text-decoration:none}
+ .f_block_flex{display:flex;justify-content:space-between}
+ .footer_nav{grid-template-columns:repeat(5,auto);margin-top:0;gap:0 36px}
+ .sp-none{display:block}.pc-none{display:none}
+}
+@media(min-width:1200px){#footer{padding:141px 0}.footer_container{width:84.44%}.fc_wrap{margin-bottom:152px}.fc_txtArea{padding-top:47px}.fc_wrap .c-title1{margin-bottom:43px}.fc_wrap .c-title1 .f-eng{font-size:70.6px}.fc_txtArea .txt_block{font-size:14px}.fc_tel a{font-size:26.4px}.fc_tel p{font-size:12.2px}}
+
+/* fade-in of .effbox */
+.effbox{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s ease}
+.effbox.on{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div id="headertop">
+<header id="header">
+ <div class="header_container">
+  <h1 class="scroll_logo"><a href="#" style="display:flex;align-items:center;gap:10px"><span class="mark"></span>DÉCONTRACTÉ</a></h1>
+  <div class="header_right">
+   <ul class="fixed_nav">
+    <li><a href="#top_aboutus">About</a></li>
+    <li class="fixed_nav_item"><div>Items<span class="down"></span></div>
+     <ul class="dropdown"><li><a href="#">Uniform set</a></li><li><a href="#">Bibs</a></li><li><a href="#">Socks</a></li></ul></li>
+    <li><a href="#top_news">News</a></li>
+    <li><a href="#top_company">Flow</a></li>
+    <li><a href="#top_recruit">Team</a></li>
+   </ul>
+   <a class="header_contact f-eng" href="#footer">CONTACT</a>
+   <button class="menu-trigger" aria-label="menu"><div class="inner"><span></span><span></span></div></button>
+  </div>
+ </div>
+ <div class="menu-toggle"><div class="menu-toggle_inner">
+  <ul class="toggle_nav">
+   <li><a href="#top_aboutus"><span class="f-eng">About</span>DÉCONTRACTÉとは</a><ul><li><a href="#top_aboutus">ブランドについて</a></li></ul></li>
+   <li><a href="#top_business"><span class="f-eng">Items</span>アイテム</a><ul><li><a href="#top_business">ユニフォームセット</a></li><li><a href="#top_business">ビブス</a></li><li><a href="#top_business">ソックス</a></li></ul></li>
+   <li><a href="#top_company"><span class="f-eng">Flow</span>ご注文の流れ</a></li>
+   <li><a href="#top_recruit"><span class="f-eng">Team</span>チーム実績</a></li>
+   <li><a href="#footer"><span class="f-eng">Contact</span>お問い合わせ</a></li>
+  </ul>
+ </div></div>
+</header>
+</div>
+
+<div class="mv">
+ <div class="mv_inner">
+  <ul class="mv_slider">
+   <li class="on"><img src="../../img/first_view.jpg" alt=""></li>
+   <li><img src="../../img/work_bibs_rev.jpg" alt=""></li>
+   <li><img src="../../img/item_set.jpg" alt=""></li>
+  </ul>
+  <div class="mv_shade"></div>
+  <div class="mv_txtArea">
+   <p class="mv_en f-eng">Made for the team.</p>
+   <p class="mv_jp">チームの数だけ、<br class="br-sp">ユニフォームをつくる。</p>
+  </div>
+  <div class="pc_topimg img_bdr ph"><img src="../../img/item_bibs.jpg" alt="" style="height:100%"></div>
+ </div>
+</div>
+
+<section id="top_news">
+ <h2 class="c-title1"><span class="f-eng">News Release</span><span class="f-jp">DÉCONTRACTÉからのお知らせ</span></h2>
+ <div class="top_news_inner">
+  <ul class="news_block">
+   <li><a href="#"><div class="news_cd"><div class="news_cat">お知らせ</div><p class="news_date f-eng">2026.11.01</p></div><p class="news_tit">年末年始の受注スケジュールをお知らせします</p></a></li>
+  </ul>
+  <div class="txt-right"><a href="#" class="vm f-eng"><span class="vm-text"><span class="hover-text--top">View All</span><span class="hover-text--bottom">View All</span></span></a></div>
+ </div>
+</section>
+
+<section id="top_aboutus" class="about_block">
+ <div class="sp-aboutimg img_bdr ph"><img src="../../img/item_set.jpg" alt=""></div>
+ <div class="about_txtArea">
+  <h3 class="c-title2" style="font-weight:400">
+   <div class="e-tit f-eng">About Us</div>
+   <div class="tit"><span class="f-eng">Made for the team.</span>チームの数だけ、<br class="br-sp">ユニフォームをつくる。</div>
+  </h3>
+  <div class="about_txtinner">
+   <div class="txt_block"><p>DÉCONTRACTÉは、福岡のチームのためのフルオーダーユニフォームブランドです。昇華プリントで、デザインから色・ロゴまで自由に。5枚からご注文いただけます。</p></div>
+   <a href="#" class="vm f-eng"><span class="vm-text"><span class="hover-text--top">View All</span><span class="hover-text--bottom">View All</span></span></a>
+  </div>
+ </div>
+ <div class="aboutimg_flex">
+  <div class="aboutimg1_sp img_bdr ph"><img src="../../img/item_socks.jpg" alt=""></div>
+  <div class="aboutimg2_sp img_bdr ph"><img src="../../img/item_bibs.jpg" alt=""></div>
+  <div class="aboutimg1_pc img_bdr ph"><img src="../../img/item_socks.jpg" alt=""></div>
+  <div class="aboutimg2_pc img_bdr ph"><img src="../../img/item_set.jpg" alt=""></div>
+ </div>
+</section>
+
+<section id="top_business">
+ <div class="top_business_inner"><h2 class="c-title1" style="color:#fff"><span class="f-eng">Our <br class="br-sp">Items</span><span class="f-jp">アイテム</span></h2></div>
+ <div class="business_block js-wrapper">
+  <div class="business_slider">
+   <div class="item js-scroll"><div class="businnes_flex">
+    <div class="business_img img_bdr ph"><img src="../../img/item_set.jpg" alt=""></div>
+    <div class="business_txtArea">
+     <div class="counter f-eng"><span class="count">01</span><span class="bar"><span class="fill"></span></span><span>03</span></div>
+     <div class="tb_block"><div class="no f-eng">01</div>
+      <p class="tb_tit">ユニフォームセット<span class="f-eng">Uniform Set</span></p>
+      <div class="txt_block"><p>シャツとパンツをセットでフルオーダー。昇華プリントなので、グラデーションや細かな柄もそのまま表現できます。<br>5枚から承ります。</p></div>
+      <div class="txt-right"><a href="#" class="vm f-eng"><span class="vm-text"><span class="hover-text--top">View All</span><span class="hover-text--bottom">View All</span></span></a></div>
+     </div></div></div></div>
+   <div class="item js-scroll"><div class="businnes_flex">
+    <div class="business_img img_bdr ph"><img src="../../img/item_bibs.jpg" alt=""></div>
+    <div class="business_txtArea">
+     <div class="counter f-eng"><span class="count">02</span><span class="bar"><span class="fill"></span></span><span>03</span></div>
+     <div class="tb_block"><div class="no f-eng">02</div>
+      <p class="tb_tit">ビブス<span class="f-eng">Bibs</span></p>
+      <div class="txt_block"><p>練習用から大会用まで、番号や名前入りのビブスを一枚から数枚単位でオーダーできます。</p></div>
+      <div class="txt-right"><a href="#" class="vm f-eng"><span class="vm-text"><span class="hover-text--top">View All</span><span class="hover-text--bottom">View All</span></span></a></div>
+     </div></div></div></div>
+   <div class="item js-scroll"><div class="businnes_flex">
+    <div class="business_img img_bdr ph"><img src="../../img/item_socks.jpg" alt=""></div>
+    <div class="business_txtArea">
+     <div class="counter f-eng"><span class="count">03</span><span class="bar"><span class="fill"></span></span><span>03</span></div>
+     <div class="tb_block"><div class="no f-eng">03</div>
+      <p class="tb_tit">ソックス<span class="f-eng">Socks</span></p>
+      <div class="txt_block"><p>ユニフォームと同じデザインでそろえるオリジナルソックス。チーム全員の足もとまで統一できます。</p></div>
+      <div class="txt-right"><a href="#" class="vm f-eng"><span class="vm-text"><span class="hover-text--top">View All</span><span class="hover-text--bottom">View All</span></span></a></div>
+     </div></div></div></div>
+  </div>
+ </div>
+</section>
+
+<section id="top_company">
+ <div class="company_inner">
+  <h3 class="c-title1"><span class="f-eng">Flow</span><span class="f-jp">ご注文の流れ</span></h3>
+  <div class="company_sptxt"><div class="txt_block"><p>デザインのご相談から納品まで、福岡のスタッフが丁寧にサポートします。</p></div></div>
+  <div class="company_contents">
+   <ul>
+    <li><a href="#"><div class="img img_bdr ph"><img src="../../img/flow01.jpg" alt="" style="height:100%"></div><div class="txt">ご相談・お見積り<span class="f-eng">Consult</span></div><div class="arrow"></div></a></li>
+    <li><a href="#"><div class="img img_bdr ph"><img src="../../img/flow03.jpg" alt="" style="height:100%"></div><div class="txt">デザイン確認<span class="f-eng">Design</span></div><div class="arrow"></div></a></li>
+    <li><a href="#"><div class="img img_bdr ph"><img src="../../img/flow05.jpg" alt="" style="height:100%"></div><div class="txt">製作・納品<span class="f-eng">Delivery</span></div><div class="arrow"></div></a></li>
+   </ul>
+   <div class="company_pctxt"><div class="txt_block"><p>デザインのご相談から納品まで、福岡のスタッフが丁寧にサポートします。</p></div></div>
+   <div class="company_btn"><a href="#" class="vm f-eng"><span class="vm-text"><span class="hover-text--top">View All</span><span class="hover-text--bottom">View All</span></span></a></div>
+  </div>
+ </div>
+ <div class="company_img img_bdr ph"><img src="../../img/item_set.jpg" alt="" style="height:100%"></div>
+</section>
+
+<section id="top_recruit">
+ <div class="top_recruit_bg">
+  <figure class="top_recruit_bg-figure"><img src="../../img/first_view.jpg" alt=""></figure>
+  <div class="top_recruit_bg-overlay"></div>
+  <div class="top_recruit_bg-blur"></div>
+ </div>
+ <div class="top_recruit_main_wrap">
+  <div class="rec_imgtop">
+   <div class="rec_img1 img_bdr ph"><img src="../../img/work_bibs_rev.jpg" alt=""></div>
+   <div class="rec_img2 img_bdr ph"><img src="../../img/item_socks.jpg" alt=""></div>
+  </div>
+  <div class="top_recruit_contents">
+   <h3 class="c-title1 txt-center" style="color:#fff"><span class="f-eng">Team</span><span class="f-jp">チーム実績</span></h3>
+   <div class="txt_block"><p>サッカー、フットサル、バスケット、部活動や社内チームまで。福岡の多くのチームが、DÉCONTRACTÉで自分たちだけの一着をつくっています。デザインの相談から、5枚からの少ロットまで気軽にご相談ください。</p></div>
+   <div class="txt-center"><a href="#" class="vm f-eng"><span class="vm-text"><span class="hover-text--top">View All</span><span class="hover-text--bottom">View All</span></span></a></div>
+  </div>
+  <div class="rec_imgbottom">
+   <div class="rec_img3 img_bdr ph"><img src="../../img/item_bibs.jpg" alt=""></div>
+   <div class="rec_img4 img_bdr ph"><img src="../../img/item_set.jpg" alt=""></div>
+  </div>
+  <p class="top_recruit_txt f-eng">Join Us</p>
+ </div>
+</section>
+
+<footer id="footer">
+ <div class="footer_container">
+  <div class="fc_wrap">
+   <div class="fc_img img_bdr ph"><img src="../../img/item_set.jpg" alt="" style="height:100%"></div>
+   <div class="fc_txtArea">
+    <a class="c-title1" href="#"><span class="f-eng">Contact Us</span><span class="f-jp">お問い合わせはこちら</span></a>
+    <div class="txt_block"><p>ユニフォームのご相談・お見積りは、お問い合わせフォームまたはLINEからお気軽にどうぞ。</p></div>
+    <div class="fc_tel"><a class="f-eng" href="#">TEL. 000-0000-0000</a><p>営業時間 10:00 - 18:00</p></div>
+   </div>
+  </div>
+  <div class="f_block">
+   <div class="f_block_flex">
+    <div class="f_company">
+     <div class="f_logo pc-none"><span class="mark"></span>DÉCONTRACTÉ</div>
+     <ul><li><p>福岡スタジオ</p>福岡県福岡市(placeholder)<br>TEL：000-0000-0000</li></ul>
+    </div>
+    <ul class="footer_nav">
+     <li><a class="fnav_tit" href="#"><span class="f-eng">About Us</span>DÉCONTRACTÉとは</a><ul><li><a href="#">ブランドについて</a></li></ul></li>
+     <li><a class="fnav_tit" href="#"><span class="f-eng">Items</span>アイテム</a><ul><li><a href="#">ユニフォームセット</a></li><li><a href="#">ビブス</a></li><li><a href="#">ソックス</a></li></ul></li>
+     <li><a class="fnav_tit" href="#"><span class="f-eng">Flow</span>ご注文の流れ</a><ul><li><a href="#">ご相談</a></li><li><a href="#">納品</a></li></ul></li>
+     <li><a class="fnav_tit" href="#"><span class="f-eng">Team</span>チーム実績</a></li>
+     <li><a class="fnav_tit" href="#"><span class="f-eng">Contact</span>お問い合わせ</a></li>
+    </ul>
+   </div>
+   <div class="txt-right"><a class="f-eng f_policy" href="#">Privacy Policy</a></div>
+   <div class="f_end"><div class="f_logo sp-none" style="margin:0"><span class="mark"></span>DÉCONTRACTÉ</div><p class="f_copy f-eng">&copy; DÉCONTRACTÉ</p></div>
+  </div>
+ </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+ // header: hide on scroll down, show on scroll up; hamburger
+ var hd=document.getElementById('header'),last=0;
+ addEventListener('scroll',function(){var y=scrollY;if(y>200&&y>last)hd.classList.add('hide');else hd.classList.remove('hide');last=y;},{passive:true});
+ document.querySelector('.menu-trigger').addEventListener('click',function(){hd.classList.toggle('open');});
+ document.querySelectorAll('.menu-toggle a').forEach(function(a){a.addEventListener('click',function(){hd.classList.remove('open')})});
+
+ // MV: fade slider, 5s autoplay, 1s fade, slide zooms 1 -> 1.2 over 10s
+ var s=[].slice.call(document.querySelectorAll('.mv_slider li')),i=0;
+ setInterval(function(){s[i].classList.remove('on');i=(i+1)%s.length;s[i].classList.add('on');},5000);
+
+ gsap.registerPlugin(ScrollTrigger);
+ var mm=gsap.matchMedia();
+
+ // business: pinned horizontal scroll (>=992). xPercent -100*(n-1), scrub 1, start "top 15%", end +=wrapper width
+ mm.add('(min-width:992px)',function(){
+  var w=document.querySelector('.js-wrapper'),sl=gsap.utils.toArray('.js-scroll'),fills=document.querySelectorAll('.counter .fill');
+  gsap.to(sl,{xPercent:-100*(sl.length-1),ease:'none',scrollTrigger:{trigger:w,pin:true,scrub:1,start:'top 15%',end:function(){return '+='+w.offsetWidth},anticipatePin:1,invalidateOnRefresh:true,
+   onUpdate:function(self){var n=sl.length-1;fills.forEach(function(f,k){var d=1-Math.abs(self.progress*n-k);f.style.width=Math.max(0,Math.min(1,d*1.0+(k===0&&self.progress===0?0:0)))*100+'%';});}}});
+ });
+
+ // recruit: bg pinned, blur 0->20px / overlay 0->.8 / image y 0->-100 on scrub
+ var bg=document.querySelector('.top_recruit_bg'),wrap=document.querySelector('.top_recruit_main_wrap');
+ ScrollTrigger.create({trigger:bg,start:'top top',end:function(){return (wrap.offsetTop+wrap.offsetHeight-bg.offsetHeight)+'px'},pin:true,pinSpacing:false,scrub:true,invalidateOnRefresh:true,
+  onUpdate:function(self){var p=self.progress;gsap.set('.top_recruit_bg-blur',{backdropFilter:'blur('+p*20+'px)'});gsap.set('.top_recruit_bg-overlay',{opacity:p*.8});gsap.set('.top_recruit_bg-figure img',{y:p*-100});}});
+
+ // recruit: speed-difference parallax (>=992): contents -200, top images 300 -> -900, bottom images 300 -> -300
+ mm.add('(min-width:992px)',function(){
+  var sec=document.querySelector('#top_recruit');
+  var c=gsap.quickSetter('.top_recruit_contents','y','px'),a=gsap.quickSetter('.rec_imgtop','y','px'),b=gsap.quickSetter('.rec_imgbottom','y','px');
+  ScrollTrigger.create({trigger:sec,start:'top bottom',end:'bottom top',scrub:true,onUpdate:function(s){var p=s.progress;c(-200*p);a(300-1200*p);b(300-600*p);}});
+ });
+ // recruit images fade-up
+ [['.rec_img2',.1],['.rec_img1',.3],['.rec_img4',0],['.rec_img3',.3]].forEach(function(o){
+  gsap.set(o[0],{autoAlpha:0,y:100});
+  gsap.to(o[0],{autoAlpha:1,y:0,duration:1.2,delay:o[1],ease:'power2.out',scrollTrigger:{trigger:o[0],start:'top 85%',toggleActions:'play none none reverse'}});
+ });
+ setTimeout(function(){ScrollTrigger.refresh()},300);
+})();
+</script>
+</body>
+</html>

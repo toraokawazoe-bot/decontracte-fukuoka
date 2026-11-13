@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STUDY | ezobolic layout replica (DÉCONTRACTÉ)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,400;9..40,500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --font-base:"DM Sans","Noto Sans JP","Hiragino Sans",sans-serif;
+  --headercolor:#fff; --color-dot:#000; --color-bg:#f5f5f5;
+  --content-margin:clamp(12px,calc(12px + 12 * ((100vw - 480px) / 544)),24px);
+  --grid-columns:5; --dot-size:6px; --bar-height:28px; --header-height:72px;
+  --gridsize:calc((100vw - 2 * var(--content-margin) - 6px) / 5);
+  --grid-cell:calc((100vw - (var(--content-margin) * 2)) / var(--grid-columns));
+}
+*{box-sizing:border-box}
+html{font-size:12px;font-family:var(--font-base);font-weight:500;background:#f5f5f5;-webkit-font-smoothing:antialiased;scroll-behavior:auto}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;overflow-x:clip;line-height:1.75;color:#111}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3{line-height:1.4;font-feature-settings:"palt";letter-spacing:.02em;margin:0}
+
+/* announcement marquee */
+announcement{position:fixed;top:0;left:0;width:100vw;background:#f5f5f5;display:flex;align-items:center;height:var(--bar-height);color:#111;line-height:1;z-index:3000;border-bottom:1px solid #ccc}
+.marquee-wrp{overflow:hidden;white-space:nowrap;position:relative;width:100%}
+.marquee{display:inline-flex;gap:2rem;padding-block:.5rem;will-change:transform;color:#666;font-weight:200}
+.marquee span{display:inline-block;font-size:12px;letter-spacing:.05em;text-transform:uppercase;flex-shrink:0}
+
+/* header (5-col grid, difference blend) */
+header{position:fixed;inset:var(--bar-height) 0 auto 0;padding:var(--content-margin);z-index:10;color:#fff;mix-blend-mode:difference}
+.grid-wrp{position:relative;display:grid;align-items:start;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+.grid-wrp>*{padding-left:var(--dot-size)}
+.header-content{display:flex;flex-direction:column;gap:4px}
+.header-content p{margin:0;line-height:1.2;font-size:18px}
+.header-content a{color:#fff;transition:opacity .3s}
+.header-content a:hover{opacity:.6}
+.grid-wrp>.header-content:last-child{position:absolute;right:0;text-align:right;width:max-content;padding-right:var(--dot-size)}
+.logo-mark{width:48px;height:48px}
+.spHeader{display:none}
+
+/* hero */
+.hero{position:relative;width:100%;height:120vh;overflow:hidden;z-index:0;padding:var(--content-margin);padding-top:calc(var(--bar-height) + var(--header-height) + var(--content-margin));display:flex;align-items:flex-end}
+.hero-bg-container{position:absolute;inset:0;z-index:1}
+.hero-bg-layer{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s ease-in-out}
+.hero-bg-layer.is-active{opacity:1}
+.hero-bg-layer::after{content:"";position:absolute;inset:0;background:rgba(245,245,245,.18)}
+.textlogo{position:relative;z-index:10;width:100%;margin-bottom:calc(20vh + 6px);color:#fff;white-space:nowrap;line-height:.8;font-weight:500;letter-spacing:-.045em;overflow:visible}
+.textlogo span{display:inline-block;transform-origin:left bottom}
+
+/* main / dots layer */
+main{position:relative}
+.dots-layer{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='6' height='6' fill='%23000000'/%3E%3C/svg%3E");
+  background-size:var(--grid-cell) var(--grid-cell);background-position:var(--content-margin) 0}
+.catalog-grid{margin:0 var(--content-margin);background:#f5f5f5;background-clip:content-box;display:flex;position:relative;padding-top:var(--gridsize)}
+.col{position:relative;padding:40vh 0 0;z-index:2;gap:calc(3 * var(--gridsize));display:flex;flex-direction:column}
+.col.col-title{width:20%;padding-left:8px;z-index:4}
+.col.col-visual{width:calc(60% - 10px);margin:0 auto;gap:calc(1.5 * var(--gridsize) + 28px)}
+.col.col-title.right{align-items:flex-end;text-align:right;padding-left:8px}
+.sticky-title{font-size:60px;position:sticky;z-index:2;display:flex;height:70px;margin:0;line-height:70px;letter-spacing:-.03em;gap:.5em;align-items:flex-end}
+.sticky-title a{white-space:nowrap;display:inline-block;transition:opacity .3s}
+.sticky-title a:hover{opacity:.6}
+.col-title.right .sticky-title{flex-direction:column;align-items:flex-end;gap:0;font-size:28px;line-height:1;padding-bottom:10px}
+.sticky-title:nth-child(1){top:var(--gridsize);margin-bottom:calc(70px*4)}
+.sticky-title:nth-child(2){top:calc(var(--gridsize) + 70px);margin-bottom:calc(70px*3)}
+.sticky-title:nth-child(3){top:calc(var(--gridsize) + 140px);margin-bottom:calc(70px*2)}
+.sticky-title:nth-child(4){top:calc(var(--gridsize) + 210px);margin-bottom:70px}
+.sticky-title:nth-child(5){top:calc(var(--gridsize) + 280px)}
+.sticky-visual{position:sticky;top:50vh;transform:translateY(-50%);z-index:1;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:center}
+.frame{overflow:hidden;background:#cfcfcf}
+.frame img{width:100%;height:100%;object-fit:cover;transform:scale(1.15)}
+.sticky-visual:nth-child(1) .frame{aspect-ratio:700/840;width:75%;z-index:1}
+.sticky-visual:nth-child(2) .frame{aspect-ratio:820/640;width:85%;z-index:2}
+.sticky-visual:nth-child(3) .frame{aspect-ratio:900/600;width:90%;z-index:3}
+.sticky-visual:nth-child(4) .frame{aspect-ratio:652/682;width:69%;z-index:4}
+.sticky-visual:nth-child(5) .frame{aspect-ratio:572/1000;width:62%;z-index:5}
+.sticky-visual:nth-child(2){z-index:2}.sticky-visual:nth-child(3){z-index:3}.sticky-visual:nth-child(4){z-index:4}.sticky-visual:nth-child(5){z-index:5}
+#dummy{height:800px;visibility:hidden}
+.ph1{background:#bfc3c7}.ph2{background:#9aa3ab}.ph3{background:#d9d4cb}
+
+/* footer */
+.footer-img{display:flex;justify-content:center;margin:20vh 0 36px}
+.footer-img svg{width:55%;height:auto}
+footer{display:flex;align-items:flex-end;justify-content:center;width:100%;flex-direction:column;position:relative;z-index:2}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;width:100%;padding:20px calc(var(--content-margin) + var(--dot-size));border-top:1px solid #000;font-size:16px;line-height:1.5;font-weight:500;background-color:var(--color-bg);
+  background-image:linear-gradient(#000,#000),linear-gradient(#000,#000),linear-gradient(#000,#000),linear-gradient(#000,#000);background-size:9px 10px;background-repeat:no-repeat;background-position:top 0 left 0,top 0 right 0,bottom 0 left 0,bottom 0 right 0}
+.copy{text-align:left;width:300px}.address{text-align:center;flex-grow:1;line-height:1.2}
+.social{text-align:right;width:300px;display:flex;justify-content:flex-end;gap:16px}
+.social a{transition:opacity .3s}.social a:hover{opacity:.6}
+
+/* SP nav */
+.sp-nav{display:none}
+
+@media (max-width:1023px){
+  :root{--dot-size:2px}
+  header{display:none}
+  .spHeader{display:block;position:fixed;inset:var(--bar-height) 0 auto 0;z-index:20;padding:var(--content-margin);mix-blend-mode:difference;color:#fff}
+  .spHeader-inner{display:flex;justify-content:space-between;align-items:flex-start}
+  .sp-menu-trigger{background:none;border:0;padding:6px 0;color:#fff;cursor:pointer}
+  .sp-menu-trigger svg rect{fill:#fff}
+  .sp-nav{display:block;position:fixed;inset:0;background:#f5f5f5;z-index:15;padding:calc(var(--bar-height) + 90px) var(--content-margin) 24px;overflow:auto;opacity:0;pointer-events:none;transition:opacity .4s}
+  .sp-nav.is-active{opacity:1;pointer-events:auto}
+  .sp-nav-section{border-top:1px solid #000;padding:10px 0 18px;display:grid;grid-template-columns:1fr 1.4fr}
+  .sp-nav-label{font-size:14px;font-weight:500}
+  .sp-nav-links a{display:block;font-size:22px;line-height:1.5}
+  .hero{height:100svh}
+  .textlogo{margin-bottom:12vh}
+  .col{padding:20vh 0 0}
+  .col.col-title,.col.col-title.right{width:0;padding-left:0}
+  .sticky-title{font-size:32px;height:40px;line-height:40px;mix-blend-mode:difference;color:#fff;z-index:999;white-space:nowrap}
+  .col-title.right .sticky-title{font-size:16px;line-height:16px;padding:14px 0 8px;height:auto;position:relative;color:#000;mix-blend-mode:normal}
+  .col-title.right{display:none}
+  .sticky-title:nth-child(1){top:calc(var(--gridsize)*3);margin-bottom:160px}
+  .sticky-title:nth-child(2){top:calc(var(--gridsize)*3 + 40px);margin-bottom:120px}
+  .sticky-title:nth-child(3){top:calc(var(--gridsize)*3 + 80px);margin-bottom:80px}
+  .sticky-title:nth-child(4){top:calc(var(--gridsize)*3 + 120px);margin-bottom:40px}
+  .sticky-title:nth-child(5){top:calc(var(--gridsize)*3 + 160px);margin-bottom:0}
+  .sticky-visual{position:relative;top:auto;transform:none;height:calc(6*var(--gridsize));margin-top:75px;overflow:hidden}
+  .col.col-visual{width:100%;gap:calc(2*var(--gridsize))}
+  #dummy{height:0;margin:0}
+  .footer-img svg{width:80%}
+  .footer-bottom{flex-direction:column;gap:12px;font-size:12px;text-align:center}
+  .copy,.social{width:auto;text-align:center;justify-content:center}
+  .address{flex-grow:0}
+}
+@media (prefers-reduced-motion:reduce){.marquee{transform:none!important}}
+</style>
+</head>
+<body>
+<announcement><div class="marquee-wrp"><div class="marquee" id="marquee">
+  <span>Fukuoka team uniform full-order</span><span>DÉCONTRACTÉ — sublimation printing from 5 pcs</span>
+  <span>福岡県福岡市中央区 (placeholder address)</span><span>Chuo-ku, Fukuoka (placeholder)</span>
+  <span>チームユニフォーム フルオーダー</span><span>Made to order · from 5 pcs</span>
+</div></div></announcement>
+
+<header class="pcHeader"><div class="grid-wrp">
+  <div class="header-content"><svg class="logo-mark" viewBox="0 0 48 48"><g fill="#fff"><rect x="21" y="0" width="7" height="7"/><rect x="34" y="4" width="7" height="7"/><rect x="41" y="20" width="7" height="7"/><rect x="34" y="37" width="7" height="7"/><rect x="21" y="41" width="7" height="7"/><rect x="6" y="37" width="7" height="7"/><rect x="0" y="20" width="7" height="7"/><rect x="6" y="4" width="7" height="7"/></g></svg></div>
+  <div class="header-content"><p><a href="#">Philosophy</a></p><p><a href="#">Company</a></p></div>
+  <div class="header-content"><p><a href="#">Products</a></p><p><a href="#">Stockist</a></p><p><a href="#">Laboratory</a></p></div>
+  <div class="header-content"><p><a href="#">Information</a></p><p><a href="#">Contact</a></p></div>
+  <div class="header-content"><p><a href="#">Recruit</a></p></div>
+  <div class="header-content"><p><a href="#">Store</a></p></div>
+</div></header>
+
+<div class="spHeader"><div class="spHeader-inner">
+  <svg class="logo-mark" width="40" height="40" viewBox="0 0 48 48"><g fill="#fff"><rect x="21" y="0" width="7" height="7"/><rect x="34" y="4" width="7" height="7"/><rect x="41" y="20" width="7" height="7"/><rect x="34" y="37" width="7" height="7"/><rect x="21" y="41" width="7" height="7"/><rect x="6" y="37" width="7" height="7"/><rect x="0" y="20" width="7" height="7"/><rect x="6" y="4" width="7" height="7"/></g></svg>
+  <button id="sp-menu-trigger" class="sp-menu-trigger" aria-label="menu"><svg width="70" height="10" viewBox="0 0 70 10"><rect width="70" height="1"/><rect y="9" width="70" height="1"/></svg></button>
+</div></div>
+<nav id="sp-nav" class="sp-nav">
+  <div class="sp-nav-section"><h2 class="sp-nav-label">Company</h2><div class="sp-nav-links"><a href="#">Philosophy ↗</a><a href="#">Profile ↗</a></div></div>
+  <div class="sp-nav-section"><h2 class="sp-nav-label">Service</h2><div class="sp-nav-links"><a href="#">Products ↗</a><a href="#">Stockist ↗</a><a href="#">Lab ↗</a></div></div>
+  <div class="sp-nav-section"><h2 class="sp-nav-label">Information</h2><div class="sp-nav-links"><a href="#">News ↗</a><a href="#">Contact ↗</a></div></div>
+  <div class="sp-nav-section"><h2 class="sp-nav-label">Recruit</h2><div class="sp-nav-links"><a href="#">Recruitment ↗</a></div></div>
+  <div class="sp-nav-section"><h2 class="sp-nav-label">Store</h2><div class="sp-nav-links"><a href="#">Online shopping ↗</a></div></div>
+</nav>
+
+<section class="hero" id="hero-section">
+  <div class="hero-bg-container">
+    <div class="hero-bg-layer" style="background-image:url('../../img/first_view.jpg')"></div>
+    <div class="hero-bg-layer" style="background:#9aa3ab"></div>
+    <div class="hero-bg-layer" style="background:#b9b2a6"></div>
+    <div class="hero-bg-layer" style="background:#8c9a92"></div>
+    <div class="hero-bg-layer" style="background-image:url('../../img/work_bibs_rev.jpg')"></div>
+  </div>
+  <div class="textlogo" id="textlogo"><span id="wordmark">décontracté.</span></div>
+</section>
+
+<main>
+  <div class="dots-layer"></div>
+  <section class="catalog-grid" id="catalog-grid">
+    <div class="col col-title">
+      <h2 class="sticky-title">Company</h2><h2 class="sticky-title">Service</h2><h2 class="sticky-title">Information</h2><h2 class="sticky-title">Recruit</h2><h2 class="sticky-title">Store</h2>
+    </div>
+    <div class="col col-visual">
+      <div class="sticky-visual"><div class="frame ph1"><img src="../../img/first_view.jpg" class="parallax-img" alt=""></div></div>
+      <div class="sticky-visual"><div class="frame ph2"><img src="../../img/item_set.jpg" class="parallax-img" alt=""></div></div>
+      <div class="sticky-visual"><div class="frame ph3"><img src="../../img/work_bibs_rev.jpg" class="parallax-img" alt=""></div></div>
+      <div class="sticky-visual"><div class="frame ph1"><img src="../../img/item_bibs.jpg" class="parallax-img" alt=""></div></div>
+      <div class="sticky-visual" id="lastvisual"><div class="frame ph2"><img src="../../img/item_socks.jpg" class="parallax-img" alt=""></div></div>
+      <div class="sticky-visual" id="dummy"></div>
+    </div>
+    <div class="col col-title right">
+      <nav class="sticky-title"><a href="#">Philosophy ↗</a><a href="#">Company ↗</a></nav>
+      <nav class="sticky-title"><a href="#">Products ↗</a><a href="#">Stockist ↗</a><a href="#">Lab ↗</a></nav>
+      <nav class="sticky-title"><a href="#">News ↗</a><a href="#">Contact ↗</a></nav>
+      <nav class="sticky-title"><a href="#">Recruitment ↗</a></nav>
+      <nav class="sticky-title"><a href="#">Online Shopping ↗</a></nav>
+    </div>
+  </section>
+  <div class="footer-img">
+    <svg viewBox="0 0 400 400" fill="none" stroke="#111" stroke-width="1.5"><g><circle cx="200" cy="200" r="190"/><circle cx="200" cy="200" r="160"/><circle cx="200" cy="200" r="130"/><circle cx="200" cy="200" r="100"/><circle cx="200" cy="200" r="70"/><circle cx="200" cy="200" r="40"/><circle cx="200" cy="200" r="12" fill="#111"/></g></svg>
+  </div>
+</main>
+
+<footer><div class="footer-bottom">
+  <div class="copy">&copy;DÉCONTRACTÉ</div>
+  <div class="address">Chuo-ku, Fukuoka (placeholder)<br>Team uniform full-order</div>
+  <div class="social"><a href="#">Instagram</a><a href="#">Youtube</a><a href="#">LINE</a></div>
+</div></footer>
+
+<script>
+const lenis=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothTouch:false});
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll',ScrollTrigger.update);
+gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
+
+// hero crossfade, random start, 3s interval
+(()=>{const L=[...document.querySelectorAll('.hero-bg-layer')];let i=Math.floor(Math.random()*L.length);L[i].classList.add('is-active');
+ setInterval(()=>{L[i].classList.remove('is-active');i=(i+1)%L.length;L[i].classList.add('is-active')},3000)})();
+
+// fit giant wordmark to container width (cropped bottom feel by hero overflow)
+function fitWord(){const w=document.getElementById('wordmark'),box=document.getElementById('textlogo');w.style.fontSize='100px';
+ const k=box.clientWidth/w.getBoundingClientRect().width;w.style.fontSize=(100*k)+'px';}
+document.fonts.ready.then(fitWord);window.addEventListener('resize',fitWord);fitWord();
+
+// image parallax: scale 1.15, yPercent -5 -> 5, scrub
+document.querySelectorAll('.parallax-img').forEach(img=>{
+  gsap.fromTo(img,{scale:1.15,yPercent:-5},{yPercent:5,ease:'none',scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:true}});
+});
+
+// marquee: 3x content, xPercent -33.333, 28s linear, pause on hover
+const m=document.getElementById('marquee');const c=m.innerHTML;m.innerHTML=c+c+c;
+const tw=gsap.to(m,{xPercent:-33.333,repeat:-1,duration:28,ease:'linear'}).totalProgress(.5);
+m.addEventListener('mouseenter',()=>tw.pause());m.addEventListener('mouseleave',()=>tw.play());
+
+// SP menu
+const tr=document.getElementById('sp-menu-trigger'),nav=document.getElementById('sp-nav');
+tr.addEventListener('click',()=>{const a=nav.classList.toggle('is-active');a?lenis.stop():lenis.start()});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();nav.classList.remove('is-active');lenis.start()}));
+</script>
+</body>
+</html>

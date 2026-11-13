@@ -18,9 +18,13 @@ export default function HomePage() {
             <Link className="btn btn-signal" href="/contact">見積もりを依頼する<span className="ar">→</span></Link>
           </div>
         </div>
-        <div className="ph" data-cur="PLAY">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/img/hero_bright.jpg" alt="おそろいの青いユニフォームを着てチームで並ぶ選手たち(イメージ)" fetchPriority="high" data-scroll="zoom" />
+        <div className="ph" data-cur="VIEW">
+          {ITEMS.map((it) => (
+            <div className="cell" key={it.en}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={it.img} alt={it.alt} fetchPriority="high" />
+            </div>
+          ))}
         </div>
         <p className="side">FUKUOKA, JAPAN</p>
         <span className="wm" aria-hidden data-scroll="slideL">DÉCONTRACTÉ</span>

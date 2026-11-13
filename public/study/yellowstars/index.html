@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STUDY / yellowstars replica (DÉCONTRACTÉ placeholders)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.1.14/swiper-bundle.min.css">
+<style>
+/* Study replica of hy-stars.jp : structure/proportion/motion only. 1rem = 10px (html 62.5%) */
+:root{
+  --header-height:14rem;--color-black:#1c1c1c;--color-blue:#004098;--color-yellow:#fbc311;--color-gray:#ccc;
+  --accent1:var(--color-yellow);--accent2:var(--color-blue);
+  --inner-l:126.6rem;--inner-full:136.6rem;--line-height:1.45;
+  --font:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;--font-en:"Anton",sans-serif;
+}
+@media (max-width:767px){:root{--header-height:6.5rem}}
+*,*::before,*::after{box-sizing:border-box}
+html{font-size:62.5%;scroll-padding-top:var(--header-height)}
+body,h1,h2,h3,h4,p,ul,figure{margin:0}
+body{font-family:var(--font);font-size:1.6rem;background:#eee;color:var(--color-black);line-height:var(--line-height);position:relative;overflow-x:hidden}
+body:has(#cursor) a{cursor:none}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.ph{background:#d6d6d6;position:relative;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.l-inner{margin:0 auto;max-width:var(--inner-l)}
+@media (max-width:767px){.l-inner{padding:0 1.5rem}}
+.u-mb-50{margin-bottom:5rem}.u-mx-auto{margin-left:auto;margin-right:auto}.u-mt-50{margin-top:5rem}
+@media (max-width:767px){.sp-none{display:none!important}.u-mb-50{margin-bottom:3.5rem}}
+@media (min-width:768px){.pc-none{display:none!important}}
+
+/* background: noise + two soft circles (c-bg) */
+.c-bg1{position:fixed;inset:0;pointer-events:none;background:#ebebeb;z-index:0}
+.c-bg1::after{content:"";position:absolute;inset:0;opacity:.5;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.c-bg2{position:fixed;inset:0;pointer-events:none;z-index:0;max-width:136.6rem;margin:auto}
+.c-bg2__circle{position:absolute;border-radius:50%}
+.c-bg2__circle:nth-child(1){width:63rem;height:63rem;left:8.5rem;top:25.4rem;background:radial-gradient(circle,rgba(0,64,152,.22),rgba(0,64,152,0) 70%)}
+.c-bg2__circle:nth-child(2){width:64.5rem;height:64.5rem;left:64.4rem;top:-8.4rem;background:radial-gradient(circle,rgba(251,195,17,.45),rgba(251,195,17,0) 70%)}
+@media (max-width:767px){.c-bg2__circle:nth-child(1){width:26.5rem;height:26.5rem;left:-3rem;top:auto;bottom:0}.c-bg2__circle:nth-child(2){width:26.5rem;height:26.5rem;left:auto;right:0;top:3.2rem}}
+
+/* cursor ball */
+#cursor{position:fixed;pointer-events:none;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe27a,#fbc311 55%,#004098 56%,#004098 62%,#fbc311 63%);z-index:10000;opacity:0;transition:.8s opacity,.2s transform}
+#cursor.is-active{transform:scale(1.5)}
+@media (hover:none),(max-width:767px){#cursor{display:none}}
+
+/* header */
+.header{position:fixed;width:100%;z-index:1000;transition:.4s;height:var(--header-height);padding:2.5rem 5rem;opacity:0}
+.header.is-hide{transform:translate(0,-200%)}
+.header__inner{display:flex;align-items:center}
+.header__logo{margin-right:auto;width:27.9rem;font:900 2.6rem/1 var(--font-en);letter-spacing:.04em;color:var(--color-blue);font-style:italic}
+.header__logo small{display:block;font:700 1.2rem/1 var(--font);letter-spacing:.08em}
+.hamburger-menu{width:10rem;height:4.5rem;border-radius:2.5rem;background:var(--color-black);padding:1.5rem 4rem;cursor:pointer;position:relative;transition:.4s}
+.hamburger{width:2.2rem;height:1.6rem;position:relative}
+.hamburger__bar{position:absolute;left:0;top:0;width:100%;height:2px;background:#fff;transition:.4s}
+.hamburger__bar:nth-child(2){top:auto;bottom:0}.hamburger__bar:nth-child(3){top:0;bottom:0;margin:auto}
+.hamburger-menu:hover .hamburger__bar{scale:1.2}
+.header.open .hamburger__bar:nth-child(1){rotate:140deg;inset:0;margin:auto}
+.header.open .hamburger__bar:nth-child(2){rotate:40deg;inset:0;margin:auto}
+.header.open .hamburger__bar:nth-child(3){opacity:0}
+@media (max-width:767px){.header{padding:1.5rem}.header__logo{width:19rem;font-size:1.9rem}.hamburger-menu{width:7rem;height:3.6rem;padding:1.2rem 2.5rem}.hamburger{width:2.2rem;height:1.2rem}}
+.drawer{position:fixed;inset:0;background:var(--color-black);color:#fff;z-index:900;transform:translateY(-120%);transition:transform .6s cubic-bezier(.2,.7,.2,1);padding:14rem 5rem 5rem;overflow:auto}
+.drawer.open{transform:none}
+.g-links{display:grid;grid-template-columns:repeat(2,30rem);gap:8rem}
+.g-link-group{margin-bottom:7rem}
+.g-link-title{display:block;color:var(--color-gray);margin-bottom:1.5rem;font-weight:700;font-size:2rem;letter-spacing:.05em;padding-bottom:.5rem;border-bottom:1px solid var(--color-gray)}
+.g-link-child{width:fit-content;font-weight:700;font-size:1.6rem;display:flex;align-items:center;gap:1rem;transition:.2s}
+.g-link-child::before{content:"";width:.6rem;height:.6rem;border-radius:100%;background:var(--accent1)}
+.g-link-child+.g-link-child{margin-top:1.5rem}.g-link-child:hover{opacity:.4}
+@media (max-width:767px){.drawer{padding:8rem 1.5rem 3rem}.g-links{grid-template-columns:1fr;gap:0}.g-link-group{margin-bottom:3rem}}
+
+/* loading tiles + hero */
+.top-content{overflow-x:clip;position:relative;z-index:2}
+.hero{height:100vh;min-height:76.8rem;position:relative}
+.hero__tiles{position:absolute;inset:0;z-index:10000;display:grid;grid-template-columns:repeat(4,1fr)}
+.hero__tile{background:var(--accent1);transform-origin:center}
+.is-loaded .hero__tiles{pointer-events:none}
+.hero__inner{position:relative;height:100%}
+.hero__mark{width:74.7rem;position:absolute;inset:0;margin:auto;height:fit-content}
+.hero__visual{position:absolute;margin:auto;height:fit-content}
+.hero__visual--1{inset:0;width:48rem;height:62rem;border-radius:2rem;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent);top:-6rem}
+.hero__visual--2{left:calc(50% - 40rem);top:18rem;width:19rem;height:24rem;border-radius:1rem;rotate:-6deg;margin:0}
+.hero__visual--3{left:calc(50% + 21rem);top:12rem;width:19rem;height:24rem;border-radius:1rem;rotate:5deg;margin:0}
+.hero__visual--4{width:56.2rem;height:21rem;inset:auto 0 1rem;z-index:10;border-radius:1rem 1rem 0 0;-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}
+.hero__title{width:86.4rem;position:absolute;inset:auto 0 22rem;margin:auto;font:italic 400 12rem/1 var(--font-en);letter-spacing:.01em;text-align:center;color:#fff;white-space:nowrap}
+.hero__title--1{mix-blend-mode:exclusion}
+.hero__title--2{z-index:2;text-shadow:.5rem .5rem 0 var(--color-blue),-.4rem .4rem 0 var(--accent1)}
+.hero__sns{display:flex;flex-direction:column;gap:1.5rem;position:absolute;inset:0 5rem 0 auto;margin:auto 0 auto auto;height:fit-content;z-index:5}
+.hero__sns a{width:4.5rem;height:4.5rem;border-radius:50%;border:1px solid var(--color-black);display:grid;place-items:center;font:700 1.2rem var(--font-en);transition:.3s}
+.hero__sns a:hover{background:var(--color-black);color:#fff}
+.hero__navi{display:flex;justify-content:space-between;align-items:end;position:absolute;width:100%;bottom:1rem;left:0}
+.hero__navi-left{margin-left:5rem}
+.c-glass,.hero__menus,.sections,.ranking-table-wrap{border-radius:1rem;border:2px solid #fff;backdrop-filter:blur(15px);background-color:rgba(255,255,255,.02)}
+.hero__menus{width:fit-content;padding:3rem 2rem 3rem 1.5rem;margin-bottom:2.5rem}
+.hero__menu{display:flex;gap:.5rem;align-items:center;font-size:1.4rem;font-weight:700;transition:.2s}
+.hero__menu:hover{opacity:.4}
+.hero__menu::before{content:"";width:.6rem;height:.6rem;background:var(--accent1);border-radius:100%}
+.hero__menu+.hero__menu{margin-top:1.5rem}
+.hero__ticket{display:block;width:18.3rem;height:8rem;border-radius:.5rem;background:linear-gradient(120deg,var(--color-blue),#0a56c4);color:#fff;font:400 2.8rem/8rem var(--font-en);text-align:center;letter-spacing:.06em}
+.hero__slider{width:40.5rem;height:9.5rem;position:relative;overflow:hidden}
+.hero-topics{background:#fff;display:grid;grid-template-columns:17rem 1fr;transition:.4s;height:9.5rem}
+.hero-topics:hover{filter:brightness(.9)}
+.hero-topics__image{height:9.5rem;border-radius:.5rem 0 0 .5rem;overflow:hidden}
+.hero-topics__image img{transition:.8s}.hero-topics:hover img{scale:1.06}
+.hero-topics__content{padding:1rem 5rem 1rem 1.4rem}
+.hero-topics__meta{display:flex;align-items:center;gap:1rem;margin-bottom:.6rem}
+.hero-topics__title{font-size:1.4rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.js-hero__controls{position:absolute;inset:0 0 0 auto;z-index:2;width:5rem;display:flex;flex-direction:column;justify-content:center;padding-left:1.2rem;gap:2rem}
+.js-hero__control{width:1.2rem;height:.8rem;cursor:pointer;border-left:.6rem solid transparent;border-right:.6rem solid transparent;border-bottom:.7rem solid var(--color-black);width:0;height:0}
+.js-hero__control--next{transform:scaleY(-1)}
+.c-date{font-size:1.2rem;font-family:var(--font-en);letter-spacing:.1em;color:var(--color-gray)}
+.c-tag{font-size:1.2rem;font-weight:700;color:var(--accent2);border:1px solid var(--accent2);border-radius:.5rem;width:fit-content;padding:.1rem 1rem 0}
+@media (max-width:767px){
+  .hero{height:auto;min-height:98rem;padding-top:9.2rem}
+  .hero__inner{height:88rem}
+  .hero__mark{width:29rem;inset:12rem 0 auto}
+  .hero__visual--1{width:26rem;height:30rem;inset:10rem 0 auto}.hero__visual--2,.hero__visual--3{display:none}
+  .hero__visual--4{width:23.3rem;height:11rem;inset:34rem 0 auto}
+  .hero__title{width:100%;inset:40rem 0 auto;font-size:5.6rem}
+  .hero__sns{inset:28.2rem 1.5rem auto auto;margin:0;gap:.5rem}.hero__sns a{width:3rem;height:3rem}
+  .hero__navi{bottom:0;display:block;top:auto}.hero__navi-left{margin:0 auto 4.5rem}.hero__menus{display:none}
+  .hero__ticket{width:25rem;margin:auto}
+  .hero__slider{width:36rem;height:8rem}.hero-topics{grid-template-columns:14.4rem 1fr;height:8rem}.hero-topics__image{height:8rem}.hero-topics__title{font-size:1.2rem;width:17rem}
+  .hero__navi-right{padding:0 1.5rem}
+}
+
+/* fade1 */
+.fade1{transition:.8s;transition-delay:.2s;opacity:0;transform:scale(1.04) translateZ(0)}
+.fade1.is-active{opacity:1;transform:translateZ(0)}
+
+/* shared head/button */
+.c-head{display:flex;justify-content:space-between;align-items:end}
+.c-subtitle{font-family:var(--font-en);letter-spacing:.1em;color:var(--accent1);font-size:2rem}
+.c-heading{font-weight:700;font-size:5.2rem;font-style:italic;line-height:1;margin-top:1.5rem}
+@media (max-width:767px){.c-heading{font-size:3.2rem}.c-subtitle{font-size:1.6rem}.c-head{padding:0 1.5rem}}
+.c-button{width:30rem;height:6rem;border-radius:3rem;display:flex;align-items:center;justify-content:space-between;padding:1.8rem 3rem;font-weight:700;position:relative;transition:.4s;overflow:hidden;background:#fff;color:var(--color-black);border:1px solid #fff}
+.c-button__text{position:relative;z-index:2;transition:.4s}
+.c-button__icon{position:absolute;inset:0 3rem 0 auto;margin:auto 0;width:1.6rem;height:1.6rem;border-radius:100%;background:var(--color-blue);transition:.6s cubic-bezier(.19,1,.22,1);transform-origin:center right;z-index:1}
+.c-button:hover .c-button__icon{transform:scale(40)}
+.c-button:hover .c-button__text{color:#fff}
+.c-separate{border-bottom:2px solid var(--color-gray);max-width:var(--inner-l);margin:0 auto}
+
+/* pickup swiper */
+.pickup{padding:10rem 0 0;position:relative;overflow:hidden}
+.js-slider1{max-width:206.6rem;overflow:visible;margin:0 auto}
+.pickup{overflow:hidden}
+.pickup .swiper-slide{display:flex;align-items:center;justify-content:center;transform-origin:center bottom}
+.pickup .next2 .swiper-card{transform:translate(2rem,5rem)}.pickup .prev2 .swiper-card{transform:translate(-2rem,5rem)}
+.swiper-card{transition:.2s;display:flex;justify-content:center}
+.swiper-card>*{display:block;aspect-ratio:342/299;width:34.2rem;font-weight:700}
+.c-article__image{margin:1.5rem 0;aspect-ratio:375/210;overflow:hidden;border-radius:1rem}
+.c-article__image img{transition:.4s cubic-bezier(.19,1,.22,1)}.c-article:hover .c-article__image img{scale:1.07}
+.c-article__title{margin-bottom:1.5rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:1.5rem}
+.js-navi__controls{width:30.5rem;margin:10rem auto 0;display:flex;justify-content:space-between;align-items:center}
+.js-navi__control{width:5rem;height:5rem;border-radius:100%;border:1px solid var(--color-black);display:grid;place-items:center;cursor:pointer;transition:.4s;font-size:1.8rem}
+.js-navi__control:hover{scale:1.05}
+.js-swiper-pagination1{display:flex;gap:1rem;width:fit-content}
+.js-swiper-pagination1 .swiper-pagination-bullet{width:10px;height:10px;background:var(--color-gray);opacity:1;border-radius:50%;transition:.3s;display:block}
+.js-swiper-pagination1 .swiper-pagination-bullet-active{background:var(--accent1);scale:1.5;outline:1px solid var(--color-black)}
+.pickup .c-separate{margin-top:10rem}
+@media (max-width:767px){.pickup{padding:7rem 0 0}.swiper-card>*{width:24rem;max-width:100%}.js-navi__controls{margin:5rem auto}.pickup .c-separate{margin-top:5rem}}
+
+/* movie */
+.movie{position:relative}
+.movie__row{display:grid;grid-template-columns:46.2rem 1fr}
+.movie__row>*{padding:10rem 0 13.5rem}
+.movie__aside{border-right:2px solid var(--color-gray)}
+.movie__aside-inner{position:sticky;top:var(--header-height)}
+.movie__content{padding-left:5rem!important}
+.movie-items{display:grid;grid-template-columns:repeat(2,1fr);gap:3.5rem 5rem}
+.c-movie__image{aspect-ratio:16/9;border-radius:1rem;overflow:hidden;position:relative}
+.c-movie__image img{transition:.4s cubic-bezier(.19,1,.22,1)}.c-movie:hover img{scale:1.07}
+.c-movie__play{position:absolute;inset:0;margin:auto;width:5rem;height:5rem;border:1px solid #fff;backdrop-filter:blur(5px);background:rgba(255,255,255,.3);border-radius:100%;transition:.4s}
+.c-movie__play::after{content:"";position:absolute;inset:0;margin:auto;width:1.1rem;height:1.5rem;background:#fff;clip-path:polygon(0 0,100% 50%,0 100%);left:.4rem}
+.c-movie:hover .c-movie__play{scale:1.2}
+.c-movie__title{margin-top:1.5rem;font-size:1.5rem;font-weight:700}
+@media (max-width:767px){.movie{padding:5rem 0 7rem}.movie__row{display:block}.movie__row>*{padding:0}.movie__aside{border:0}.movie__aside-inner{position:static;margin-bottom:3.5rem}.movie__content{padding:0!important}.movie-items{gap:2.5rem 2rem}.c-movie__title{font-size:1.2rem}}
+
+/* schedule */
+.c-schedule{padding:13.5rem 0 0}
+.c-game{padding:3.5rem;margin-top:5rem}
+.c-game__headline{background:var(--accent1);display:flex;align-items:center;height:5.5rem;border-radius:.5rem;position:relative;padding:1.5rem;margin-bottom:2.5rem}
+.c-game__headline-places{display:flex;align-items:center}
+.c-game__ha{min-width:7.2rem;margin-right:1.2rem;padding:.4rem 1.2rem .2rem;border-radius:.2rem;text-align:center;font:1.8rem/1.2 var(--font-en);letter-spacing:.1em}
+.c-game__ha--home{background:#004098;color:#fff}.c-game__ha--away{background:#fff;color:#004098;box-shadow:inset 0 0 0 2px #004098}
+.c-game__headline-label{min-width:7rem;text-align:center;padding:.2rem 2rem;color:#fff;border-radius:.5rem;margin-right:1rem;background:var(--color-black)}
+.c-game__headline-place{white-space:nowrap;overflow:hidden;max-width:29rem}
+.c-game__headline-title{font-size:2rem;position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.c-game__body{display:grid;align-items:center;justify-content:space-between;grid-template-columns:28rem 56.2rem 28rem}
+.c-game__badge{width:fit-content;min-width:10rem;margin-bottom:1rem;padding:.2rem 1.5rem;border-radius:3rem;background:var(--accent1);text-align:center}
+.c-game__date{font:3.6rem var(--font-en);letter-spacing:.1em;margin-bottom:.5rem}.c-game__week{margin-left:1rem;font-size:1.6rem}
+.c-game__time{font:2rem var(--font-en);letter-spacing:.1em}
+.c-game__center{display:grid;grid-template-columns:15.4rem auto 15.4rem;align-items:center;gap:5rem;justify-content:center}
+.c-game__team{text-align:center;font-size:1.4rem}
+.c-game__team i{display:block;width:10rem;height:10rem;border-radius:50%;background:#ddd;margin:0 auto 1.5rem}
+.c-game__vs{font:6.4rem/1 var(--font-en);color:#ccc;letter-spacing:.1em}
+.c-game__button{width:20rem;height:5rem;margin-left:auto;border-radius:3rem;display:flex;align-items:center;justify-content:center;font-weight:700;border:1px solid;transition:.4s}
+.c-game__button:hover{opacity:.5}
+.c-schedule .c-button{margin-top:5rem}
+@media (max-width:767px){.c-schedule{padding:7rem 0 0}.c-game{padding:3rem 1.5rem;margin-top:2.5rem}.c-game__headline{flex-direction:column-reverse;height:auto;margin-bottom:1.5rem}.c-game__headline-title{position:static;font-size:1.4rem;margin-bottom:.5rem}.c-game__body{display:block}.c-game__center{grid-template-columns:11.4rem auto 11.4rem;gap:1rem;margin-bottom:2.5rem}.c-game__team i{width:6rem;height:6rem}.c-game__team{font-size:1.2rem}.c-game__vs{font-size:3.6rem}.c-game__date{font-size:2rem;display:inline}.c-game__time{font-size:1.6rem;display:inline}.c-game__left{margin-bottom:2rem}.c-game__button{height:4rem;margin:0 auto}}
+
+/* ranking */
+.ranking{padding:13.5rem 0 0}
+.ranking-table-wrap{padding:2.5rem 5rem}
+.ranking table{width:100%;border-collapse:collapse}
+.ranking th{padding-bottom:1rem;text-align:center;font-size:1.4rem}.ranking th:first-child{text-align:left}
+.ranking tbody tr:nth-child(odd) td{background:#fff}
+.ranking td{text-align:center;font:2rem var(--font-en);letter-spacing:.1em;padding:1rem 0}
+.ranking td:first-child{padding-left:3.5rem;border-radius:.5rem 0 0 .5rem;width:11.3rem}.ranking td:last-child{border-radius:0 .5rem .5rem 0}
+.ranking td.nm{font:700 2rem var(--font);text-align:left;width:40rem}
+.rank{width:5.8rem;height:4rem;font-size:3.2rem;border-radius:5px;display:flex;align-items:center;justify-content:center;line-height:1;padding-left:.25em}
+tr:nth-child(1) .rank{background:linear-gradient(to right,#ffd241,#ec9804)}tr:nth-child(2) .rank{background:linear-gradient(to right,#e3e3e3,#c1c1c1)}tr:nth-child(3) .rank{background:linear-gradient(to right,#eb9d50,#af6e2c)}
+@media (max-width:767px){.ranking{padding:7rem 0 0}.ranking-scroll{overflow:auto}.ranking-table-wrap{padding:2.5rem 1.5rem}.ranking table{width:55.2rem}.ranking td{font-size:1.4rem}.ranking td.nm{font-size:1.4rem;width:16.5rem}.rank{width:3.5rem;height:2.9rem;font-size:2rem}.ranking td:first-child{padding-left:1rem;width:4.5rem}}
+
+/* players */
+.players{padding:13.5rem 0 0;position:relative}
+.players__inner{border-bottom:2px solid var(--color-gray);position:relative;z-index:2;padding-bottom:10rem}
+.players-slider{padding-left:13.3rem;margin-right:calc(50% - 50vw);position:relative}
+.players-slider .swiper-slide{width:fit-content}
+.js-slider2{overflow:hidden;padding-left:2rem;margin-left:-2rem}
+.card-wrapper{display:block;width:36rem;height:48rem;position:relative;border-radius:1rem;transform-style:preserve-3d;transition:transform .1s ease;perspective:900px}
+.c-player-card{position:absolute;inset:0;border:2px solid #fff;border-radius:1rem;overflow:hidden;background:linear-gradient(160deg,#fff 0,#f4e29a 100%);z-index:1}
+.c-player-card__no{position:absolute;top:.7rem;left:2.5rem;font:6.4rem var(--font-en);letter-spacing:.1em;z-index:10}
+.c-player-card .ph{position:absolute;inset:6rem 0 0}
+.c-player-card__label{position:absolute;left:0;right:0;bottom:0;padding:1.5rem 2rem;background:rgba(255,255,255,.85);z-index:5}
+.c-player-card__name{font-size:2rem;font-weight:700}.c-player-card__label small{font:1.2rem var(--font-en);letter-spacing:.1em;color:var(--color-blue)}
+.card-wrapper .highlight{position:absolute;inset:0;border-radius:1rem;z-index:3;pointer-events:none;opacity:0;transition:.3s;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.8) 10%,rgba(255,255,255,.2) 40%,transparent 80%);mix-blend-mode:overlay}
+.card-wrapper:hover .highlight{opacity:1}
+.js-navi__controls2{position:absolute;top:17rem;left:0;z-index:3}
+.js-navi__control2{width:6rem;height:6rem;border:1px solid var(--color-black);border-radius:100%;margin-bottom:2rem;display:grid;place-items:center;cursor:pointer;transition:.3s}
+.js-navi__control2:hover{background:var(--color-black);color:#fff}
+@media (max-width:767px){.players{padding:7rem 0 0}.players-slider{padding-left:0}.card-wrapper{width:21.5rem;height:28.7rem}.c-player-card__no{font-size:3.6rem}.js-navi__controls2{display:none}.players__inner{padding-bottom:5rem}.js-slider2{padding-left:1.5rem;margin-left:0}}
+
+/* information / sections */
+.information{padding:10rem 0}
+.information-items{display:grid;grid-template-columns:repeat(2,1fr);gap:3.5rem}
+.sections{position:relative;z-index:3}
+.fanclub{padding:10rem 0}
+.fanclub__row{display:grid;grid-template-columns:56rem 59.5rem;justify-content:space-between;margin-bottom:10rem}
+.fanclub__title{margin-bottom:2.5rem;font:400 4rem var(--font-en);letter-spacing:.1em;display:flex;gap:1.5rem;align-items:center}
+.fanclub__title b{color:var(--accent1);font-size:4rem}
+.fanclub__desc{letter-spacing:.25em;line-height:2;margin-bottom:5rem;font-size:1.4rem}
+.fanclub__image{position:relative;padding-right:7rem}
+.fanclub__image-main{aspect-ratio:3/2;border-radius:1rem;overflow:hidden}
+.fanclub__image-circle{position:absolute;right:0;bottom:-7.5rem;width:14rem;height:14rem;border-radius:50%;border:2px dashed var(--color-blue);display:grid;place-items:center;font:1.2rem var(--font-en);letter-spacing:.2em;color:var(--color-blue);animation:circle-animation1 10s linear infinite}
+@keyframes circle-animation1{to{transform:rotate(-2turn)}}
+.fanclub-ctas{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem}
+.fanclub-cta{padding:4rem;text-align:center;border-radius:1rem;background:rgba(255,255,255,.6)}
+.fanclub-cta__title{font-weight:700;font-size:2rem;margin-bottom:2.5rem}
+.goods{padding:10rem 0}
+.goods-items{display:grid;grid-template-columns:repeat(4,1fr);gap:3.6rem}
+.c-product__image{aspect-ratio:1024/724;border-radius:1rem;overflow:hidden}.c-product__image img{transition:.4s cubic-bezier(.19,1,.22,1)}.c-product:hover img{scale:1.07}
+.c-product__title{margin:1.5rem 0 .5rem;font-weight:700}
+.c-product__price{font-family:var(--font-en);letter-spacing:.1em;font-size:2.4rem}.c-product__price small{font:1.2rem var(--font);margin-left:.5rem}
+@media (max-width:767px){.information{padding:5rem 0 7rem}.information-items{grid-template-columns:1fr 1fr;gap:2.5rem 1.8rem}.fanclub{padding:5rem 0}.fanclub__row{display:block;margin-bottom:0;position:relative}.fanclub__image{padding:0;margin-bottom:5rem;order:-1}.fanclub__image-circle{width:10rem;height:10rem;bottom:-5rem}.fanclub__title{font-size:2rem}.fanclub-ctas{grid-template-columns:1fr;gap:2.5rem}.goods{padding:5rem 0}.goods-items{grid-template-columns:1fr 1fr;gap:2.5rem 2rem}.fanclub__desc{line-height:3.5rem;letter-spacing:.1em}.fanclub .l-inner,.goods .l-inner{padding:0 1.5rem}}
+
+/* footer */
+.footer{position:relative;overflow:hidden;padding:18rem 0 0;margin-top:-8rem;z-index:1}
+.footer__scroll{overflow:hidden;display:flex;padding-bottom:5rem;border-bottom:2px solid #ccc}
+.footer__scroll-items{animation:holizon-animation 20s linear infinite;display:flex;flex:none;align-items:center;gap:0}
+.footer__scroll-items span{font:italic 400 22rem/1 var(--font-en);white-space:nowrap;color:#fff;-webkit-text-stroke:2px var(--color-blue);padding-right:8rem}
+.footer__scroll-items i{width:26.8rem;height:26.8rem;border-radius:50%;background:var(--accent1);flex:none;margin-right:8rem}
+@keyframes holizon-animation{to{transform:translateX(-100%)}}
+.footer-main{padding:10rem 0;border-bottom:1px solid #ccc;display:grid;grid-template-columns:auto 68rem}
+.footer-main__logo{margin-bottom:3.5rem;font:italic 900 3.4rem var(--font-en);color:var(--color-blue)}
+.footer-bottom{padding:2rem 0;display:flex;justify-content:space-between;font-size:1.2rem;color:var(--color-gray)}
+.footer .g-links a{color:var(--color-black)}.footer .g-link-title{color:#888}
+@media (max-width:767px){.footer{padding:5rem 0 0;margin-top:0}.footer__scroll-items span{font-size:9rem}.footer__scroll-items i{width:11rem;height:11rem}.footer-main{display:block;padding:5rem 1.5rem}.footer-bottom{flex-direction:column;gap:1rem;padding:2rem 1.5rem}.footer .g-links{grid-template-columns:1fr 1fr;gap:2rem}.footer .g-link-title{font-size:1.4rem}.footer-main__left{margin-bottom:5rem}}
+</style>
+</head>
+<body>
+<div class="c-bg1"></div>
+<div class="c-bg2"><div class="c-bg2__circle"></div><div class="c-bg2__circle"></div></div>
+
+<header class="header js-header" id="hdr">
+  <div class="header__inner">
+    <h1 class="header__logo"><a href="#top"><small>Fukuoka</small>DÉCONTRACTÉ</a></h1>
+    <div class="hamburger-menu" id="burger"><div class="hamburger"><div class="hamburger__bar"></div><div class="hamburger__bar"></div><div class="hamburger__bar"></div></div></div>
+  </div>
+</header>
+<nav class="drawer" id="drawer">
+  <div class="g-links">
+    <div><div class="g-link-group"><span class="g-link-title">DÉCONTRACTÉを知る</span><a class="g-link-child" href="#">私たちについて</a><a class="g-link-child" href="#">制作の流れ</a><a class="g-link-child" href="#">料金</a></div></div>
+    <div><div class="g-link-group"><span class="g-link-title">アイテム</span><a class="g-link-child" href="#">ゲームシャツ</a><a class="g-link-child" href="#">ビブス</a><a class="g-link-child" href="#">ソックス</a></div><div class="g-link-group"><span class="g-link-title">その他</span><a class="g-link-child" href="#">お問い合わせ</a></div></div>
+  </div>
+</nav>
+<div id="cursor"></div>
+<div id="top"></div>
+
+<div class="top-content">
+<section class="hero js-hero" id="hero">
+  <div class="hero__tiles js-tiles"><div class="hero__tile"></div><div class="hero__tile"></div><div class="hero__tile"></div><div class="hero__tile"></div></div>
+  <div class="hero__inner">
+    <div class="hero__mark js-mark"><svg viewBox="0 0 747 700" fill="none" stroke-width="2"><polygon points="373,10 700,250 600,640 150,640 40,260" stroke="#004098"/><polygon points="373,60 650,260 560,600 190,600 90,270" stroke="#fbc311"/><polygon points="373,120 600,280 520,560 230,560 140,280" stroke="#004098" opacity=".6"/></svg></div>
+    <div class="hero__visual hero__visual--1 ph js-v1"><img src="../../img/item_set.jpg" alt=""></div>
+    <div class="hero__visual hero__visual--2 ph js-v2"><img src="../../img/item_bibs.jpg" alt=""></div>
+    <div class="hero__visual hero__visual--3 ph js-v3"><img src="../../img/item_socks.jpg" alt=""></div>
+    <div class="hero__visual hero__visual--4 ph js-v4"><img src="../../img/first_view.jpg" alt=""></div>
+    <div class="hero__title hero__title--1 js-t1">COLOR UP TEAM!</div>
+    <div class="hero__title hero__title--2 js-t2">COLOR UP TEAM!</div>
+    <div class="hero__sns js-sns"><a href="#">IG</a><a href="#">X</a><a href="#">TT</a><a href="#">YT</a><a href="#">f</a></div>
+    <div class="hero__navi js-navi">
+      <div class="hero__navi-left">
+        <div class="hero__menus"><a class="hero__menu" href="#">私たちについて</a><a class="hero__menu" href="#">アイテム一覧</a><a class="hero__menu" href="#">制作の流れ</a><a class="hero__menu" href="#">料金</a><a class="hero__menu" href="#">実績</a><a class="hero__menu" href="#">お知らせ</a></div>
+        <a class="hero__ticket" href="#">ORDER</a>
+      </div>
+      <div class="hero__navi-right">
+        <div class="swiper hero__slider js-hero-slider">
+          <div class="js-hero__controls"><div class="js-hero__control js-hero__control--prev"></div><div class="js-hero__control js-hero__control--next"></div></div>
+          <div class="swiper-wrapper" id="heroSlides"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pickup">
+  <div class="c-head u-mb-50 l-inner fade1 js-enter">
+    <div><div class="c-subtitle">PICK UP CONTENTS</div><h2 class="c-heading">ピックアップ</h2></div>
+    <a class="c-button sp-none" href="#"><div class="c-button__text">一覧はこちら</div><div class="c-button__icon"></div></a>
+  </div>
+  <div class="swiper js-slider1"><div class="swiper-wrapper" id="pickSlides"></div>
+    <div class="js-navi__controls"><div class="js-navi__control js-navi__control--prev">&lsaquo;</div><div class="js-swiper-pagination1"></div><div class="js-navi__control js-navi__control--next">&rsaquo;</div></div>
+  </div>
+  <a class="c-button pc-none u-mx-auto" href="#"><div class="c-button__text">一覧はこちら</div><div class="c-button__icon"></div></a>
+  <div class="c-separate"></div>
+</section>
+
+<section class="movie fade1 js-enter">
+  <div class="movie__row l-inner">
+    <div class="movie__aside"><div class="movie__aside-inner">
+      <div class="u-mb-50"><div class="c-subtitle">SNS VIDEO</div><h2 class="c-heading">動画コンテンツ</h2></div>
+      <a class="c-button sp-none" href="#"><div class="c-button__text">一覧はこちら</div><div class="c-button__icon"></div></a>
+    </div></div>
+    <div class="movie__content"><div class="movie-items" id="movies"></div></div>
+  </div>
+</section>
+
+<section class="c-schedule fade1 js-enter">
+  <div class="l-inner">
+    <div class="c-head"><div><div class="c-subtitle">GAME SCHEDULE</div><h2 class="c-heading">制作スケジュール</h2></div><a class="c-button sp-none" href="#"><div class="c-button__text">一覧はこちら</div><div class="c-button__icon"></div></a></div>
+    <div id="games"></div>
+    <a class="c-button u-mx-auto" href="#"><div class="c-button__text">スケジュール一覧</div><div class="c-button__icon"></div></a>
+  </div>
+</section>
+
+<section class="ranking fade1 js-enter">
+  <div class="l-inner">
+    <div class="c-head u-mb-50"><div><div class="c-subtitle">POPULAR ITEMS</div><h2 class="c-heading">ランキング</h2></div><a class="c-button sp-none" href="#"><div class="c-button__text">詳細</div><div class="c-button__icon"></div></a></div>
+    <div class="ranking-table-wrap"><div class="ranking-scroll"><table><thead><tr><th colspan="2">DÉCONTRACTÉ 人気アイテム</th><th>受注</th><th>納期</th><th>リピート</th><th>ポイント</th><th>評価</th></tr></thead><tbody id="rank"></tbody></table></div></div>
+  </div>
+</section>
+
+<section class="players fade1 js-enter">
+  <div class="c-head u-mb-50 l-inner"><div><div class="c-subtitle">LINE UP</div><h2 class="c-heading">アイテム紹介</h2></div><a class="c-button sp-none" href="#"><div class="c-button__text">アイテム一覧</div><div class="c-button__icon"></div></a></div>
+  <div class="l-inner players__inner"><div class="players-slider">
+    <div class="js-navi__controls2"><div class="js-navi__control2 js-n2prev">&lsaquo;</div><div class="js-navi__control2 js-n2next">&rsaquo;</div></div>
+    <div class="swiper js-slider2"><div class="swiper-wrapper" id="cards"></div></div>
+  </div></div>
+</section>
+
+<section class="information fade1 js-enter">
+  <div class="l-inner">
+    <div class="c-head u-mb-50"><div><div class="c-subtitle">INFORMATION</div><h2 class="c-heading">お知らせ</h2></div><a class="c-button sp-none" href="#"><div class="c-button__text">一覧はこちら</div><div class="c-button__icon"></div></a></div>
+    <div class="information-items" id="info"></div>
+  </div>
+</section>
+
+<section class="sections fade1 js-enter">
+  <section class="fanclub"><div class="l-inner">
+    <div class="fanclub__row">
+      <div class="fanclub__content">
+        <div class="u-mb-50"><div class="c-subtitle">TEAM CLUB</div><h2 class="c-heading">チームオーダー</h2></div>
+        <h3 class="fanclub__title"><b>&#9733;</b><span>We Are Team</span></h3>
+        <p class="fanclub__desc">福岡のチームに向けたフルオーダー。ダミーのテキストが入ります。5枚からご注文いただけます。</p>
+        <a class="c-button" href="#"><div class="c-button__text">詳しく見る</div><div class="c-button__icon"></div></a>
+      </div>
+      <div class="fanclub__image"><div class="fanclub__image-main ph"><img src="../../img/work_bibs_rev.jpg" alt=""></div><div class="fanclub__image-circle">DECONTRACTE</div></div>
+    </div>
+    <div class="fanclub-ctas">
+      <div class="fanclub-cta"><div class="fanclub-cta__title">まずは無料で相談<br>デザイン案をお届けします</div><a class="c-button u-mx-auto" href="#"><div class="c-button__text">相談する</div><div class="c-button__icon"></div></a></div>
+      <div class="fanclub-cta"><div class="fanclub-cta__title">サンプルを見て<br>仕上がりを確かめよう</div><a class="c-button u-mx-auto" href="#"><div class="c-button__text">サンプル請求</div><div class="c-button__icon"></div></a></div>
+    </div>
+  </div></section>
+  <div class="c-separate"></div>
+  <section class="goods"><div class="l-inner">
+    <div class="c-head u-mb-50"><div><div class="c-subtitle">GOODS</div><h2 class="c-heading">オプション</h2></div><a class="c-button sp-none" href="#"><div class="c-button__text">一覧はこちら</div><div class="c-button__icon"></div></a></div>
+    <div class="goods-items" id="goods"></div>
+    <a class="c-button pc-none u-mx-auto u-mt-50" href="#"><div class="c-button__text">一覧はこちら</div><div class="c-button__icon"></div></a>
+  </div></section>
+</section>
+</div>
+
+<footer class="footer">
+  <div class="footer__scroll">
+    <div class="footer__scroll-items"><span>COLOR UP TEAM!</span><i></i><span>COLOR UP TEAM!</span><i></i></div>
+    <div class="footer__scroll-items"><span>COLOR UP TEAM!</span><i></i><span>COLOR UP TEAM!</span><i></i></div>
+  </div>
+  <div class="footer-main l-inner">
+    <div class="footer-main__left"><div class="footer-main__logo">DÉCONTRACTÉ</div><p style="font-size:1.3rem">Fukuoka team uniform / 5 pcs〜</p></div>
+    <div class="footer-main__right"><div class="g-links">
+      <div><div class="g-link-group"><span class="g-link-title">DÉCONTRACTÉを知る</span><a class="g-link-child" href="#">私たちについて</a><a class="g-link-child" href="#">制作の流れ</a><a class="g-link-child" href="#">料金</a></div></div>
+      <div><div class="g-link-group"><span class="g-link-title">その他</span><a class="g-link-child" href="#">お問い合わせ</a><a class="g-link-child" href="#">会社概要</a></div></div>
+    </div></div>
+  </div>
+  <div class="footer-bottom l-inner"><div>プライバシーポリシー</div><div>© DÉCONTRACTÉ (study placeholder)</div></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.1.14/swiper-bundle.min.js"></script>
+<script>
+(function(){
+const IMGS=['../../img/item_set.jpg','../../img/item_bibs.jpg','../../img/item_socks.jpg','../../img/first_view.jpg','../../img/work_bibs_rev.jpg'];
+const img=i=>IMGS[i%IMGS.length];
+const $=(s,r=document)=>r.querySelector(s);
+// ---- generate placeholder content
+const topics=['お知らせのダミー見出しがここに入ります','新アイテム追加のお知らせ','納期のご案内','制作事例を公開しました','受付時間の変更','サンプル貸出について','キャンペーンのご案内','FAQを更新しました'];
+const dates=['2026.11.13','2026.11.10','2026.10.28','2026.10.27','2026.10.21','2026.10.19','2026.10.09','2026.10.09'];
+$('#heroSlides').innerHTML=topics.map((t,i)=>`<div class="swiper-slide"><a class="hero-topics" href="#"><div class="hero-topics__image ph"><img src="${img(i)}" alt=""></div><div class="hero-topics__content"><div class="hero-topics__meta"><div class="c-date">${dates[i]}</div><div class="c-tag">お知らせ</div></div><h2 class="hero-topics__title">${t}</h2></div></a></div>`).join('');
+$('#pickSlides').innerHTML=topics.map((t,i)=>`<div class="swiper-slide"><div class="swiper-card"><a class="c-article" href="#"><div class="c-article__date c-date">${dates[i]}</div><figure class="c-article__image ph"><img src="${img(i)}" alt=""></figure><h3 class="c-article__title">${t}</h3><div class="c-tag">お知らせ</div></a></div></div>`).join('');
+$('#movies').innerHTML=[0,1,2,3,4].map(i=>`<a class="c-movie" href="#"><div class="c-movie__image ph"><img src="${img(i)}" alt=""><div class="c-movie__play"></div></div><h3 class="c-movie__title">動画タイトルのダミー vol.${i+1}</h3></a>`).join('');
+const games=[['HOME','2026.11.14','SAT','14:05'],['HOME','2026.11.15','SUN','13:05'],['AWAY','2026.11.21','SAT','14:05'],['HOME','2026.11.22','SUN','13:05']];
+$('#games').innerHTML=games.map(g=>`<div class="c-game c-glass"><div class="c-game__headline"><div class="c-game__headline-places"><div class="c-game__ha c-game__ha--${g[0].toLowerCase()}">${g[0]}</div><div class="c-game__headline-label">会場</div><div class="c-game__headline-place">福岡県 ダミーアリーナ</div></div><h3 class="c-game__headline-title">2026 SEASON</h3></div><div class="c-game__body"><div class="c-game__left"><div class="c-game__badge">開始</div><div class="c-game__date">${g[1]}<span class="c-game__week">[ ${g[2]} ]</span></div><div class="c-game__time">${g[3]} ~</div></div><div class="c-game__center"><div class="c-game__team"><i></i>チームA</div><div class="c-game__vs">VS</div><div class="c-game__team"><i></i>チームB</div></div><div class="c-game__right"><a class="c-game__button" href="#">詳細</a></div></div></div>`).join('');
+const rn=['ゲームシャツ','ビブス','ソックス','パンツ','ウォームアップ','バッグ'];
+$('#rank').innerHTML=rn.map((n,i)=>`<tr><td><span class="rank">${i+1}.</span></td><td class="nm">${n}</td><td>${12-i}</td><td>${2+i%3}</td><td>${(0.9-i*.08).toFixed(2)}</td><td>${30-i*3}</td><td>${(2.8-i*.3).toFixed(2)}</td></tr>`).join('');
+$('#cards').innerHTML=[1,2,3,4,5,6,7].map(i=>`<div class="swiper-slide"><a class="card-wrapper" href="#"><div class="c-player-card card"><div class="c-player-card__no">${i}</div><div class="ph"><img src="${img(i)}" alt=""></div><div class="c-player-card__label"><div class="c-player-card__name">アイテム名 ${i}</div><small>SAMPLE ${String(i).padStart(2,'0')}</small></div></div><div class="highlight"></div></a></div>`).join('');
+$('#info').innerHTML=topics.slice(0,4).map((t,i)=>`<a class="c-article" href="#"><div class="c-article__date c-date">${dates[i]}</div><figure class="c-article__image ph"><img src="${img(i+1)}" alt=""></figure><h3 class="c-article__title">${t}</h3><div class="c-tag">お知らせ</div></a>`).join('');
+$('#goods').innerHTML=[['ロゴ追加',700],['ネーム入れ',2500],['番号プリント',1000],['収納袋',2800]].map((g,i)=>`<a class="c-product" href="#"><div class="c-product__image ph"><img src="${img(i+2)}" alt=""></div><div class="c-product__title">${g[0]}</div><div class="c-product__price">¥${g[1].toLocaleString()}<small>(税込)</small></div></a>`).join('');
+
+// ---- header: hide on scroll down, drawer
+const hdr=$('#hdr'),drawer=$('#drawer');let last=0,ticking=false;
+addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const y=scrollY;if(!hdr.classList.contains('open')&&y>56){if(y>last)hdr.classList.add('is-hide');else hdr.classList.remove('is-hide')}last=y;ticking=false})});
+$('#burger').addEventListener('click',()=>{hdr.classList.toggle('open');drawer.classList.toggle('open')});
+
+// ---- loading timeline (values copied from live site's app.js)
+const q=s=>document.querySelector(s);
+const tiles=document.querySelectorAll('.hero__tile');
+gsap.set(hdr,{opacity:0});gsap.set('.c-bg2',{opacity:0});gsap.set(q('.js-mark'),{opacity:0});
+gsap.set(q('.js-v1'),{opacity:0,x:-140,y:190});['.js-v2','.js-v3','.js-v4'].forEach(s=>gsap.set(q(s),{opacity:0}));
+gsap.set([q('.js-t1'),q('.js-t2')],{opacity:0,x:-150});gsap.set([q('.js-sns'),q('.js-navi')],{opacity:0});
+const seen=sessionStorage.getItem('study_yellow_anim');
+const tl=gsap.timeline({onComplete:()=>{document.body.classList.add('is-loaded');q('.js-hero').classList.add('is-loaded');sessionStorage.setItem('study_yellow_anim',1)}});
+tl.to(tiles,{delay:1.05,duration:.5,scale:0,stagger:{each:.2}});
+tl.to('.c-bg2',{duration:.25,opacity:1});tl.to(q('.js-mark'),{duration:.25,opacity:1},'<');
+tl.to(q('.js-v1'),{duration:.5,x:0,y:0,opacity:1});
+tl.to(q('.js-v2'),{duration:.25,opacity:1});tl.to(q('.js-v3'),{duration:.25,opacity:1});tl.to(q('.js-v4'),{duration:.25,opacity:1});
+tl.to([q('.js-t1'),q('.js-t2')],{duration:.35,x:0,opacity:1});
+tl.addLabel('skip');
+tl.to(q('.js-navi'),{duration:.4,opacity:1},'<');tl.to(hdr,{opacity:1},'<');tl.to(q('.js-sns'),{opacity:1},'<');
+if(seen)tl.seek('skip');
+
+// ---- fade1 enter observer (threshold .1)
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('is-active')}),{threshold:.1});
+document.querySelectorAll('.js-enter').forEach(e=>io.observe(e));
+
+// ---- swipers
+new Swiper('.js-hero-slider',{direction:'vertical',loop:true,speed:800,autoplay:{delay:3000},spaceBetween:10,navigation:{nextEl:'.js-hero__control--next',prevEl:'.js-hero__control--prev'}});
+const mark2=sw=>{document.querySelectorAll('.next2,.prev2').forEach(e=>e.classList.remove('next2','prev2'));const s=sw.slides;const a=sw.activeIndex;s[a+2]&&s[a+2].classList.add('next2');s[a-2]&&s[a-2].classList.add('prev2')};
+new Swiper('.js-slider1',{loop:true,centeredSlides:true,observer:true,observeParents:true,pagination:{el:'.js-swiper-pagination1',clickable:true},navigation:{nextEl:'.js-navi__control--next',prevEl:'.js-navi__control--prev'},slidesPerView:1.2,effect:'creative',
+ creativeEffect:{perspective:true,limitProgress:3,prev:{translate:['-25rem','2.5rem',0],rotate:[0,0,-10],origin:'bottom center'},next:{translate:['25rem','2.5rem',0],rotate:[0,0,10],origin:'bottom center'}},
+ breakpoints:{768:{slidesPerView:3.05,creativeEffect:{perspective:true,limitProgress:3,prev:{translate:['-38rem','5rem',0],rotate:[0,0,-10],origin:'bottom center'},next:{translate:['38rem','5rem',0],rotate:[0,0,10],origin:'bottom center'}}}},
+ on:{init:mark2,slideChange:mark2}});
+// creative effect needs px: swiper accepts rem? fall back handled below
+new Swiper('.js-slider2',{slidesPerView:'auto',spaceBetween:20,navigation:{nextEl:'.js-n2next',prevEl:'.js-n2prev'}});
+
+// ---- cursor ball
+const cur=$('#cursor');
+addEventListener('mousemove',e=>{cur.style.opacity='1';cur.style.top=e.clientY+'px';cur.style.left=e.clientX+'px'});
+document.querySelectorAll('a').forEach(a=>{a.addEventListener('mouseover',()=>cur.classList.add('is-active'));a.addEventListener('mouseout',()=>cur.classList.remove('is-active'))});
+
+// ---- player card 3D tilt + holo highlight
+document.querySelectorAll('.card-wrapper').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const b=c.getBoundingClientRect();const x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;
+    c.style.transform=`rotateX(${(.5-y)*16}deg) rotateY(${(x-.5)*16}deg)`;c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%')});
+  c.addEventListener('mouseleave',()=>{c.style.transform=''});
+});
+})();
+</script>
+</body>
+</html>

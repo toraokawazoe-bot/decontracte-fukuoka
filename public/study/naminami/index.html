@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STUDY / nami-nami replica (DÉCONTRACTÉ placeholders)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Study replica of nami-nami.jp (Studio.design site). Structure/proportion/motion only. */
+:root{
+  --bg:#f0f0f0;--ink:#3b3933;--word:#222;--white:#fff;
+  --kraft:#d1c19f;--teal:#017493;--pink:#ffe4e4;--blue:#e3f2fe;--cream:#fcfbe0;--greige:#eae8e4;
+  --ease:cubic-bezier(.4,.4,0,1);
+  --font:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:auto}
+body,h1,h2,h3,p,ul{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:2;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.ph{background:#e3e1dc;overflow:hidden;position:relative}
+.ph img{width:100%;height:100%;object-fit:cover}
+.label{font-size:12px;font-weight:500;line-height:1.4;letter-spacing:.02em}
+.h2{font-size:30px;font-weight:500;line-height:1.4}
+.lead{font-size:16px;line-height:2}
+
+/* appear (Studio): opacity 0 + translate, 500ms delay */
+.appear{opacity:0;transition:opacity 1s var(--ease) .5s,translate 1s var(--ease) .5s,scale 1s var(--ease) .5s}
+.appear.up{translate:0 100px}.appear.down{translate:0 -100px}.appear.left{translate:100px 0}.appear.zoom{scale:1.2}
+.appear.on{opacity:1;translate:0 0;scale:1}
+
+/* header */
+.fixed{position:fixed;z-index:50;left:0;right:0;top:0;padding:40px 40px 0;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none}
+.fixed>*{pointer-events:auto}
+.brand{font-size:20px;font-weight:500;line-height:28px;letter-spacing:.1em}
+.brand small{display:block;font-size:12px;font-weight:400;line-height:16.8px;letter-spacing:.02em;margin-top:0}
+.tools{display:flex;align-items:center;gap:25px;margin-top:5px}
+.contact{width:50px;height:33px;border:2px solid var(--ink);position:relative;display:grid;place-items:end center;font-size:10px;font-weight:700;line-height:1;padding-bottom:3px}
+.contact::before{content:"";position:absolute;left:0;right:0;top:0;height:16px;background:linear-gradient(to bottom right,transparent calc(50% - 1px),var(--ink) calc(50% - 1px),var(--ink) 50%,transparent 50%) left/50% 100% no-repeat,linear-gradient(to bottom left,transparent calc(50% - 1px),var(--ink) calc(50% - 1px),var(--ink) 50%,transparent 50%) right/50% 100% no-repeat}
+.burger{width:35px;height:23px;position:relative;cursor:pointer;background:none;border:0;padding:0}
+.burger i{position:absolute;left:0;right:0;height:2px;background:var(--ink);transition:.4s var(--ease)}
+.burger i:nth-child(1){top:2px}.burger i:nth-child(2){top:10px}.burger i:nth-child(3){top:18px}
+.menu-open .burger i:nth-child(1){top:10px;rotate:30deg}.menu-open .burger i:nth-child(2){opacity:0}.menu-open .burger i:nth-child(3){top:10px;rotate:-30deg}
+.drawer{position:fixed;inset:0;background:var(--bg);z-index:40;display:grid;place-items:center;opacity:0;visibility:hidden;transition:.5s var(--ease)}
+.menu-open .drawer{opacity:1;visibility:visible}
+.drawer a{display:block;font-size:30px;font-weight:500;margin:12px 0;text-align:center;transition:.3s}.drawer a:hover{opacity:.4}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:900px;overflow:hidden}
+.rings{position:absolute;left:50%;top:380px;width:1121px;height:1121px;margin:-560px 0 0 -560px;pointer-events:none}
+.rings svg{position:absolute;inset:0;width:100%;height:100%;animation:rotation 50s linear infinite}
+.rings svg.rev{animation-direction:reverse;animation-duration:50s}
+@keyframes rotation{to{transform:rotate(360deg)}}
+.disc{position:absolute;left:50%;top:14px;width:735px;height:735px;margin-left:-367px;border-radius:50%;background:#fafafa;overflow:hidden}
+.disc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s var(--ease);padding:70px;object-fit:contain}
+.disc img.on{opacity:1}
+.hero-copy{white-space:nowrap;position:absolute;left:1260px;top:330px;width:190px;font-size:17.28px;font-weight:500;line-height:34.56px;letter-spacing:.1em;margin-left:calc(50vw - 720px)}
+.words{position:absolute;left:36px;top:641px;height:187px;width:calc(50vw - 100px);max-width:477px;overflow:hidden}
+.words-track{position:absolute;left:0;top:0;display:flex;flex-direction:row;width:max-content;transition:transform 1s cubic-bezier(.58,.21,.41,.96);will-change:transform}
+.w{flex:none;width:1368px;height:187px;font-size:187.2px;line-height:187.2px;letter-spacing:-.15em;color:var(--word);font-weight:400;white-space:nowrap}
+.word-fixed{position:absolute;left:805px;top:641px;font-size:187.2px;line-height:187.2px;letter-spacing:-.2em;color:var(--ink);font-weight:400;white-space:nowrap}
+.hero-stage{position:absolute;inset:0;margin:0 auto;width:1440px;max-width:100%}
+.scroll-ind{position:absolute;left:44px;top:340px;font-size:12px;font-weight:500;letter-spacing:.08em;writing-mode:vertical-rl;line-height:1}
+.scroll-ind::after{content:"";display:block;width:1px;height:0;background:var(--ink);margin:6px auto 0;animation:sline 2.4s var(--ease) infinite}
+@keyframes sline{0%{height:0}60%{height:50px}100%{height:50px;opacity:0}}
+
+/* ABOUT */
+.about{position:relative;height:830px;margin-top:50px}
+.about .col{position:absolute;left:180px;top:130px;width:580px}
+.about h2{margin:6px 0 40px}
+.about p{font-size:20px;line-height:49px;font-weight:400}
+.about .pic{position:absolute;left:760px;top:224px;width:600px;height:606px;border-radius:0}
+.badge{position:absolute;left:1107px;top:699px;width:120px;height:120px;border-radius:50%;background:var(--ink);color:var(--bg);text-align:center;display:grid;place-content:center;font-size:20px;font-weight:500;line-height:26px;z-index:2}
+.badge small{font-size:14px;line-height:18px;display:block}
+.about .zig{position:absolute;left:802px;top:21px;width:363px;height:335px;opacity:.5}
+
+/* HOW TO */
+.how{position:relative;padding-top:184px;height:2790px;margin-top:70px;overflow:hidden}
+.wavebg{position:absolute;left:0;width:100%;pointer-events:none;color:#dcdcdc}
+.how .head{text-align:center;position:relative}
+.how .head .lead{margin:12px auto 0;width:512px}
+.how-list{position:relative;margin-top:30px}
+.how-row{position:relative;height:397px;display:block}
+.how-row .pic{position:sticky;top:60px;width:489px;height:339px;margin-left:109px;border-radius:0}
+.how-row .txt{position:absolute;left:668px;top:100px}
+.how-row h3{font-size:43.2px;font-weight:400;line-height:60.48px}
+.how-row .eg{font-size:25.92px;line-height:36.3px;font-weight:400;margin-top:16px}
+.how-row .en{position:absolute;left:1189px;top:9px;font-size:12px;font-weight:500;white-space:nowrap}
+.how-row .sticker{position:absolute;left:1098px;top:299px;width:200px;height:73px;border-radius:40px;background:var(--kraft);opacity:.7}
+
+/* PRODUCTS */
+.prod{position:relative;height:473px;background:var(--bg);z-index:2}
+.prod .txt{position:absolute;left:279px;top:95px;width:352px}
+.prod h2{margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;padding:10px 20px;font-size:20px;font-weight:500;line-height:20px;border-radius:0;transition:.3s var(--ease)}
+.btn:hover{background:#000}
+.btn::after{content:"\2197";font-size:14px}
+.prod .p1{position:absolute;left:671px;top:42px;width:300px;height:350px}
+.prod .p2{position:absolute;left:921px;top:146px;width:240px;height:277px}
+.stk{position:absolute;width:355px;height:140px;opacity:.9;border-radius:4px}
+.stk.s1{left:19px;top:-72px;rotate:-5deg;background:var(--kraft)}
+.stk.s2{left:410px;top:-72px;rotate:4deg;background:var(--pink)}
+
+/* VOICE */
+.voice{position:relative;height:1260px;background:var(--bg);margin-top:0}
+.voice .head{position:absolute;left:0;right:0;top:70px;text-align:center}
+.voice .head .h2{display:inline-block;position:relative;padding:0 96px}
+.voice .head .h2::before,.voice .head .h2::after{content:"";position:absolute;top:50%;width:70px;height:1px;background:var(--ink);margin-top:-1px}
+.voice .head .h2::before{left:0;rotate:-40deg;transform-origin:right center;top:70%}
+.voice .head .h2::after{right:0;rotate:40deg;transform-origin:left center;top:70%}
+.bubbles{position:absolute;left:50%;top:182px;width:1112px;margin-left:-556px;display:grid;grid-template-columns:542px 542px;column-gap:28px;grid-auto-rows:287px;row-gap:18px}
+.bubble{position:relative;border-radius:60px 60px 60px 8px;padding:50px 60px 36px 50px;text-align:left}
+.bubble:nth-child(even){border-radius:60px 60px 8px 60px;margin-top:0}
+.bubble:nth-child(n+5){margin-top:0}
+.bubble:nth-child(6){margin-top:100px}
+.bubble h3{font-size:20px;font-weight:500;line-height:28px;text-align:center;margin-bottom:16px}
+.bubble p{font-size:16px;line-height:32px;margin-left:0}
+.bubble .q{position:absolute;font:700 86px/1 Georgia,serif;color:rgba(59,57,51,.18)}
+.bubble .q1{left:0;top:-4px}.bubble .q2{right:20px;bottom:-34px}
+.c1{background:var(--pink)}.c2{background:var(--blue)}.c3{background:var(--cream)}.c4{background:var(--greige)}.c5{background:#fff}.c6{background:var(--kraft)}
+.loop{position:absolute;left:0;right:0;top:1217px;overflow:hidden;height:501px;display:none}
+.strip{position:relative;overflow:hidden;height:501px;background:var(--bg)}
+.strip-track{display:flex;width:max-content;animation:loopx linear infinite}
+.strip-track .ph{width:720px;height:501px;flex:none;border-right:0}
+@keyframes loopx{to{transform:translateX(-50%)}}
+
+/* FAQ */
+.faq{position:relative;padding:60px 0 120px}
+.faq .in{width:1080px;margin:0 auto}
+.faq h2{margin:6px 0 28px}
+.qa{border-bottom:1px solid rgba(59,57,51,.25)}
+.qa button{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:64px 1fr 40px;align-items:center;padding:16px 0;cursor:pointer;min-height:82px}
+.qa .q{width:48px;height:50px;display:grid;place-items:center;font-size:20px;line-height:20px;color:#333;border:1px solid var(--ink);border-radius:50%;width:44px;height:44px}
+.qa .t{font-size:20px;font-weight:500;line-height:30px}
+.qa .ic{position:relative;width:20px;height:20px}
+.qa .ic::before,.qa .ic::after{content:"";position:absolute;left:2px;right:2px;top:9px;height:2px;background:var(--ink);transition:.4s var(--ease)}
+.qa .ic::after{rotate:90deg}
+.qa.open .ic::after{rotate:0deg}
+.qa .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.qa .a>div{overflow:hidden;padding-left:64px}
+.qa .a p{font-size:16px;line-height:28.8px;padding:0 40px 24px 0}
+.qa.open .a{grid-template-rows:1fr}
+
+/* TOPICS */
+.topics{position:relative;padding-top:60px}
+.topics .head{text-align:center;position:relative;height:150px}
+.topics .more{position:absolute;right:159px;top:96px;font-size:20px;font-weight:500;border-bottom:1px solid var(--ink);line-height:28px}
+.tband{background:var(--kraft);height:390px;margin-top:76px;overflow:hidden;position:relative}
+.ttrack{display:flex;gap:100px;width:max-content;animation:loopx linear infinite;position:absolute;left:0;top:0;padding-top:193px}
+.card{flex:none;width:300px;position:relative;padding-top:0}
+.card .tag{display:inline-block;background:var(--ink);color:var(--bg);font-size:14px;line-height:41px;height:41px;padding:0 14px;min-width:84px;text-align:center;line-height:41px;position:absolute;left:0;top:-53px}
+.card h3{font-size:16px;font-weight:500;line-height:25.6px}
+.card time{display:block;font-size:14px;margin-top:20px;line-height:28px}
+
+/* PHILOSOPHY */
+.phil{position:relative;height:1080px;margin-top:0;color:#fff;overflow:hidden;background:#59574f}
+.phil .bgimg{position:absolute;inset:0;opacity:.3}
+.phil::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:1}
+.phil>*{position:relative;z-index:2}
+.phil .bgimg{z-index:0}
+.phil .head{text-align:center;padding-top:225px}
+.phil .head .h2{margin:6px 0 24px}
+.phil .head p{width:832px;margin:0 auto;font-weight:500;line-height:32px}
+.phil .two{position:absolute;left:0;right:0;top:640px}
+.phil .col{position:absolute;width:420px}
+.phil .col.a{left:111px;margin-left:calc(50vw - 720px)}.phil .col.b{left:771px;margin-left:calc(50vw - 720px)}
+.phil .col h3{display:inline-block;background:var(--bg);color:var(--ink);font-size:30px;font-weight:400;line-height:42px;padding:0 20px;margin-bottom:24px}
+.phil .col p{font-weight:500;line-height:32px;max-width:300px}
+.phil .col .en{position:absolute;top:-27px;left:388px;font-size:12px;white-space:nowrap;font-weight:500}
+.edge{position:absolute;left:0;width:100%;z-index:3;display:block;pointer-events:none}
+.edge.top{top:-1px}.edge.bot{bottom:-1px}
+
+/* CONTACT + FOOTER */
+.cta{position:relative;height:1040px;background:var(--teal);color:#fff;overflow:hidden;text-align:center}
+.cta .bigring{position:absolute;left:50%;top:640px;width:2082px;height:2082px;margin:-1041px 0 0 -1041px;opacity:.35}
+.cta .bigring svg{width:100%;height:100%;animation:rotation 50s linear infinite}
+.cta .inner{position:absolute;left:0;right:0;top:340px}
+.cta h2{font-size:60px;font-weight:400;line-height:84px}
+.cta p{font-size:20px;line-height:28px;margin:14px 0 42px}
+.cta .btn{background:#fff;color:var(--ink)}
+.cta .btn::after{content:"\2192"}
+.foot{background:var(--bg);text-align:center;padding:100px 0 60px;color:#333;line-height:22.4px}
+.foot .logo{width:280px;height:60px;margin:0 auto 40px;background:var(--greige)}
+.foot .co{font-size:20px;font-weight:500;line-height:28px;margin-bottom:10px}
+.foot .lab{font-size:11px;line-height:15.4px;margin-top:36px}
+.foot .lab b{display:block;font-size:16px;font-weight:400;line-height:22.4px}
+.foot .cp{font-size:12px;margin-top:70px}
+
+/* tablet-ish scale for widths between 760 and 1440: keep 1440 canvas centered */
+@media (max-width:1439px) and (min-width:761px){
+  .hero-stage,.stage{zoom:1}
+}
+
+/* ====== phone ====== */
+@media (max-width:760px){
+  .fixed{padding:20px 20px 0}.brand{font-size:14px;line-height:20px}.brand small{font-size:10px;line-height:14px}
+  .tools{gap:14px}.contact{width:40px;height:27px;font-size:8px}.burger{width:28px;height:19px}.burger i:nth-child(2){top:8px}.burger i:nth-child(3){top:16px}
+  .hero{min-height:780px;height:100svh}
+  .rings{top:300px;width:150vw;height:150vw;margin:calc(-75vw) 0 0 calc(-75vw)}
+  .disc{top:100px;width:78vw;height:78vw;margin-left:-39vw}.disc img{padding:12vw}
+  .hero-copy{left:auto;right:auto;margin:0;position:absolute;top:calc(100px + 78vw + 30px);left:24px;width:auto;font-size:14px;line-height:26px}
+  .words{left:12px;top:auto;bottom:190px;height:23vw;width:46vw;max-width:none}
+  .w{height:23vw;font-size:23vw;line-height:23vw;width:calc(100vw + 40px)}
+  .word-fixed{left:calc(12px + 46vw + 4vw);top:auto;bottom:190px;font-size:23vw;line-height:23vw}
+  .scroll-ind{left:14px;top:auto;bottom:40px}
+  .about{height:auto;margin-top:0;padding:40px 24px 60px}
+  .about .col{position:static;width:auto}.about p{font-size:15px;line-height:2.2}
+  .about .pic{position:static;width:100%;height:80vw;margin-top:30px}.badge{left:auto;right:20px;top:auto;bottom:20px;width:96px;height:96px;font-size:15px;line-height:20px}.about .zig{display:none}
+  .how{height:auto;padding:70px 24px 60px;margin-top:0}
+  .how .head .lead{width:auto;font-size:14px}
+  .how-row{height:auto;margin-bottom:46px}
+  .how-row .pic{position:static;width:100%;height:60vw;margin:0}
+  .how-row .txt{position:static;margin-top:16px}.how-row h3{font-size:30px;line-height:42px}.how-row .eg{font-size:16px;line-height:26px;margin-top:4px}
+  .how-row .en{position:static;margin-top:6px}.how-row .sticker{display:none}
+  .prod{height:auto;padding:50px 24px 60px}.prod .txt,.prod .p1,.prod .p2{position:static;width:auto}.prod .p1{height:60vw;margin-top:30px}.prod .p2{display:none}.stk{display:none}
+  .voice{height:auto;padding:70px 20px 50px}.voice .head{position:static;margin-bottom:30px}
+  .bubbles{position:static;width:auto;margin:0;grid-template-columns:1fr;grid-auto-rows:auto;row-gap:20px}
+  .bubble{padding:40px 28px 40px}.bubble:nth-child(6){margin-top:0}.bubble p{font-size:14px;line-height:26px}.bubble .q{font-size:60px}
+  .strip{height:180px;margin-top:20px}.strip-track .ph{width:260px;height:180px}
+  .faq{padding:40px 0 60px}.faq .in{width:auto;padding:0 20px}.qa button{grid-template-columns:48px 1fr 28px}.qa .t{font-size:16px;line-height:24px}.qa .a>div{padding-left:48px}.qa .a p{font-size:14px;padding-right:0}
+  .topics{padding-top:40px}.topics .head{height:auto;padding:0 20px 40px}.topics .more{position:static;display:inline-block;margin-top:14px;font-size:15px}
+  .tband{height:320px;margin-top:0}.ttrack{padding-top:110px;gap:40px}.card{width:240px}
+  .phil{height:auto;padding-bottom:60px}.phil .head{padding:130px 24px 0}.phil .head p{width:auto;font-size:14px;line-height:28px}
+  .phil .two{position:static;padding:40px 24px}.phil .col{position:static;width:auto;margin:0 0 40px!important}.phil .col .en{position:static;margin:6px 0 0}.phil .col h3{font-size:22px}
+  .cta{height:640px}.cta h2{font-size:34px;line-height:48px}.cta p{font-size:15px}.cta .inner{top:200px}.cta .bigring{top:420px}
+  .foot{padding:60px 20px 40px}.foot .logo{width:200px}
+}
+</style>
+</head>
+<body>
+
+<div class="fixed" id="fixed">
+  <div class="brand">ようこそ！DÉCONTRACTÉ沼へ<small>by Fukuoka team uniform</small></div>
+  <div class="tools"><a class="contact" href="#cta">contact</a><button class="burger" id="burger" aria-label="menu"><i></i><i></i><i></i></button></div>
+</div>
+<nav class="drawer" id="drawer"><div><a href="#about">about</a><a href="#how">how to use</a><a href="#products">products</a><a href="#faq">faq</a><a href="#cta">contact</a></div></nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="rings"><svg class="ring-a" viewBox="0 0 1121 1121" fill="none" stroke="#555" stroke-width="1"></svg><svg class="ring-b rev" viewBox="0 0 1121 1121" fill="none" stroke="#555" stroke-width="1" opacity=".55"></svg></div>
+  <div class="disc ph" id="disc"><img class="on" src="../../img/item_set.jpg" alt=""><img src="../../img/item_bibs.jpg" alt=""><img src="../../img/item_socks.jpg" alt=""><img src="../../img/work_bibs_rev.jpg" alt=""></div>
+  <p class="hero-copy">用途に合わせて七変化<br>あれこれ使える<br>チームユニフォーム</p>
+  <div class="words"><div class="words-track" id="track"></div></div>
+  <div class="word-fixed">デコント</div>
+  <div class="scroll-ind">（ scroll ）</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <svg class="zig" viewBox="0 0 363 335" fill="none" stroke="#555"><path d="M0 40 Q60 0 120 40 T240 40 T363 40"/><path d="M0 70 Q60 30 120 70 T240 70 T363 70"/></svg>
+  <div class="col appear up">
+    <div class="label">( about decontracte )</div>
+    <h2 class="h2">みんなのユニフォーム、<br>つくってみない？</h2>
+    <p>ここに短いダミーのコピーが入ります。福岡のチーム向けフルオーダー。昇華プリントで色も柄も自由自在、5枚からお届けします。<br>デザインの相談だけでもお気軽にどうぞ。</p>
+  </div>
+  <div class="pic ph appear zoom"><img src="../../img/first_view.jpg" alt=""></div>
+  <div class="badge appear up">Mr.<br>DÉCO<small>profile</small></div>
+</section>
+
+<!-- HOW TO -->
+<section class="how" id="how">
+  <svg class="wavebg" style="top:0;height:160px" viewBox="0 0 1440 160" preserveAspectRatio="none" data-wave="top"></svg>
+  <div class="head appear up">
+    <div class="label">( how to order )</div>
+    <h2 class="h2">ユニフォームの使いかたアイデア</h2>
+    <p class="lead">軽くて動きやすい昇華プリントは、使いかたいろいろ。<br>キミのチームならどう使う？</p>
+  </div>
+  <div class="how-list">
+    <div class="how-row"><div class="pic ph"><img src="../../img/item_set.jpg" alt=""></div><div class="txt appear left"><h3>着る</h3><p class="eg">例えば「公式戦、練習試合」</p></div><div class="en label">( decontracte wearing! )</div><div class="sticker"></div></div>
+    <div class="how-row"><div class="pic ph"><img src="../../img/item_bibs.jpg" alt=""></div><div class="txt appear left"><h3>分ける</h3><p class="eg">例えば「ビブス、紅白戦」</p></div><div class="en label">( decontracte bibs! )</div><div class="sticker"></div></div>
+    <div class="how-row"><div class="pic ph"><img src="../../img/item_socks.jpg" alt=""></div><div class="txt appear left"><h3>揃える</h3><p class="eg">例えば「ソックス、小物」</p></div><div class="en label">( decontracte matching! )</div><div class="sticker"></div></div>
+    <div class="how-row"><div class="pic ph"><img src="../../img/work_bibs_rev.jpg" alt=""></div><div class="txt appear left"><h3>リバーシブルで使う</h3><p class="eg">例えば「練習着、遠征」</p></div><div class="en label">( decontracte reversible! )</div><div class="sticker"></div></div>
+    <div class="how-row"><div class="pic ph"><img src="../../img/first_view.jpg" alt=""></div><div class="txt appear left"><h3>つくる</h3><p class="eg">例えば「チーム、サークル」</p></div><div class="en label">( decontracte crafting! )</div><div class="sticker"></div></div>
+  </div>
+  <svg class="wavebg" style="bottom:0;height:330px" viewBox="0 0 1440 330" preserveAspectRatio="none" data-wave="bottom"></svg>
+</section>
+
+<!-- PRODUCTS -->
+<section class="prod" id="products">
+  <div class="stk s1"></div><div class="stk s2"></div>
+  <div class="txt appear up"><div class="label">( items )</div><h2 class="h2">定番アイテム</h2><p class="lead" style="margin-bottom:24px">ユニフォームの特性を生かしたラインアップ。<br>すべてフルオーダーです。</p><a class="btn" href="#">アイテムの一覧はこちら</a></div>
+  <div class="p1 ph appear zoom"><img src="../../img/item_bibs.jpg" alt=""></div>
+  <div class="p2 ph appear zoom"><img src="../../img/item_socks.jpg" alt=""></div>
+</section>
+
+<!-- VOICE -->
+<section class="voice" id="voice">
+  <div class="head appear up"><div class="label">( customer feedback )</div><h2 class="h2">お客さまの声</h2></div>
+  <div class="bubbles" id="bubbles"></div>
+</section>
+<div class="strip" id="strip"></div>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="in">
+    <div class="appear up"><div class="label">( faq )</div><h2 class="h2">よくあるご質問</h2></div>
+    <div id="qas"></div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section class="topics" id="topics">
+  <div class="head appear up"><div class="label">( topics )</div><h2 class="h2">お知らせとコラム</h2><a class="more" href="#">記事一覧を見る</a></div>
+  <div class="tband"><div class="ttrack" id="ttrack"></div></div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="phil" id="phil">
+  <svg class="edge top" viewBox="0 0 1440 155" preserveAspectRatio="none" height="155" data-wave="edge-top"></svg>
+  <div class="bgimg ph"><img src="../../img/work_bibs_rev.jpg" alt=""></div>
+  <div class="head appear up"><div class="label">( our philosophy )</div><h2 class="h2">ものづくりへの想い</h2><p>ダミーの文章です。私たちはチームの個性をかたちにすることを大切にしています。信頼と探究心を軸に、デザインから納品まで一貫してお手伝いします。</p></div>
+  <div class="two">
+    <div class="col a appear up"><h3>個人のみなさまへ</h3><p>ご相談大歓迎。枚数や色、デザインの希望に柔軟に対応します。</p><div class="en">( for individuals )</div></div>
+    <div class="col b appear up"><h3>団体のみなさまへ</h3><p>部活・クラブ・企業チームまで、まとめて承ります。</p><div class="en">( for teams )</div></div>
+  </div>
+  <svg class="edge bot" viewBox="0 0 1440 182" preserveAspectRatio="none" height="182" data-wave="edge-bot"></svg>
+</section>
+
+<!-- CONTACT -->
+<section class="cta" id="cta">
+  <div class="bigring"><svg viewBox="0 0 1121 1121" fill="none" stroke="#fff" stroke-width="1.2" id="bigring"></svg></div>
+  <div class="inner appear up"><h2>つくってみないかい？</h2><p>ご相談・お問い合わせをお待ちしています。</p><a class="btn" href="#">お問い合わせ</a></div>
+</section>
+<footer class="foot">
+  <div class="logo"></div>
+  <div class="co">DÉCONTRACTÉ</div>
+  <div>〒000-0000<br>福岡県福岡市（ダミー住所）</div>
+  <div style="margin-top:6px">Tel 000-000-0000<br>Fax 000-000-0000</div>
+  <div class="lab">another project<b>D.s.Lab</b></div>
+  <div class="cp">© DÉCONTRACTÉ (study placeholder)</div>
+</footer>
+
+<script>
+(function(){
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const IM=['../../img/item_set.jpg','../../img/item_bibs.jpg','../../img/item_socks.jpg','../../img/first_view.jpg','../../img/work_bibs_rev.jpg'];
+
+/* zigzag ring generator */
+function ring(svg,cx,cy,r,amp,n){const pts=[];const steps=n*8;for(let i=0;i<=steps;i++){const t=i/steps*Math.PI*2;const rr=r+amp*(Math.abs(((i%8)/8)*2-1)*2-1);pts.push((cx+rr*Math.cos(t)).toFixed(1)+','+(cy+rr*Math.sin(t)).toFixed(1))}return '<polyline points="'+pts.join(' ')+'"/>'}
+$('.ring-a').innerHTML=[0,1,2,3,4].map(i=>ring(0,560,560,400-i*10,3,120)).join('');
+$('.ring-b').innerHTML=[0,1,2].map(i=>ring(0,560,560,395-i*10+5,2.5,100)).join('');
+$('#bigring').innerHTML=[0,1,2,3,4,5].map(i=>ring(0,560,560,540-i*14,5,150)).join('');
+
+/* wave edges */
+function wave(h,a,per,ph){let d='M0 '+h;for(let x=0;x<=1440;x+=10)d+=' L'+x+' '+(h/2+a*Math.sin(x/per+ph)).toFixed(1);return d+' L1440 '+h+' Z'}
+$$('[data-wave]').forEach(s=>{const t=s.dataset.wave;
+  if(t==='top'){s.innerHTML='<path d="M0 0 L1440 0 L1440 '+80+' '+Array.from({length:145},(_,i)=>'L'+(1440-i*10)+' '+(80+8*Math.sin(i*.9))).join(' ')+' Z" fill="#e6e6e6"/>'}
+  if(t==='bottom'){s.innerHTML='<path d="'+wave(330,10,22,0)+'" fill="#f0f0f0"/><path d="M0 330 '+Array.from({length:145},(_,i)=>'L'+(i*10)+' '+(250+8*Math.sin(i*.9))).join(' ')+' L1440 330Z" fill="#e6e6e6"/>'}
+  if(t==='edge-top'){s.innerHTML='<path d="M0 0 L1440 0 L1440 '+60+' '+Array.from({length:145},(_,i)=>'L'+(1440-i*10)+' '+(60+14*Math.sin(i*.55))).join(' ')+' Z" fill="#d1c19f"/>'}
+  if(t==='edge-bot'){s.innerHTML='<path d="M0 182 '+Array.from({length:145},(_,i)=>'L'+(i*10)+' '+(120+14*Math.sin(i*.55))).join(' ')+' L1440 182Z" fill="#017493"/>'}
+});
+
+/* hero word slot: 4 words slide in every 3s, disc crossfades */
+const words=['つくる','そろう','はしる','きめる'];
+const track=$('#track');track.innerHTML=words.map(w=>'<div class="w">'+w+'</div>').join('')+words.map(w=>'<div class="w">'+w+'</div>').join('');
+let idx=0,step=1368;const vw=()=>innerWidth<=760?innerWidth+40:1368;
+function slide(){idx++;const s=vw();track.style.transform='translateX('+(-idx*s)+'px)';const imgs=$$('#disc img');imgs.forEach((im,i)=>im.classList.toggle('on',i===idx%imgs.length));
+  if(idx>=words.length){setTimeout(()=>{track.style.transition='none';idx=0;track.style.transform='translateX(0)';void track.offsetWidth;track.style.transition=''},1050)}}
+track.style.transform='translateX(0)';setInterval(slide,3000);
+/* track slides left by one word width (1368px) every 3s, like the live site */
+
+/* content */
+const vs=[['国産のユニフォームっていいですね！','においもなく、化学物質検査を受けた材料と聞き安心しました。品質がいいですね。','c1'],['小ロットの発注にも対応いただきました','5枚から注文でき、希望のサイズと数量で購入できました。初めてでも丁寧でした。','c2'],['固めきれていないアイデアも、形になりました','ふわっとした段階で相談しましたが、話すうちに形になりました。','c3'],['様々な形で注文できました！','ビブス、ソックス、シャツなど、用途に合わせて欲しい形で納品いただけました。','c4'],['こちらの無茶ぶりにも対応してくださいました！','チームカラーのイメージだけ伝えて、思った以上のデザインができました。','c5'],['急な発注にも対応してくださいました！','短納期にも柔軟に対応いただき、スピードと品質を両立していただけました。','c6']];
+$('#bubbles').innerHTML=vs.map((v,i)=>'<div class="bubble '+v[2]+' appear '+(i%2?'left':'up')+'"><span class="q q1">&ldquo;</span><h3>'+v[0]+'</h3><p>'+v[1]+'</p><span class="q q2">&rdquo;</span></div>').join('');
+const qa=[['どれくらいのロットから注文できますか？','5枚から注文できます。サイズや素材、納品方法によって変わる場合があります。'],['どのように注文したら良いでしょうか？','まずはアイテムの種類と枚数、希望のイメージをお知らせください。デザイン案をお送りします。'],['カラーは何色くらいから選べますか？','昇華プリントのため色数に制限はありません。チームカラーに合わせてご提案します。'],['印刷することはできますか？','はい。ロゴやネーム、番号も昇華プリントで入れられます。'],['デザインの相談に乗っていただくことはできますか？','もちろんです。ラフなイメージだけでも大丈夫です。'],['サンプルはいただけますか？','はい。サンプルの貸出を承ります。お問い合わせフォームよりご連絡ください。'],['ユニフォームのことがよくわからないのですが…','種類や素材が多く複雑です。ご相談だけでも構いません。無理な営業は行っておりません。']];
+$('#qas').innerHTML=qa.map((x,i)=>'<div class="qa"><button><span class="q">Q'+(i+1)+'</span><span class="t">'+x[0]+'</span><span class="ic"></span></button><div class="a"><div><p>'+x[1]+'</p></div></div></div>').join('');
+$$('.qa button').forEach(b=>b.addEventListener('click',()=>{const q=b.parentElement;const o=q.classList.contains('open');$$('.qa.open').forEach(e=>e.classList.remove('open'));if(!o)q.classList.add('open')}));
+const tp=[['事例紹介','制作事例のダミー見出しがここに入ります','2026/5/28'],['事例紹介','チームカラーが、大きな横断幕になった日。','2026/5/11'],['コラム','ダミーのコラム見出しが入ります。','2026/10/2'],['お知らせ','お待たせしました。新アイテムを本日公開します。','2026/9/25'],['お知らせ','価格を見直すことにしました。','2026/9/17'],['商品紹介','小さな工房が教えてもらった「ものづくり」の価値','2026/7/20']];
+const cards=tp.map(t=>'<a class="card" href="#"><span class="tag">'+t[0]+'</span><h3>'+t[1]+'</h3><time>'+t[2]+'</time></a>').join('');
+$('#ttrack').innerHTML=cards+cards;
+const tt=$('#ttrack');tt.style.animationDuration=(tp.length*400/30)+'s';
+$('#strip').innerHTML='<div class="strip-track">'+[0,1,2,3].map(()=>IM.slice(0,2).map(s=>'<div class="ph"><img src="'+s+'" alt=""></div>').join('')).join('')+'</div>';
+$('.strip-track').style.animationDuration=(4*2*720/30)+'s';
+
+/* appear: IntersectionObserver adds .on (repeatable like Studio: fires once) */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.15});
+$$('.appear').forEach(e=>io.observe(e));
+
+/* menu */
+$('#burger').addEventListener('click',()=>document.body.classList.toggle('menu-open'));
+$$('.drawer a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('menu-open')));
+})();
+</script>
+</body>
+</html>

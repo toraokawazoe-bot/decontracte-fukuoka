@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STUDY: stylem.co.jp replica (DÉCONTRACTÉ placeholder)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* live: html font-size = 10/1280*100vw (PC), 10/600 (tab), 10/375 (SP). 1rem = design px/10 */
+:root{--fz:1rem;--font-en:"DM Sans","Helvetica Neue",Arial,sans-serif;--font-jp:"DM Sans","Noto Sans JP","Hiragino Sans",sans-serif;--c-lh-heading:1.5;--c-lh-body:1.6;
+ --bg:#fafafa;--ink:#333;--gray:#808080;--line:#b3b3b3;--foot:#282828}
+html{font-size:calc(10 / 1280 * 100vw)}
+@media (max-width:980px){html{font-size:calc(10 / 600 * 100vw)}}
+@media (max-width:599px){html{font-size:calc(10 / 375 * 100vw)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-jp);font-weight:500;-webkit-font-smoothing:antialiased;font-size:1.6rem}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+.is-pc{display:block!important}.is-sp{display:none!important}
+@media (max-width:980px){.is-pc{display:none!important}.is-sp{display:block!important}}
+.c_inner{width:100%;max-width:128rem;padding:0 8rem;margin-inline:auto}
+@media (max-width:980px){.c_inner{padding:0 3rem}}
+.ph{background:#e8e8e8;width:100%;height:100%;object-fit:cover}
+
+/* header: fixed, mix-blend-mode difference like live */
+.hd{position:fixed;top:0;left:0;right:0;z-index:1000;mix-blend-mode:difference;color:#ccc;transition:transform .4s ease}
+.hd.is-hide{transform:translateY(-100%)}
+.hd__in{display:flex;align-items:center;justify-content:space-between;padding:0 3.2rem;max-width:134.4rem;margin-inline:auto;height:8.4rem}
+.hd__logo{font-family:var(--font-en);font-weight:700;font-size:3rem;letter-spacing:.12em;color:#ccc}
+.hd__nav{display:flex;align-items:center;gap:2.6rem;font-family:var(--font-en);font-size:1.6rem;font-weight:400}
+.hd__nav a{position:relative;padding:2.9rem 0}
+.hd__nav a:after{content:"";position:absolute;left:0;bottom:2.6rem;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.hd__nav a:hover:after{transform:scaleX(1)}
+.hd__div{width:1px;height:1.6rem;background:#ccc;opacity:.5}
+.hd__lang{border:1px solid #ccc;border-radius:2rem;font-size:1.2rem;padding:.5rem 2rem;font-family:var(--font-en)}
+.hd__burger{width:5.6rem;height:1.2rem;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin-left:1rem}
+.hd__r{display:flex;align-items:center;gap:2.6rem}
+@media (max-width:980px){.hd__in{padding:1rem 1.6rem;height:6rem}.hd__logo{font-size:2.2rem}.hd__nav,.hd__lang{display:none}.hd__burger{width:3.6rem;height:.9rem}}
+
+/* shared */
+.c_section-headline{display:flex;align-items:center;gap:1.6rem}
+.c_section-headline__label{margin:0;font-family:var(--font-en);font-weight:700;font-size:2.4rem;letter-spacing:.096rem;line-height:1;color:var(--ink)}
+.c_section-headline__line{display:block;width:4rem;height:1px;background:var(--ink);opacity:.6;translate:0 -.2rem}
+@media (max-width:980px){.c_section-headline{gap:.8rem}.c_section-headline__label{font-size:1.6rem;letter-spacing:.064rem}.c_section-headline__line{width:2rem;translate:0}}
+.c_reveal__line{display:block;overflow:hidden}.c_reveal__line-inner{display:block}
+.c_reveal.is-anim .c_reveal__line-inner{transform:translateY(110%)}
+.c_reveal.is-anim.is-inview .c_reveal__line-inner{transform:none;transition:transform .9s cubic-bezier(.16,1,.3,1);transition-delay:var(--delay,0s)}
+.c_btn-dark{display:inline-flex;align-items:center;gap:.8rem;background:#333;color:#fafafa;border-radius:2.2rem;padding:1.4rem 3.8rem 1.4rem 4rem;min-height:4.5rem;overflow:hidden}
+.c_btn-dark__label{font-family:var(--font-en);font-weight:500;font-size:1.6rem;letter-spacing:.032rem;line-height:1;white-space:nowrap}
+@media (max-width:980px){.c_btn-dark{padding:1rem 2.2rem 1.1rem 2.4rem;min-height:3.5rem}.c_btn-dark__label{font-size:1.4rem}}
+.c_btn-anim__label{position:relative;display:inline-block}
+.c_btn-anim__label:before{content:attr(data-str);position:absolute;inset:0;opacity:0;transform:rotateX(90deg);transform-origin:50% 50% .7em;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .45s cubic-bezier(.22,1,.36,1)}
+.c_btn-anim__label-inner{display:inline-block;transform-origin:50% 50% .7em;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .45s cubic-bezier(.22,1,.36,1)}
+.arr{position:relative;display:block;width:1.5rem;height:.8rem;overflow:hidden;flex-shrink:0}
+.arr svg{position:absolute;left:0;top:50%;width:100%;height:.5rem;overflow:visible;transform:translateY(-50%);transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .45s cubic-bezier(.22,1,.36,1)}
+.arr svg+svg{opacity:0;transform:translate(calc(-100% - .4rem),-50%)}
+@media (hover:hover){
+ .c_btn-anim:hover .c_btn-anim__label-inner{opacity:0;transform:rotateX(-90deg)}
+ .c_btn-anim:hover .c_btn-anim__label:before{opacity:1;transform:rotateX(0)}
+ .c_btn-anim:hover .arr svg{opacity:0;transform:translate(calc(100% + .4rem),-50%)}
+ .c_btn-anim:hover .arr svg+svg{opacity:1;transform:translateY(-50%)}
+}
+
+/* KV: fixed canvas behind, lines revealed with mask */
+.c_kv{position:relative;width:100%;height:100svh;min-height:56rem;overflow:hidden}
+.c_kv__canvas{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;background:#fafafa;animation:kvfade 1s ease-out}
+@keyframes kvfade{from{opacity:0}to{opacity:1}}
+.c_kv__line{display:block;overflow:hidden;padding-block:.15em;margin-block:-.15em}.c_kv__line-inner{display:block}
+.c_kv.is-anim .c_kv__line-inner{transform:translateY(calc(100% + .3em))}
+.c_kv.is-anim.is-inview .c_kv__line-inner{transform:none;transition:transform 1.3s cubic-bezier(.16,1,.2,1);transition-delay:var(--delay,0s)}
+.c_kv__content{position:absolute;inset:0;max-width:128rem;width:100%;margin-inline:auto}
+.c_kv__title-line1,.c_kv__title-line2{margin:0;position:absolute;font-weight:500;font-size:7.8rem;line-height:1;color:#333;font-feature-settings:"palt";white-space:nowrap;pointer-events:none}
+.c_kv__title-line1{top:calc(50% - 8.1rem);left:8.2rem}
+.c_kv__title-line2{top:calc(50% + 1.9rem);right:7.2rem;text-align:right}
+.c_kv__tagline{position:absolute;top:calc(50% + 12.2rem);left:calc(50% + 7.3rem);pointer-events:none}
+.c_kv__tagline-row{display:flex;align-items:center;gap:1rem;margin-bottom:.4rem}
+.c_kv__year,.c_kv__tagline-text{font-family:var(--font-en);font-weight:500;font-size:2.6rem;line-height:1;letter-spacing:.026rem}
+.c_kv__tagline-text{display:block}
+.c_kv__tagline-sep{width:2.9rem;height:auto}
+.c_kv__body{margin:0;position:absolute;left:3.2rem;bottom:1.8rem;font-size:1.4rem;line-height:1.7;letter-spacing:.028rem;pointer-events:none}
+.c_kv__scroll{position:absolute;left:48.7%;bottom:2.4rem;transform:translate(-50%);display:flex;align-items:flex-end;gap:1rem;pointer-events:none;animation:kvfade .9s ease-out .2s both}
+.c_kv__scroll-window{height:1.4rem;overflow:hidden}
+.c_kv__scroll-strip{display:flex;flex-direction:column;transform:translateY(-1.4rem);animation:flow 2s infinite}
+@keyframes flow{0%{transform:translateY(-1.4rem)}60%{transform:translateY(-1.4rem);animation-timing-function:cubic-bezier(.33,1,.68,1)}85%,to{transform:translateY(0)}}
+.c_kv__scroll-arrow{width:.6rem;height:1.4rem;display:block}
+.c_kv__scroll-text{font-family:var(--font-en);font-weight:500;font-size:1.4rem;line-height:1;letter-spacing:.028rem;white-space:nowrap}
+.c_kv__pickup{position:absolute;right:3.2rem;bottom:2.4rem;display:flex;align-items:center;width:29.8rem;min-height:8.3rem;background:#fafafa;border:1px solid #d9d9d9;border-radius:2px;overflow:hidden;padding:.8rem 1.6rem .8rem .8rem;transition:border-color .25s;animation:kvfade .9s ease-out both}
+.c_kv__pickup:hover{border-color:#b3b3b3}
+.c_kv__pickup-img-wrap{flex-shrink:0;width:11.9rem;align-self:stretch;overflow:hidden;border-radius:2px}
+.c_kv__pickup-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .25s}.c_kv__pickup:hover img{transform:scale(1.05)}
+.c_kv__pickup-body{flex:1;min-width:0;padding:1rem 1rem 1rem .8rem}
+.c_kv__pickup-date{display:block;font-family:var(--font-en);font-weight:400;font-size:1rem;line-height:1;color:gray;margin-bottom:.3rem}
+.c_kv__pickup-title{margin:0;font-weight:400;font-size:1.1rem;line-height:1.5;color:#000}
+@media (max-width:980px){
+ .c_kv{min-height:60rem}
+ .c_kv__title-line1,.c_kv__title-line2{font-size:3.5rem;letter-spacing:.02em}
+ .c_kv__title-line1{top:calc(50% - 21rem);left:1.6rem}.c_kv__title-line2{top:calc(50% - 16.7rem);right:1rem}
+ .c_kv__tagline{top:auto;bottom:20.8rem;left:1.6rem}.c_kv__year,.c_kv__tagline-text{font-size:2rem}.c_kv__tagline-sep{width:2.2rem}
+ .c_kv__body{left:1.6rem;bottom:12.3rem;max-width:calc(100% - 3rem)}
+ .c_kv__scroll{bottom:1.6rem}.c_kv__scroll-text{font-size:1rem}
+ .c_kv__pickup{right:auto;left:1.6rem;bottom:4rem;width:34.3rem;min-height:0;height:6.3rem;padding:.6rem}
+ .c_kv__pickup-img-wrap{width:9.1rem}.c_kv__pickup-title{-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+}
+
+/* about */
+.c_about{--s:1}
+@media (min-width:600px) and (max-width:980px){.c_about{--s:1.6}}
+.c_about .c_inner{display:flex;flex-direction:column}
+@media (max-width:980px){.c_about .c_inner{gap:2.3rem;align-items:center}}
+.c_about__images{position:relative;width:calc(100% + 8rem);height:86.9rem}
+.c_about__img-wrap{position:absolute;border-radius:.4rem;overflow:hidden}
+.c_about__img-wrap--yarn{left:0;top:10rem;width:45.7rem;height:25.6rem}
+.c_about__img-wrap--mannequin{left:59.9rem;top:-1.4rem;width:23.7rem;height:31.4rem}
+.c_about__img-wrap--sewing{left:80.5rem;top:25rem;width:39.9rem;height:22.4rem}
+.c_about__img-wrap--fabric{left:0;top:42.2rem;width:66.3rem;height:37.3rem}
+.c_about__img-wrap--cotton{left:80.6rem;top:53rem;width:23.7rem;height:31.4rem}
+.c_about__parallax{position:absolute;top:-8%;left:0;width:100%;height:116%;will-change:transform}
+.c_about__parallax img{width:100%;height:100%;object-fit:cover}
+@media (max-width:980px){
+ .c_about__images{width:calc(36.6rem * var(--s));height:calc(32.4rem * var(--s))}
+ .c_about__img-wrap{border-radius:.2rem}
+ .c_about__img-wrap--yarn{left:calc(1.1rem*var(--s));top:calc(3.4rem*var(--s));width:calc(16.8rem*var(--s));height:calc(9.474rem*var(--s))}
+ .c_about__img-wrap--mannequin{left:calc(23rem*var(--s));top:0;width:calc(8.8rem*var(--s));height:calc(11.7rem*var(--s))}
+ .c_about__img-wrap--sewing{left:auto;right:calc(-1.2rem*var(--s));top:calc(11rem*var(--s));width:calc(9.1rem*var(--s));height:calc(5.1rem*var(--s))}
+ .c_about__img-wrap--fabric{left:calc(1.1rem*var(--s));top:calc(15.5rem*var(--s));width:calc(25.5rem*var(--s));height:calc(14.3rem*var(--s))}
+ .c_about__img-wrap--cotton{left:calc(28.6rem*var(--s));top:calc(23.8rem*var(--s));width:calc(6.8rem*var(--s));height:calc(9rem*var(--s))}
+}
+.c_about__text{display:flex;flex-direction:column;gap:4rem}
+.c_about__lead{display:flex;flex-direction:column;gap:1.6rem}
+.c_about__title{font-weight:600;font-size:4.2rem;letter-spacing:.084rem;line-height:var(--c-lh-heading);margin:0}
+.c_about__body{font-size:1.6rem;letter-spacing:.032rem;line-height:var(--c-lh-body)}
+.c_about .c_btn-dark{width:fit-content}
+@media (max-width:980px){.c_about__text{width:31.5rem}.c_about__lead{gap:1rem}.c_about__title{font-size:2.6rem;letter-spacing:.052rem}.c_about__body{font-size:1.4rem;letter-spacing:.028rem}}
+@media (min-width:600px) and (max-width:980px){.c_about__text{width:100%}}
+
+/* business: pinned image + scrolling list */
+.c_business{background:#fafafa;position:relative;z-index:1;padding-top:12rem}
+.c_business__top{display:flex;align-items:flex-start;gap:6.4rem;margin-bottom:12.2rem}
+.c_business__head{margin-top:.8rem;width:50.4rem;flex-shrink:0}
+.c_business__intro{flex:1}
+.c_business__intro-title{margin:0;font-family:var(--font-en);font-weight:700;font-size:3.4rem;line-height:var(--c-lh-heading);letter-spacing:.068rem}
+.c_business__intro-body{margin:1.6rem 0 0;font-size:1.6rem;line-height:var(--c-lh-body);letter-spacing:.032rem}
+.c_business__body{display:flex;align-items:flex-start;gap:6.4rem}
+.c_business__img-col{width:50.4rem;flex-shrink:0;position:sticky;top:9.6rem}
+.c_business__img-stage{position:relative;width:100%;height:66.8rem;max-height:calc(100vh - 128px);overflow:hidden;border-radius:.4rem}
+.c_business__img-wrap{position:absolute;inset:-1px;clip-path:inset(0 0 100% 0);z-index:1}
+.c_business__right{flex:1;min-width:0}
+.c_business__items{border-bottom:1px solid rgba(51,51,51,.2)}
+.c_business__item{position:relative;display:block;border-top:1px solid #b3b3b3;opacity:.68;transition:opacity .3s}
+.c_business__item.is-active{opacity:1;border-top-width:2px}
+.c_business__item-img-wrap{display:none}
+.c_business__item-inner{position:relative;padding:1.2rem 0 5.5rem}
+.c_business__item-num{display:block;font-family:var(--font-en);font-weight:500;font-size:1.4rem;line-height:1;margin-bottom:4rem}
+.c_business__item.is-active .c_business__item-num{font-weight:700}
+.c_business__item-title{margin:0;font-weight:600;font-size:3rem;line-height:1;letter-spacing:.06rem}
+.c_business__item-subtitle{margin:1rem 0 0;font-family:var(--font-en);font-weight:500;font-size:1.5rem;line-height:1;letter-spacing:.028rem}
+.c_business__item-desc{margin:1.6rem 0 0;font-size:1.5rem;line-height:var(--c-lh-body);letter-spacing:.078rem;color:gray}
+.c_business__item-arrow{position:absolute;top:7.8rem;right:0}
+.c_business__cta{margin-top:4rem;padding-bottom:12rem}
+@media (max-width:980px){
+ .c_business{padding-top:8rem}
+ .c_business__top{display:block;margin-bottom:6rem}.c_business__head{width:auto;margin-bottom:2rem}
+ .c_business__intro-title{font-size:2.4rem}.c_business__intro-body{font-size:1.4rem;margin-top:1.2rem}
+ .c_business__body{display:block}.c_business__img-col{display:none}
+ .c_business__item{opacity:1;display:flex;gap:1.6rem;padding:2rem 0;align-items:stretch}
+ .c_business__item.is-active{border-top-width:1px}
+ .c_business__item-img-wrap{display:block;flex-shrink:0;width:14.6rem;height:19.4rem;overflow:hidden}
+ .c_business__item-img-wrap img{width:100%;height:100%;object-fit:cover;border-radius:.36rem}
+ .c_business__item-inner{flex:1;min-width:0;padding:0;display:flex;flex-direction:column}
+ .c_business__item-num{font-size:1.2rem;margin-bottom:3.2rem}
+ .c_business__item-title{font-size:1.9rem;line-height:1.2;letter-spacing:.038rem}.c_business__item-subtitle{font-size:1.2rem}
+ .c_business__item-desc{font-size:1.2rem;letter-spacing:.072rem}
+ .c_business__item-arrow{top:auto;bottom:0}
+ .c_business__cta{display:flex;justify-content:center;padding-bottom:8rem}
+}
+
+/* sustainability */
+.c_sustainability{background:#fafafa;position:relative;z-index:1;--s:1;padding-bottom:12rem}
+@media (min-width:600px) and (max-width:980px){.c_sustainability{--s:1.6}}
+.c_sustainability .c_inner{display:flex;flex-direction:column;gap:8.4rem}
+.c_sustainability__text{display:flex;flex-direction:column;gap:2.5rem;max-width:61.4rem}
+.c_sustainability__lead{display:flex;flex-direction:column;gap:1.4rem}
+.c_sustainability__title{font-weight:600;font-size:3.2rem;letter-spacing:.32rem;line-height:var(--c-lh-heading);margin:0;font-feature-settings:"palt"}
+.c_sustainability__body{font-size:1.6rem;letter-spacing:.032rem;line-height:var(--c-lh-body)}
+.c_sustainability .c_btn-dark{margin-top:1.5rem;width:fit-content}
+.c_sustainability__images{position:relative;height:43.6rem}
+.c_sustainability__img-wrap{position:absolute;overflow:hidden;border-radius:.4rem}
+.c_sustainability__img-wrap--large{left:28.4rem;top:0;width:55.2rem;height:43.6rem}
+.c_sustainability__img-wrap--small-left{left:0;top:0;width:26.8rem;height:21.2rem}
+.c_sustainability__img-wrap--small-right{left:85.2rem;top:22.4rem;width:26.8rem;height:21.2rem}
+.c_sustainability__parallax{width:100%;height:100%;will-change:transform}
+.c_sustainability__img-wrap--large .c_sustainability__parallax{height:115%;margin-top:-7.5%}
+.c_sustainability__parallax img{width:100%;height:100%;object-fit:cover}
+@media (max-width:980px){
+ .c_sustainability{padding-bottom:8rem}
+ .c_sustainability .c_inner{gap:6.4rem;align-items:center}
+ .c_sustainability__text{gap:2.2rem;max-width:100%;width:31.5rem}.c_sustainability__lead{gap:1rem}
+ .c_sustainability__title{font-size:2.2rem;letter-spacing:.22rem}.c_sustainability__body{font-size:1.4rem;letter-spacing:.028rem}
+ .c_sustainability .c_btn-dark{margin-top:.7rem}
+ .c_sustainability__images{height:calc(18.3rem*var(--s));width:calc(35.9rem*var(--s))}
+ .c_sustainability__img-wrap{border-radius:.2rem}
+ .c_sustainability__img-wrap--large{left:calc(8.8rem*var(--s));width:calc(18.3rem*var(--s));height:calc(18.3rem*var(--s))}
+ .c_sustainability__img-wrap--small-left{width:calc(8rem*var(--s));height:calc(6.3rem*var(--s))}
+ .c_sustainability__img-wrap--small-right{left:calc(27.9rem*var(--s));top:calc(12rem*var(--s));width:calc(8rem*var(--s));height:calc(6.3rem*var(--s))}
+}
+@media (min-width:600px) and (max-width:980px){.c_sustainability__text{width:100%}}
+
+/* news */
+.c_news{background:#fafafa;position:relative;z-index:1;padding-bottom:14rem}
+.c_news__head{margin-bottom:2.4rem}
+.c_news__list{position:relative}
+.c_news__line{position:absolute;top:0;left:0;width:100%;height:1px;background:#b3b3b3;transform-origin:left}.c_news__line--last{top:auto;bottom:0}
+.c_news.is-anim .c_news__line{transform:scaleX(0)}.c_news.is-anim .c_news__line.is-inview{transform:scaleX(1);transition:transform .4s ease}
+.c_news__item{position:relative;display:flex;align-items:flex-start;justify-content:space-between;padding:2.4rem 0}
+.c_news__main{display:flex;align-items:flex-start;gap:9rem}
+.c_news__img-wrap{flex-shrink:0;width:33.6rem;height:18.9rem;overflow:hidden;border-radius:.4rem}
+.c_news__img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.c_news__item:hover .c_news__img-wrap img{transform:scale(1.05)}
+.c_news__body{display:flex;flex-direction:column;gap:1.4rem;transition:transform .3s}.c_news__item:hover .c_news__body{transform:translateX(1.6rem)}
+.c_news__meta{display:flex;align-items:center;gap:1.4rem}
+.c_news__date{font-family:var(--font-en);font-weight:400;font-size:1.4rem;line-height:1;letter-spacing:.028rem;translate:0 .2rem}
+.c_news-tag{display:inline-flex;padding:.6rem 1rem;border:1px solid #8c8c8c;border-radius:2rem;font-size:1.1rem;letter-spacing:.022rem;line-height:1;color:#8c8c8c;white-space:nowrap}
+.c_news__title{margin:0;font-size:1.4rem;line-height:1.6;letter-spacing:.028rem;max-width:54.7rem}
+.c_news__arrow{margin-top:.9rem}
+.c_news__cta{display:flex;justify-content:flex-end;margin-top:4rem}
+@media (max-width:980px){
+ .c_news{padding-bottom:8rem}
+ .c_news__item{flex-direction:column;padding:2rem 0}.c_news__arrow{display:none}
+ .c_news__main{flex-direction:column;gap:1.6rem;width:100%}.c_news__img-wrap{width:100%;height:17.7rem;border-radius:.2rem}
+ .c_news__body{gap:.7rem}.c_news__date{font-size:1.2rem}.c_news__title{font-size:1.3rem}
+ .c_news__cta{justify-content:center}.c_news__head{margin-bottom:2rem}
+}
+
+/* footer */
+.c_footer{background:#282828;color:#fff;position:relative;z-index:1}
+.c_footer__inner{display:flex;flex-direction:column;gap:7.8rem;max-width:128rem;margin-inline:auto;padding:13.2rem 8rem 8rem}
+.c_footer__main{display:flex;align-items:flex-start;gap:9.8rem}
+.c_footer__cols{display:flex;gap:3.2rem;flex:1}
+.c_footer__col{flex:1 1 0;display:flex;flex-direction:column;gap:2.8rem;min-width:0}
+.c_footer__col-head{display:block;padding:1.8rem 0 1.2rem;border-top:1px solid #666;border-bottom:1px solid #666;font-family:var(--font-en);font-weight:700;font-size:2.1rem;line-height:1.2;letter-spacing:.042rem}
+.c_footer__list{display:flex;flex-direction:column;gap:1.4rem;margin:0;padding:0;list-style:none}
+.c_footer__link{position:relative;display:inline-block;font-size:1.4rem;line-height:1.2;letter-spacing:.028rem}
+.c_footer__link:after{content:"";position:absolute;bottom:-.3rem;left:0;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s}.c_footer__link:hover:after{transform:scaleX(1)}
+.c_footer__group-head{display:flex;align-items:center;gap:.8rem;margin:.5rem 0 2.4rem;color:gray;font-weight:600;font-size:1.2rem;line-height:1.2}
+.c_footer__group-head i{display:block;width:2rem;height:1px;background:gray}
+.c_footer__cta{display:flex;flex-direction:column;gap:1.2rem;min-width:18.6rem}
+.c_footer__btn{display:flex;align-items:center;justify-content:center;gap:.8rem;padding:1.1rem 2.2rem 1.1rem 2.4rem;font-family:var(--font-en);font-size:1.3rem;font-weight:500;line-height:1;letter-spacing:.026rem;border:1px solid rgba(255,255,255,.4);border-radius:5rem;transition:background-color .3s,border-color .3s;overflow:hidden}
+.c_footer__btn:hover{background:rgba(255,255,255,.08);border-color:#fff}
+.c_footer__btn--plain{padding:1.2rem 2.4rem;border-radius:3rem}
+.c_footer__bottom{display:grid;grid-template-columns:1fr auto;grid-template-areas:". logo" "copyright links";align-items:end;row-gap:2.8rem;line-height:1}
+.c_footer__logo{grid-area:logo;font-family:var(--font-en);font-weight:700;font-size:3.4rem;letter-spacing:.1em}
+.c_footer__links{grid-area:links;display:flex;gap:1.2rem;margin:0;padding:0;list-style:none;color:gray;font-size:1.1rem;line-height:1.6;letter-spacing:.022rem}
+.c_footer__copyright{grid-area:copyright;margin:0;color:gray;font-family:var(--font-en);font-size:1.1rem;line-height:1.6;letter-spacing:.022rem}
+@media (max-width:980px){
+ .c_footer__inner{gap:8rem;padding:8rem 3rem 5.6rem}
+ .c_footer__main{flex-direction:column;gap:3.2rem}.c_footer__cols{flex-direction:column;gap:0;width:100%}
+ .c_footer__col{gap:0}.c_footer__col-head{font-size:2.3rem;border-bottom:0;padding:1.9rem 0 1.5rem}
+ .c_footer__col .c_footer__list,.c_footer__col .c_footer__group-head{display:none}
+ .c_footer__cta{width:100%;min-width:17.7rem}
+ .c_footer__bottom{grid-template-areas:"links links" "copyright logo";row-gap:4rem}
+ .c_footer__links{flex-direction:column;gap:1.6rem;font-size:1.2rem}.c_footer__logo{font-size:2.4rem}
+}
+</style>
+</head>
+<body>
+<header class="hd" id="hd"><div class="hd__in">
+ <a class="hd__logo" href="#">DÉCONTRACTÉ</a>
+ <div class="hd__r"><nav class="hd__nav">
+  <a href="#">About +</a><a href="#">Business +</a><a href="#">Items +</a><a href="#">Flow</a><a href="#">News +</a>
+  <span class="hd__div"></span><a href="#">Online Order ↗</a><a href="#">Recruit ↗</a></nav>
+  <span class="hd__lang">JP</span><span class="hd__burger"></span></div>
+</div></header>
+
+<main>
+<!-- KV -->
+<section class="c_kv" id="kv">
+ <canvas class="c_kv__canvas" id="kvcanvas" aria-hidden="true"></canvas>
+ <div class="c_kv__content">
+  <p class="c_kv__title-line1"><span class="c_kv__line"><span class="c_kv__line-inner">仲間と揃える、</span></span></p>
+  <p class="c_kv__title-line2"><span class="c_kv__line"><span class="c_kv__line-inner" style="--delay:.12s">一着の誇りへ。</span></span></p>
+  <div class="c_kv__tagline"><div class="c_kv__line"><div class="c_kv__line-inner" style="--delay:.24s">
+   <div class="c_kv__tagline-row"><span class="c_kv__year">FUKUOKA</span>
+    <svg class="c_kv__tagline-sep" viewBox="0 0 29 12" fill="none" stroke="#333" stroke-width="1.2"><path d="M1 1l5 5-5 5M10 1l5 5-5 5M19 1l5 5-5 5"/></svg></div>
+   <span class="c_kv__tagline-text">Team Uniform Full-Order</span></div></div></div>
+  <p class="c_kv__body"><span class="c_kv__line"><span class="c_kv__line-inner" style="--delay:.3s">5着から作れる、昇華プリントのフルオーダー。</span></span><span class="c_kv__line"><span class="c_kv__line-inner" style="--delay:.36s">デザインから納品まで、福岡の工房でお届けします。</span></span></p>
+  <div class="c_kv__scroll" aria-hidden="true"><span class="c_kv__scroll-window"><span class="c_kv__scroll-strip">
+   <svg class="c_kv__scroll-arrow" viewBox="0 0 6 14" fill="none" stroke="#333"><path d="M3 0v13M.5 10.5L3 13l2.5-2.5"/></svg>
+   <svg class="c_kv__scroll-arrow" viewBox="0 0 6 14" fill="none" stroke="#333"><path d="M3 0v13M.5 10.5L3 13l2.5-2.5"/></svg></span></span>
+   <span class="c_kv__scroll-text">Scroll to Discover</span></div>
+  <a class="c_kv__pickup" href="#"><span class="c_kv__pickup-img-wrap"><img src="../../img/item_set.jpg" alt=""></span>
+   <span class="c_kv__pickup-body"><span class="c_kv__pickup-date">2026.11.06</span><p class="c_kv__pickup-title">新作ビブスのフルオーダー受付を開始しました</p></span></a>
+ </div>
+</section>
+
+<!-- About -->
+<section class="c_about"><div class="c_inner">
+ <div class="c_about__images">
+  <div class="c_about__img-wrap c_about__img-wrap--yarn"><div class="c_about__parallax" data-sp="0.02" data-sps="0.02"><img src="../../img/item_socks.jpg" alt=""></div></div>
+  <div class="c_about__img-wrap c_about__img-wrap--mannequin"><div class="c_about__parallax" data-sp="-0.06" data-sps="-0.03"><img src="../../img/first_view.jpg" alt=""></div></div>
+  <div class="c_about__img-wrap c_about__img-wrap--sewing"><div class="c_about__parallax" data-sp="0.08" data-sps="0.04"><img src="../../img/work_bibs_rev.jpg" alt=""></div></div>
+  <div class="c_about__img-wrap c_about__img-wrap--fabric"><div class="c_about__parallax" data-sp="0.02" data-sps="0.02"><img src="../../img/item_set.jpg" alt=""></div></div>
+  <div class="c_about__img-wrap c_about__img-wrap--cotton"><div class="c_about__parallax" data-sp="-0.06" data-sps="-0.02"><img src="../../img/item_bibs.jpg" alt=""></div></div>
+ </div>
+ <div class="c_about__text">
+  <div class="c_about__lead"><h2 class="c_about__title c_reveal"><span class="c_reveal__line"><span class="c_reveal__line-inner">チームを、ひとつの色に。</span></span></h2>
+   <div class="c_about__body">福岡のチームやクラブが、自分たちだけの一着を持てるように。<br class="is-pc">デザインから縫製まで、少ロットのフルオーダーでお応えします。</div></div>
+  <a href="#" class="c_btn-dark c_btn-anim"><span class="c_btn-dark__label c_btn-anim__label" data-str="About DÉCONTRACTÉ"><span class="c_btn-anim__label-inner">About DÉCONTRACTÉ</span></span><span class="arr"><svg viewBox="0 0 15 5" fill="none" stroke="#fafafa"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg><svg viewBox="0 0 15 5" fill="none" stroke="#fafafa"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></a>
+ </div>
+</div></section>
+
+<!-- Business -->
+<section class="c_business" id="biz"><div class="c_inner">
+ <div class="c_business__top">
+  <div class="c_business__head"><div class="c_section-headline"><h2 class="c_section-headline__label">Business</h2><span class="c_section-headline__line"></span></div></div>
+  <div class="c_business__intro"><h3 class="c_business__intro-title c_reveal"><span class="c_reveal__line"><span class="c_reveal__line-inner">Your Team Partner</span></span></h3>
+   <p class="c_business__intro-body">デザインのご相談から、昇華プリントによる製造、納品まで。チームの人数やご予算に合わせて、5着から最適なウェアをご提案します。</p></div>
+ </div>
+ <div class="c_business__body">
+  <div class="c_business__img-col" aria-hidden="true"><div class="c_business__img-stage">
+   <div class="c_business__img-wrap"><img class="ph" src="../../img/item_set.jpg" alt=""></div>
+   <div class="c_business__img-wrap"><img class="ph" src="../../img/item_bibs.jpg" alt=""></div>
+   <div class="c_business__img-wrap"><img class="ph" src="../../img/item_socks.jpg" alt=""></div>
+   <div class="c_business__img-wrap"><img class="ph" src="../../img/work_bibs_rev.jpg" alt=""></div></div></div>
+  <div class="c_business__right"><div class="c_business__items">
+   <a class="c_business__item is-active" href="#"><div class="c_business__item-img-wrap"><img src="../../img/item_set.jpg" alt=""></div><div class="c_business__item-inner"><span class="c_business__item-num">01</span><h3 class="c_business__item-title">ユニフォーム</h3><p class="c_business__item-subtitle">Uniform Set</p><p class="c_business__item-desc">全身をそろえて、<br>チームの顔をつくる。</p><span class="c_business__item-arrow"><span class="arr"><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></span></div></a>
+   <a class="c_business__item" href="#"><div class="c_business__item-img-wrap"><img src="../../img/item_bibs.jpg" alt=""></div><div class="c_business__item-inner"><span class="c_business__item-num">02</span><h3 class="c_business__item-title">ビブス</h3><p class="c_business__item-subtitle">Bibs</p><p class="c_business__item-desc">練習も試合も、<br>見分けやすく動きやすく。</p><span class="c_business__item-arrow"><span class="arr"><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></span></div></a>
+   <a class="c_business__item" href="#"><div class="c_business__item-img-wrap"><img src="../../img/item_socks.jpg" alt=""></div><div class="c_business__item-inner"><span class="c_business__item-num">03</span><h3 class="c_business__item-title">ソックス</h3><p class="c_business__item-subtitle">Socks</p><p class="c_business__item-desc">足元まで、<br>世界観をそろえる。</p><span class="c_business__item-arrow"><span class="arr"><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></span></div></a>
+   <a class="c_business__item" href="#"><div class="c_business__item-img-wrap"><img src="../../img/work_bibs_rev.jpg" alt=""></div><div class="c_business__item-inner"><span class="c_business__item-num">04</span><h3 class="c_business__item-title">制作実績</h3><p class="c_business__item-subtitle">Works</p><p class="c_business__item-desc">福岡のチームと<br>つくってきた一着。</p><span class="c_business__item-arrow"><span class="arr"><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></span></div></a>
+  </div>
+  <div class="c_business__cta"><a href="#" class="c_btn-dark c_btn-anim"><span class="c_btn-dark__label c_btn-anim__label" data-str="Our Business"><span class="c_btn-anim__label-inner">Our Business</span></span><span class="arr"><svg viewBox="0 0 15 5" fill="none" stroke="#fafafa"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg><svg viewBox="0 0 15 5" fill="none" stroke="#fafafa"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></a></div>
+  </div>
+ </div>
+</div></section>
+
+<!-- Sustainability -->
+<section class="c_sustainability"><div class="c_inner">
+ <div class="c_sustainability__text">
+  <div class="c_section-headline"><h2 class="c_section-headline__label">Quality</h2><span class="c_section-headline__line"></span></div>
+  <div class="c_sustainability__lead"><h3 class="c_sustainability__title c_reveal"><span class="c_reveal__line"><span class="c_reveal__line-inner">色あせない、</span></span><span class="c_reveal__line"><span class="c_reveal__line-inner" style="--delay:.1s">昇華プリントの品質。</span></span></h3>
+   <div class="c_sustainability__body">生地に染料を直接染み込ませる昇華プリントは、洗濯を重ねても色が落ちにくく、ひび割れもありません。全面デザインも、細かなグラデーションも思いのままです。</div></div>
+  <a href="#" class="c_btn-dark c_btn-anim"><span class="c_btn-dark__label c_btn-anim__label" data-str="Our Quality"><span class="c_btn-anim__label-inner">Our Quality</span></span><span class="arr"><svg viewBox="0 0 15 5" fill="none" stroke="#fafafa"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg><svg viewBox="0 0 15 5" fill="none" stroke="#fafafa"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></a>
+ </div>
+ <div class="c_sustainability__images">
+  <div class="c_sustainability__img-wrap c_sustainability__img-wrap--large"><div class="c_sustainability__parallax" data-sp="0.06"><img src="../../img/first_view.jpg" alt=""></div></div>
+  <div class="c_sustainability__img-wrap c_sustainability__img-wrap--small-left"><div class="c_sustainability__parallax"><img src="../../img/item_socks.jpg" alt=""></div></div>
+  <div class="c_sustainability__img-wrap c_sustainability__img-wrap--small-right"><div class="c_sustainability__parallax"><img src="../../img/item_bibs.jpg" alt=""></div></div>
+ </div>
+</div></section>
+
+<!-- News -->
+<section class="c_news"><div class="c_inner">
+ <div class="c_news__head"><div class="c_section-headline"><h2 class="c_section-headline__label">News</h2><span class="c_section-headline__line"></span></div></div>
+ <div class="c_news__list">
+  <a class="c_news__item" href="#"><span class="c_news__line"></span><div class="c_news__main"><div class="c_news__img-wrap"><img src="../../img/item_set.jpg" alt=""></div><div class="c_news__body"><div class="c_news__meta"><time class="c_news__date">2026.11.06</time><span class="c_news-tag">お知らせ</span></div><h3 class="c_news__title">新作ビブスのフルオーダー受付を開始しました</h3></div></div><span class="c_news__arrow arr"><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></a>
+  <a class="c_news__item" href="#"><span class="c_news__line"></span><div class="c_news__main"><div class="c_news__img-wrap"><img src="../../img/item_bibs.jpg" alt=""></div><div class="c_news__body"><div class="c_news__meta"><time class="c_news__date">2026.10.30</time><span class="c_news-tag">制作事例</span></div><h3 class="c_news__title">福岡のフットサルチーム様のユニフォームを納品しました</h3></div></div><span class="c_news__arrow arr"><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></a>
+  <a class="c_news__item" href="#"><span class="c_news__line"></span><div class="c_news__main"><div class="c_news__img-wrap"><img src="../../img/item_socks.jpg" alt=""></div><div class="c_news__body"><div class="c_news__meta"><time class="c_news__date">2026.10.29</time><span class="c_news-tag">お知らせ</span></div><h3 class="c_news__title">ソックスの最小ロットを5足からに変更しました</h3></div></div><span class="c_news__arrow arr"><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg><svg viewBox="0 0 15 5" fill="none" stroke="#333"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></a>
+  <span class="c_news__line c_news__line--last"></span>
+ </div>
+ <div class="c_news__cta"><a href="#" class="c_btn-dark c_btn-anim"><span class="c_btn-dark__label c_btn-anim__label" data-str="Our News"><span class="c_btn-anim__label-inner">Our News</span></span><span class="arr"><svg viewBox="0 0 15 5" fill="none" stroke="#fafafa"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg><svg viewBox="0 0 15 5" fill="none" stroke="#fafafa"><path d="M0 2.5h14M11 0l3 2.5L11 5"/></svg></span></a></div>
+</div></section>
+</main>
+
+<footer class="c_footer"><div class="c_footer__inner">
+ <div class="c_footer__main">
+  <div class="c_footer__cols">
+   <div class="c_footer__col"><a class="c_footer__col-head" href="#">About</a>
+    <p class="c_footer__group-head">私たちについて<i></i></p>
+    <ul class="c_footer__list"><li><a class="c_footer__link" href="#">ブランドについて</a></li><li><a class="c_footer__link" href="#">工房紹介</a></li><li><a class="c_footer__link" href="#">会社概要</a></li></ul></div>
+   <div class="c_footer__col"><a class="c_footer__col-head" href="#">Business</a>
+    <p class="c_footer__group-head">取り扱い<i></i></p>
+    <ul class="c_footer__list"><li><a class="c_footer__link" href="#">ユニフォーム</a></li><li><a class="c_footer__link" href="#">ビブス</a></li><li><a class="c_footer__link" href="#">ソックス</a></li></ul></div>
+   <div class="c_footer__col"><a class="c_footer__col-head" href="#">Quality</a>
+    <ul class="c_footer__list"><li><a class="c_footer__link" href="#">昇華プリント</a></li><li><a class="c_footer__link" href="#">ご注文の流れ</a></li><li><a class="c_footer__link" href="#">よくある質問</a></li></ul></div>
+   <div class="c_footer__col"><a class="c_footer__col-head" href="#">News</a></div>
+  </div>
+  <div class="c_footer__cta">
+   <a class="c_footer__btn c_btn-anim" href="#"><span class="c_btn-anim__label" data-str="Online Order"><span class="c_btn-anim__label-inner">Online Order</span></span><span>↗</span></a>
+   <a class="c_footer__btn c_btn-anim" href="#"><span class="c_btn-anim__label" data-str="Recruit"><span class="c_btn-anim__label-inner">Recruit</span></span><span>↗</span></a>
+   <a class="c_footer__btn c_footer__btn--plain c_btn-anim" href="#"><span class="c_btn-anim__label" data-str="Contact Us"><span class="c_btn-anim__label-inner">Contact Us</span></span></a>
+  </div>
+ </div>
+ <div class="c_footer__bottom">
+  <a class="c_footer__logo" href="#">DÉCONTRACTÉ</a>
+  <ul class="c_footer__links"><li>サイトマップ</li><li>プライバシーポリシー</li><li>特定商取引法</li></ul>
+  <p class="c_footer__copyright">©DÉCONTRACTÉ. All rights reserved. (study replica)</p>
+ </div>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+ var isSP=matchMedia('(max-width:980px)').matches;
+ /* ---- Lenis (PC only, lerp .11, as live) wired to ScrollTrigger ---- */
+ gsap.registerPlugin(ScrollTrigger);
+ if(!isSP && !matchMedia('(hover:none)').matches && window.Lenis){
+  var lenis=new Lenis({lerp:.11,smoothWheel:true,wheelMultiplier:1});
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0);
+ }
+ /* ---- KV mask reveal + generic .c_reveal via IntersectionObserver ---- */
+ var kv=document.querySelector('.c_kv');kv.classList.add('is-anim');
+ requestAnimationFrame(function(){requestAnimationFrame(function(){kv.classList.add('is-inview')})});
+ document.querySelectorAll('.c_reveal').forEach(function(el){
+  el.classList.add('is-anim');
+  new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){el.classList.add('is-inview');o.disconnect()}})},{rootMargin:'0px 0px -25% 0px'}).observe(el);
+ });
+ var news=document.querySelector('.c_news');news.classList.add('is-anim');
+ var io=new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-inview');o.unobserve(e.target)}})});
+ news.querySelectorAll('.c_news__line').forEach(function(l){io.observe(l)});
+ /* ---- header hides on scroll down, returns on scroll up ---- */
+ var hd=document.getElementById('hd'),lastY=0;
+ addEventListener('scroll',function(){var y=scrollY;hd.classList.toggle('is-hide',y>lastY&&y>200);lastY=y},{passive:true});
+ /* ---- parallax: translateY = (elementCentre - viewportCentre) * -speed * K ---- */
+ document.querySelectorAll('[data-sp]').forEach(function(el){
+  var sp=parseFloat(isSP&&el.dataset.sps?el.dataset.sps:el.dataset.sp)||0;
+  gsap.fromTo(el,{y:function(){return -sp*innerHeight*2}},{y:function(){return sp*innerHeight*2},ease:'none',
+   scrollTrigger:{trigger:el.parentElement,start:'top bottom',end:'bottom top',scrub:true,invalidateOnRefresh:true}});
+ });
+ /* ---- Business: pinned image col, right track scrolls, image clip-path wipe per active item ---- */
+ var sec=document.getElementById('biz'),items=[].slice.call(sec.querySelectorAll('.c_business__item')),
+     imgs=[].slice.call(sec.querySelectorAll('.c_business__img-wrap')),cur=0,REV='inset(-1px)',HIDE='inset(0 0 100% 0)';
+ imgs.forEach(function(w,i){w.style.zIndex=i+1;w.style.clipPath=i?HIDE:REV});
+ function setActive(n){
+  if(n===cur)return;var fwd=n>cur;
+  imgs.forEach(function(w,i){var t=i<=n?REV:HIDE,an=fwd?i===n:i===cur;
+   if(an){w.style.transition='none';w.style.clipPath=fwd?HIDE:REV;w.offsetHeight;w.style.transition='clip-path .8s ease';w.style.clipPath=t}
+   else{w.style.transition='none';w.style.clipPath=t}});
+  items.forEach(function(it,i){it.classList.toggle('is-active',i===n)});cur=n;
+ }
+ if(!isSP){
+  var body=sec.querySelector('.c_business__body'),right=sec.querySelector('.c_business__right'),col=sec.querySelector('.c_business__img-col'),stage=sec.querySelector('.c_business__img-stage');
+  col.style.position='relative';col.style.top='auto';body.style.overflow='visible';sec.style.overflow='visible';
+  var track=document.createElement('div');while(right.firstChild)track.appendChild(right.firstChild);right.appendChild(track);track.style.paddingBottom='48px';
+  var itemOff,travel,trig,pinOff;
+  function measure(){
+   gsap.set(track,{y:0});body.style.height='';
+   var sh=stage.offsetHeight||668;pinOff=Math.max(Math.round((innerHeight-sh)/2),0);body.style.height=sh+'px';
+   col.style.clipPath='inset(-'+pinOff+'px 0 0 0)';
+   var tt=track.getBoundingClientRect().top;itemOff=items.map(function(it){return it.getBoundingClientRect().top-tt});
+   var lh=items[items.length-1].getBoundingClientRect().height;travel=Math.max(itemOff[items.length-1]+lh/2-sh/2,0);
+   trig=Math.max(sh*.45,sh/2-lh/2+2)+16;
+   return Math.max(travel*(2.8/3),innerHeight);
+  }
+  ScrollTrigger.create({trigger:body,start:function(){measure();return 'top '+pinOff},end:function(){return '+='+measure()},pin:true,scrub:.5,invalidateOnRefresh:true,
+   animation:gsap.timeline({defaults:{ease:'none'}}).to(track,{y:function(){return -travel}}),
+   onUpdate:function(s){var y=-s.progress*travel,a=0;for(var i=0;i<items.length;i++)if(itemOff[i]+y<=trig)a=i;setActive(a)}});
+ }
+ /* ---- KV canvas: 120 sine "threads" in 4 colours, 12deg slope, breathing spread (algorithm per live) ---- */
+ var cv=document.getElementById('kvcanvas'),ctx=cv.getContext('2d'),seed=88,W,H,dpr,lines=[],chunks=[],band=0,time=0;
+ function rnd(){var x=Math.sin(seed++)*10000;return x-Math.floor(x)}
+ var CS=[{c:'#7BBCEF',r:[10,8,8]},{c:'#2BA3F3',r:[6,4]},{c:'#ED5A83',r:[6,6,4,4,2]},{c:'#FFEB7A',r:[12,10,8,6]}];
+ function setupChunks(){chunks=[];CS.forEach(function(s){s.r.forEach(function(r){chunks.push({c:s.c,r:r,y:0})})});
+  var off=[],cy=0;chunks.forEach(function(){off.push(cy);cy+=1+(rnd()<.35?rnd()*7+.5:0)});
+  var th=cy-1;off=off.map(function(v){return v-th/2});off.sort(function(){return rnd()-.64});chunks.forEach(function(c,i){c.y=off[i]})}
+ function pick(){var t=chunks.reduce(function(s,c){return s+c.r},0),v=rnd()*t;for(var i=0;i<chunks.length;i++){if(v<chunks[i].r)return chunks[i];v-=chunks[i].r}return chunks[0]}
+ function init(){seed=42;setupChunks();lines=[];for(var i=0;i<120;i++){var ch=pick();
+  lines.push({a:Math.pow(rnd(),3)*35+10,f:rnd()*.0074+.001,s:rnd()*.001+.006,p:rnd()*Math.PI*5,y:ch.y+(rnd()-.5)*1.2,c:ch.c})}
+  lines.sort(function(a,b){return a.y-b.y})}
+ function resize(){dpr=Math.min(devicePixelRatio||1,2);W=cv.offsetWidth;H=cv.offsetHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+  var rem=parseFloat(getComputedStyle(document.documentElement).fontSize)||10;band=(isSP?(innerWidth>=600?7.16:-.1):15.26)*rem;init()}
+ resize();var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){isSP=matchMedia('(max-width:980px)').matches;resize()},100)});
+ function frame(){
+  ctx.clearRect(0,0,W,H);var slope=-Math.tan(12*Math.PI/180),sy=H*.5+band,pulse=Math.max(.1,1+1.2*((Math.sin(time*.005)+1)/2)),list=[];
+  lines.forEach(function(l){var pts=[],zs=0;for(var x=0;x<=W+12;x+=12){
+    var a1=x*l.f+time*l.s+l.p,a2=x*l.f*1.5-time*l.s*.5,
+     wy=Math.cos(a1)*l.a+Math.cos(a2)*l.a*.3,z=-(Math.sin(a1)*l.a+Math.sin(a2)*l.a*.3);
+    pts.push([x,sy+l.y*pulse+x*slope+wy*pulse]);zs+=z*pulse}
+   list.push({p:pts,z:zs/pts.length,c:l.c})});
+  list.sort(function(a,b){return a.z-b.z});ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=2.6;
+  list.forEach(function(it){ctx.strokeStyle=it.c;ctx.beginPath();ctx.moveTo(it.p[0][0],it.p[0][1]);for(var i=1;i<it.p.length;i++)ctx.lineTo(it.p[i][0],it.p[i][1]);ctx.stroke()});
+  time-=1}
+ var run=false;function loop(){if(!run)return;frame();requestAnimationFrame(loop)}
+ /* canvas is position:fixed; visible only until .c_about has scrolled past (as live) */
+ var about=document.querySelector('.c_about');
+ function vis(){var on=about.getBoundingClientRect().bottom>0;cv.style.opacity=on?1:0;if(on&&!run){run=true;loop()}else if(!on)run=false}
+ addEventListener('scroll',vis,{passive:true});vis();
+ addEventListener('load',function(){ScrollTrigger.refresh()});
+})();
+</script>
+</body>
+</html>

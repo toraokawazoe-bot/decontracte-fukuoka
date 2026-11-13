@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Study: Furukawa-style (DÉCONTRACTÉ)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+JP:wght@400;500;600&family=Pixelify+Sans:wght@500;700&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+/* Furukawa study. live: IBM Plex Sans JP 400/500/600 + IBM Plex Mono; bg gradient #8cb2d9 -> grey ~#d2d2d2 w/ dot grid; time-of-day zones #8cb2d9 / #758ca3 / #aba7be */
+:root{--g:8px;--from:#8cb2d9;--grey:#d2d2d2;--ink:#3a3d42;--ease:cubic-bezier(.19,1,.22,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"IBM Plex Sans JP",sans-serif;color:var(--ink);font-weight:500;background:var(--grey);min-height:100vh}
+a{color:inherit;text-decoration:none}ul{list-style:none}
+.bg{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,var(--from) 0,var(--grey) 55%);transition:background 2s linear}
+.dots{position:fixed;inset:0;z-index:-1;background-image:radial-gradient(circle,rgba(255,255,255,.75) 1.2px,transparent 1.6px);background-size:32px 32px;background-position:16px 16px}
+.pix{font-family:"Pixelify Sans","DotGothic16",monospace;color:#fff;font-weight:700;line-height:1;background-image:linear-gradient(rgba(140,150,165,.55) 1px,transparent 1px),linear-gradient(90deg,rgba(140,150,165,.55) 1px,transparent 1px);background-size:8px 8px;-webkit-background-clip:text;background-clip:text}
+.pix{text-shadow:0 0 0 #fff}
+header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:flex-start;padding:40px 40px 0}
+.logo{font-size:84px;letter-spacing:.02em;text-transform:lowercase;line-height:.8;transform-origin:left top;transition:transform .7s var(--ease)}
+header.sm .logo{transform:scale(.55)}
+.navs{display:flex;align-items:center;gap:20px;margin-top:20px;font-size:18px;font-weight:500;letter-spacing:.04em;color:#4b4f56}
+.navs a.cur{color:#fff}.navs a{transition:opacity .3s}.navs a:hover{opacity:.6}
+.menu{display:none;background:none;border:0;font:inherit;color:#fff;letter-spacing:.06em}
+.ig{width:20px;height:20px;border:2px solid var(--ink);border-radius:6px;margin-left:20px;position:relative}.ig:after{content:"";position:absolute;inset:3px;border:2px solid var(--ink);border-radius:50%}
+.clock{position:fixed;right:18px;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center;z-index:5;font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:28px;color:#fff;letter-spacing:.05em}
+.wrapper{max-width:1440px;margin:0 auto;padding:0 120px}
+/* hero */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 500px;align-items:start;gap:120px;padding:0 0 70px;position:relative}
+.hero:before{content:"";height:360px;grid-column:1/3;grid-row:1}
+.lead{grid-row:2;grid-column:1;font-size:16px;line-height:40px;letter-spacing:.06em;margin-bottom:0}
+.lead span{display:block;margin-bottom:20px}
+.lead i{display:block;font-style:normal;opacity:0;transform:translateY(12px);transition:all 1s var(--ease)}
+.lead.in i{opacity:1;transform:none}
+.lead.in i:nth-child(2){transition-delay:.12s}.lead.in i:nth-child(3){transition-delay:.24s}
+.hero .vid{grid-row:2;grid-column:2;margin-top:0}
+/* dotted frame image (corner dots) */
+.dot{position:relative;display:block}
+.dot:before,.dot:after,.dot>b:before,.dot>b:after{content:"";position:absolute;width:4px;height:4px;background:#fff;border-radius:50%;z-index:2}
+.dot:before{left:-2px;top:-2px}.dot:after{right:-2px;top:-2px}.dot>b:before{left:-2px;bottom:-2px}.dot>b:after{right:-2px;bottom:-2px}
+.dot.bd{outline:1px solid #fff}
+.dot .c{overflow:hidden;display:block}
+.dot img,.dot .ph{display:block;width:100%;height:100%;object-fit:cover}
+.ph{background:#b9bcc2;position:relative}
+.sc{transition:width .9s var(--ease);width:var(--w);cursor:pointer}
+.sc[data-z="1"]{--w:var(--md2)}.sc[data-z="2"]{--w:var(--md3)}
+/* media layout (staggered) */
+.media{position:relative;display:flex;align-items:flex-end;gap:70px;margin:140px 0 160px}
+.media .m1{order:3}.media .m2{order:1;margin-bottom:60px}.media .m3{order:2;margin-bottom:200px}
+.sec{position:relative;border-top:0;padding:120px 0 140px}
+.sec:before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--ease)}
+.sec.in:before{transform:scaleX(1)}
+.sec .head{margin-bottom:32px}
+.sec h2{font-size:56px;letter-spacing:.04em}
+.sec h2.t{font-size:48px}
+.sub{display:block;margin-top:16px;color:#fff;font-size:16px;font-weight:500}
+.stitle{font-size:16px;font-weight:600;text-align:center;margin:0 auto 24px;max-width:640px}
+.desc{font-size:14px;line-height:1.9;max-width:640px;margin:0 auto 32px;letter-spacing:.04em}
+.btn{display:block;width:max-content;margin:0 auto 70px;padding:10px 28px;border-radius:30px;background:rgba(255,255,255,.35);font-size:14px;font-weight:500;transition:background .3s,color .3s}
+.btn:hover{background:#fff}
+.reveal{opacity:0;transform:translateY(24px);transition:all 1.1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.row{display:flex;gap:40px;align-items:flex-end;justify-content:space-between}
+/* carousel */
+.pg{display:flex;gap:16px;margin-bottom:24px;font-family:"IBM Plex Mono";font-size:20px;font-weight:600;color:#fff}
+.pg button{background:none;border:0;font:inherit;color:inherit;opacity:.5;cursor:pointer}.pg button.on{opacity:1;transform:scale(1.2)}
+.car{display:flex;gap:40px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-right:-120px;padding-right:120px}
+.car::-webkit-scrollbar{display:none}
+.slide{flex:0 0 800px;scroll-snap-align:start;border:1px solid #fff;padding:40px 32px;background:rgba(255,255,255,.12)}
+.slide p.t{text-align:center;font-weight:600;font-size:16px;margin-bottom:24px}
+.slide .in2{display:flex;gap:32px;align-items:center}.slide .in2 .ph{flex:0 0 300px;height:200px}.slide .in2 p{font-size:14px;line-height:1.9}
+/* footer */
+.fo{padding:60px 0 120px}
+.fo .info{display:flex;justify-content:space-between;font-size:12px;margin-bottom:12px}
+.fbox{border:1px solid #fff;padding:32px;display:flex;justify-content:space-between;gap:40px;font-size:14px}
+.fbox li{margin:6px 0}.fbox .jp{margin-left:12px;font-size:11px;color:#555}
+.fbox .th{width:140px;height:80px}
+.news{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:10;font-size:14px;letter-spacing:.04em;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.news u{font-weight:500}.news i{width:16px;height:16px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:12px;font-style:normal;line-height:1}
+@media(max-width:760px){
+ header{padding:20px}.logo{font-size:42px}header.sm .logo{transform:scale(.7)}
+ .navs a{display:none}.menu{display:block}.ig{display:none}
+ .clock{font-size:18px;right:2px}
+ .wrapper{padding:0 20px}
+ .hero{grid-template-columns:1fr;gap:40px;padding-bottom:40px}.hero:before{height:220px}.lead{margin-bottom:0}.hero .vid{grid-row:3;grid-column:1}
+ .media{flex-wrap:wrap;gap:24px;margin:80px 0}.media>*{order:0!important;margin:0!important}
+ .sec{padding:70px 0}.sec h2{font-size:34px}
+ .row{flex-direction:column;align-items:flex-start}.row>*{max-width:100%}
+ .slide{flex:0 0 84%;padding:24px 16px}.slide .in2{flex-direction:column}.slide .in2 .ph{flex:none;width:100%}
+ .car{margin-right:-20px;padding-right:20px}
+ .fbox{flex-direction:column}.news{font-size:11px}
+ .sc{--md2:calc(var(--sm2))!important;--md3:calc(var(--sm3))!important}
+}
+</style></head><body>
+<div class="bg" id="bg"></div><div class="dots"></div>
+<header id="hd"><a href="#" class="logo pix">furukawa</a>
+ <nav class="navs"><a class="cur" href="#">Home</a><a href="#">Why DC?</a><a href="#">Solution</a><a href="#">About</a><a href="#">Recruit</a><a href="#">Contact</a><button class="menu">Menu</button><span class="ig"></span></nav></header>
+<div class="clock" id="clock">00:00:00</div>
+<div class="wrapper">
+ <section class="hero">
+  <p class="lead" id="lead"><span><i>「ユニフォーム、どうつくろう?」</i><i>チームから聞こえる声が</i><i>私たちの仕事の起点です。</i></span><span><i>デザインを、色を、想いを</i><i>まっすぐに仕立てながら</i><i>1枚ずつ丁寧に形にしていく。</i></span><span><i>ここは、チームをつくるユニフォーム。DÉCONTRACTÉ。</i></span></p>
+  <div class="vid"><div class="sc" data-z="0" style="--md1:30rem;--md2:32.5rem;--md3:35rem;--w:30rem;--sm2:21.8rem;--sm3:23.6rem"><span class="dot bd"><span class="c"><img src="../../img/first_view.jpg" style="aspect-ratio:1.4" alt=""></span><b></b></span></div></div>
+ </section>
+ <div class="media">
+  <div class="m2"><div class="sc" data-z="0" style="--w:17.5rem;--md2:20rem;--md3:22.5rem;--sm2:10.5rem;--sm3:12.2rem"><span class="dot"><span class="c"><img src="../../img/item_socks.jpg" style="aspect-ratio:.82" alt=""></span><b></b></span></div></div>
+  <div class="m3"><div class="sc" data-z="0" style="--w:7.5rem;--md2:10rem;--md3:12.5rem;--sm2:6.1rem;--sm3:7.8rem"><span class="dot"><span class="c"><img src="../../img/item_bibs.jpg" style="aspect-ratio:.66" alt=""></span><b></b></span></div></div>
+  <div class="m1"><div class="sc" data-z="0" style="--w:40rem;--md2:42.5rem;--md3:45rem;--sm2:22.7rem;--sm3:24.5rem"><span class="dot"><span class="c"><img src="../../img/item_set.jpg" style="aspect-ratio:1.5" alt=""></span><b></b></span></div></div>
+ </div>
+
+ <section class="sec reveal">
+  <div class="head"><h2 class="pix">why DC?</h2><span class="sub">福岡で選ばれる理由</span></div>
+  <p class="stitle">ひとりひとりの、チームをつくる</p>
+  <p class="desc">デザインから縫製まで一貫して手がける、福岡のチームユニフォームのフルオーダー。昇華プリントで総柄もグラデーションも自由。5枚から承ります。(ダミー文)</p>
+  <a class="btn" href="#">詳しく見る</a>
+  <div class="pg" id="pg"></div>
+  <div class="car" id="car"></div>
+ </section>
+ <section class="sec reveal">
+  <div class="head"><h2 class="pix">solution</h2><span class="sub">課題解決の実績</span></div>
+  <p class="stitle">チームの課題に、一着を</p>
+  <p class="desc">予算、納期、デザイン。チームごとに違う条件に合わせて、最適な仕様をご提案します。(ダミー文)</p>
+  <a class="btn" href="#">詳しく見る</a>
+  <div class="row" style="align-items:flex-end">
+   <div class="sc" data-z="0" style="--w:8.75rem;--md2:10.5rem;--md3:12.2rem;--sm2:10.5rem;--sm3:12.2rem"><span class="dot bd"><span class="c"><img src="../../img/item_bibs.jpg" style="aspect-ratio:1.38" alt=""></span><b></b></span></div>
+   <div class="sc" data-z="0" style="--w:17.5rem;--md2:20rem;--md3:22.5rem;--sm2:13rem;--sm3:14.7rem"><span class="dot bd"><span class="c"><img src="../../img/item_socks.jpg" style="aspect-ratio:1.38" alt=""></span><b></b></span></div>
+   <div class="sc" data-z="0" style="--w:18.75rem;--md2:21.25rem;--md3:23.75rem;--sm2:14.2rem;--sm3:16rem"><span class="dot bd"><span class="c"><img src="../../img/item_set.jpg" style="aspect-ratio:1.38" alt=""></span><b></b></span></div>
+   <div class="sc" data-z="0" style="--w:13.75rem;--md2:16.25rem;--md3:18.75rem;--sm2:10.5rem;--sm3:12.2rem"><span class="dot bd"><span class="c"><img src="../../img/work_bibs_rev.jpg" style="aspect-ratio:1.38" alt=""></span><b></b></span></div>
+  </div>
+ </section>
+ <section class="sec reveal">
+  <div class="head"><h2 class="pix">recruit</h2><span class="sub">採用情報</span></div>
+  <p class="stitle">変わり続けられる人へ</p>
+  <p class="desc">ともに働きたいのは「変わり続けられる人」。代表が語ります。(ダミー文)</p>
+  <a class="btn" href="#">詳しく見る</a>
+  <div class="row"><div class="sc" data-z="0" style="--w:40rem;--md2:42.5rem;--md3:45rem;--sm2:20rem;--sm3:21.8rem"><span class="dot"><span class="c"><img src="../../img/first_view.jpg" style="aspect-ratio:1.5" alt=""></span><b></b></span></div>
+  <div class="sc" data-z="0" style="--w:17.5rem;--md2:20rem;--md3:22.5rem;--sm2:10.5rem;--sm3:12.2rem"><span class="dot"><span class="c"><img src="../../img/work_bibs_rev.jpg" style="aspect-ratio:.82" alt=""></span><b></b></span></div></div>
+ </section>
+ <section class="sec reveal">
+  <div class="head"><h2 class="pix">about</h2><span class="sub">私たちについて</span></div>
+  <p class="stitle">DÉCONTRACTÉの考えと歩み</p>
+  <p class="desc">福岡で、チームのためのユニフォームをつくり続けています。(ダミー文)</p>
+  <a class="btn" href="#">詳しく見る</a>
+  <div class="row"><div class="sc" data-z="0" style="--w:17.5rem;--md2:20rem;--md3:22.5rem;--sm2:10.5rem;--sm3:12.2rem"><span class="dot"><span class="c"><img src="../../img/item_bibs.jpg" style="aspect-ratio:.74" alt=""></span><b></b></span></div>
+  <div class="sc" data-z="0" style="--w:18.75rem;--md2:21.25rem;--md3:23.75rem;--sm2:10.5rem;--sm3:12.2rem"><span class="dot"><span class="c"><img src="../../img/item_socks.jpg" style="aspect-ratio:.74" alt=""></span><b></b></span></div>
+  <div class="sc" data-z="0" style="--w:12.5rem;--md2:15rem;--md3:17.5rem;--sm2:7rem;--sm3:8.75rem"><span class="dot"><span class="c"><img src="../../img/item_set.jpg" style="aspect-ratio:.77" alt=""></span><b></b></span></div></div>
+ </section>
+ <footer class="fo"><div class="info"><span>Home</span><span style="display:flex;gap:24px"><u>ページのURLをコピー</u><u>ページの上部に戻る</u></span></div>
+  <div class="fbox"><ul><li>Home<span class="jp">DÉCONTRACTÉ</span></li></ul><ul><li>Why DC?<span class="jp">選ばれる理由</span></li><li>Solution<span class="jp">課題解決</span></li><li>About<span class="jp">私たちについて</span></li><li>Recruit<span class="jp">採用情報</span></li><li>Contact<span class="jp">お問い合わせ</span></li></ul><ul><li>利用規約</li><li>プライバシーポリシー</li><li>Instagram ↗</li></ul><div class="th ph"></div></div>
+  <p style="font-size:11px;margin-top:20px">© 2026 DÉCONTRACTÉ. Study replica, placeholder copy.</p></footer>
+</div>
+<a class="news" href="#"><span>2026.7.1</span><u>WEBサイトをリニューアルしました</u><i>+</i></a>
+<script>
+// time-of-day gradient zones (live: #8cb2d9 / transparent / #758ca3 / #aba7be)
+const bg=document.getElementById('bg');
+function zone(){const h=new Date().getHours();const c=h<6?'#aba7be':h<11?'#8cb2d9':h<16?'#a9c8de':h<19?'#758ca3':'#aba7be';bg.style.setProperty('--from',c);document.documentElement.style.setProperty('--from',c)}
+function clock(){const d=new Date(),p=n=>String(n).padStart(2,'0');document.getElementById('clock').textContent=`${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`}
+zone();clock();setInterval(clock,1000);setInterval(zone,60000);
+// header shrink
+const hd=document.getElementById('hd');addEventListener('scroll',()=>hd.classList.toggle('sm',scrollY>80),{passive:true});
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal,.lead').forEach(e=>io.observe(e));setTimeout(()=>document.getElementById('lead').classList.add('in'),300);
+// click scale cycle (live: common-scalableImage sizes 1..3)
+document.querySelectorAll('.sc').forEach(el=>el.addEventListener('click',()=>{el.dataset.z=((+el.dataset.z)+1)%3;if(el.dataset.z==='0')el.style.setProperty('--w',el.style.getPropertyValue('--md1')||el.dataset.w0)}));
+document.querySelectorAll('.sc').forEach(el=>{el.dataset.w0=el.style.getPropertyValue('--w')});
+// carousel
+const T=['現場を起点に、構想をつくる','人と役割を設計する','技術を束ね、形にする','量産に近い環境で見極める','変化に応える一着をつくる'];
+const car=document.getElementById('car'),pg=document.getElementById('pg');
+T.forEach((t,i)=>{car.insertAdjacentHTML('beforeend',`<div class="slide"><p class="t">${t}</p><div class="in2"><div class="ph"></div><p>ダミー文。チームの要望を伺い、デザイン案をご提案します。(placeholder)</p></div></div>`);pg.insertAdjacentHTML('beforeend',`<button class="${i?'':'on'}">${i+1}</button>`)});
+const bs=[...pg.children];bs.forEach((b,i)=>b.onclick=()=>car.scrollTo({left:car.children[i].offsetLeft-car.children[0].offsetLeft,behavior:'smooth'}));
+car.addEventListener('scroll',()=>{const i=Math.round(car.scrollLeft/(car.children[1].offsetLeft-car.children[0].offsetLeft));bs.forEach((b,k)=>b.classList.toggle('on',k===i))},{passive:true});
+</script></body></html>

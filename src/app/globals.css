@@ -97,15 +97,18 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero h1.jpt { font-family: var(--jp); font-weight: 900; font-size: clamp(32px, 5.4vw, 80px); line-height: 1.22; letter-spacing: -0.02em; text-transform: none; }
 .hero .meta { display: grid; gap: 16px; justify-items: start; }
 .hero .meta small { font-size: 13px; font-weight: 700; opacity: var(--o2); }
-.hero .ph { position: relative; margin: 32px var(--gut) 0; height: min(46vh, 560px); min-height: 280px; overflow: hidden; }
-.hero .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 6%; will-change: transform; }
+.hero .ph { position: relative; margin: 32px var(--gut) 0; height: min(46vh, 560px); min-height: 280px; display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 1px; background: var(--lc); }
+.hero .ph .cell { background: var(--white); overflow: hidden; display: grid; place-items: center; padding: 24px; }
+.hero .ph img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.8s var(--ease); }
+.hero .ph .cell:hover img { transform: scale(1.06); }
 .hero .wm { display: block; font-family: var(--en); font-weight: 700; text-transform: uppercase; letter-spacing: -0.06em; line-height: 0.74; font-size: 12.4vw; white-space: nowrap; margin: 24px 0 -1.8vw; padding-left: 1.2vw; user-select: none; }
 .hero .side { position: absolute; top: 160px; right: 4px; writing-mode: vertical-rl; font-family: var(--en); font-weight: 700; font-size: 11px; letter-spacing: 0.2em; opacity: var(--o2); }
 @media (max-width: 760px) {
   .hero { padding-top: 88px; }
   .hero .top { flex-direction: column; align-items: stretch; }
   .hero .side { display: none; }
-  .hero .ph { height: 44vh; }
+  .hero .ph { height: 30vh; grid-template-columns: 1fr 1fr 1fr; }
+  .hero .ph .cell { padding: 8px; }
 }
 
 /* ---------- section heads ---------- */
