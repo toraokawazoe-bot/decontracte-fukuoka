@@ -12,8 +12,8 @@
   --lc2: rgba(18, 18, 18, 0.64);
   --ease: cubic-bezier(0.7, 0, 0.2, 1);
   --gut: 24px;
-  --en: var(--font-dm), var(--font-noto), sans-serif;
-  --jp: var(--font-noto), "Hiragino Sans", sans-serif;
+  --en: "DM Sans", "Noto Sans JP", sans-serif;
+  --jp: "Noto Sans JP", "Hiragino Sans", sans-serif;
 }
 .ft, .drawer, .cta-big.dark { --lc: rgba(242, 242, 240, 0.24); --lc2: rgba(242, 242, 240, 0.64); }
 * { box-sizing: border-box; margin: 0; padding: 0; }

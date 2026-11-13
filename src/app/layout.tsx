@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import { DM_Sans, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/a/Header";
 import { Footer } from "@/components/a/Footer";
 import { Motion } from "@/components/a/Motion";
 
-const dm = DM_Sans({ variable: "--font-dm", subsets: ["latin"], weight: ["500", "700"], display: "swap" });
-// 日本語の字形も配信させるため subsets を指定せず preload を切る(CJKフォントの推奨設定)
-const noto = Noto_Sans_JP({ variable: "--font-noto", weight: ["500", "700", "900"], display: "swap", preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://decontracte-fukuoka.vercel.app"),
@@ -29,8 +25,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ja" className={`${dm.variable} ${noto.variable}`} suppressHydrationWarning>
+    <html lang="ja" suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* ビルド中にフォントを取りに行くと失敗することがあるため、実行時にGoogle Fontsから読む */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Noto+Sans+JP:wght@500;700;900&display=swap" />
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
       <body>
